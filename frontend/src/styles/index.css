@@ -129,17 +129,7 @@ img {
   background-clip: text;
 }
 
-/* ===== SCROLL PROGRESS BAR ===== */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: var(--gradient-fire);
-  z-index: 10000;
-  transition: none;
-}
+
 
 /* ===== SELECTION ===== */
 ::selection {

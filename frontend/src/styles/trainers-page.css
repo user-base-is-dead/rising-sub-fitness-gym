@@ -6,12 +6,12 @@
 .tp-hero {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  z-index: 1;
 }
 
 .tp-hero-bg {
@@ -68,6 +68,11 @@
 .tp-owner {
   padding: 6rem 2rem;
   background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  position: relative;
 }
 
 .tp-owner-inner {
@@ -187,6 +192,11 @@
   background:
     radial-gradient(ellipse at 50% 0%, rgba(255, 69, 0, 0.05) 0%, transparent 50%),
     #0d0d0d;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  position: relative;
 }
 
 .tp-management-inner {
@@ -268,6 +278,11 @@
 .tp-trainers {
   padding: 6rem 2rem;
   background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 4;
+  position: relative;
 }
 
 .tp-trainers-inner {
@@ -403,6 +418,8 @@
   .tp-management,
   .tp-trainers {
     padding: 3rem 1.2rem;
+    min-height: 0;
+    display: block;
   }
 
   .tp-section-title {
@@ -411,6 +428,18 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .tp-hero {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .tp-owner,
+  .tp-management,
+  .tp-trainers {
+    min-height: 0;
+    display: block;
+  }
+
   .tp-mgmt-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;

@@ -81,6 +81,24 @@ export default function TrainersPage() {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
+      // ── Swipe Slider / Layered Pinning Effect (Desktop Only) ──
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 1025px)', () => {
+        const swipeSections = gsap.utils.toArray('section.swipe-panel');
+        // We pin every section except the very last one so that the page ends naturally with the footer
+        swipeSections.forEach((section, i) => {
+          if (i !== swipeSections.length - 1) {
+            ScrollTrigger.create({
+              trigger: section,
+              start: 'top top',
+              pin: true,
+              pinSpacing: false,
+            });
+          }
+        });
+      });
+
       // ── Hero Title Animation ──
       gsap.fromTo('.tp-hero-label', {
         y: 40, opacity: 0, skewY: 3,
@@ -220,7 +238,7 @@ export default function TrainersPage() {
   return (
     <div className="trainers-page" ref={pageRef}>
       {/* ── Hero Banner ── */}
-      <section className="tp-hero">
+      <section className="swipe-panel tp-hero">
         <div className="tp-hero-bg" />
         <div className="tp-hero-content">
           <div className="tp-hero-label">The Warriors Behind The Iron</div>
@@ -230,7 +248,7 @@ export default function TrainersPage() {
       </section>
 
       {/* ── Owner Section ── */}
-      <section className="tp-owner">
+      <section className="swipe-panel tp-owner">
         <div className="tp-owner-inner">
           <div className="tp-owner-image-wrap">
             <img src={owner.img} alt={owner.name} />
@@ -246,7 +264,7 @@ export default function TrainersPage() {
       </section>
 
       {/* ── Management Team ── */}
-      <section className="tp-management">
+      <section className="swipe-panel tp-management">
         <div className="tp-management-inner">
           <div className="tp-section-label">Leadership</div>
           <h2 className="tp-section-title">MANAGEMENT <span className="highlight">TEAM</span></h2>
@@ -268,7 +286,7 @@ export default function TrainersPage() {
       </section>
 
       {/* ── Trainers Section ── */}
-      <section className="tp-trainers">
+      <section className="swipe-panel tp-trainers">
         <div className="tp-trainers-inner">
           <div className="tp-section-label">Meet The Beasts</div>
           <h2 className="tp-section-title">OUR <span className="highlight">TRAINERS</span></h2>

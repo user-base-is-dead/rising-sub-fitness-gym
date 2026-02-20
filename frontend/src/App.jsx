@@ -11,6 +11,7 @@ import MusicToggle from './components/MusicToggle';
 import HomePage from './pages/HomePage';
 import TrainersPage from './pages/TrainersPage';
 import PageTransition from './components/PageTransition';
+import WhatsAppButton from './components/WhatsAppButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +19,6 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioRef = useRef(null);
-  const progressRef = useRef(null);
   const lenisRef = useRef(null);
   const location = useLocation();
 
@@ -83,18 +83,6 @@ export default function App() {
     // Refresh ScrollTrigger after Lenis is ready so all triggers sync properly
     setTimeout(() => ScrollTrigger.refresh(), 100);
 
-    // Scroll progress bar
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: 'top top',
-      end: 'bottom bottom',
-      onUpdate: (self) => {
-        if (progressRef.current) {
-          progressRef.current.style.width = `${self.progress * 100}%`;
-        }
-      },
-    });
-
     return () => {
       lenis.destroy();
       lenisRef.current = null;
@@ -115,18 +103,6 @@ export default function App() {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
-
-    // Re-create the scroll progress bar (we just killed it above)
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: 'top top',
-      end: 'bottom bottom',
-      onUpdate: (self) => {
-        if (progressRef.current) {
-          progressRef.current.style.width = `${self.progress * 100}%`;
-        }
-      },
-    });
 
     // After new page's component effects have set up their
     // ScrollTriggers, refresh to recalculate all positions.
@@ -183,9 +159,6 @@ export default function App() {
       {/* Loader */}
       {!loaded && <Loader onEnter={handleEnter} />}
 
-      {/* Scroll progress bar */}
-      <div className="scroll-progress" ref={progressRef}></div>
-
       {/* Main Page */}
       <div className="page-wrapper">
         <Navbar />
@@ -197,6 +170,9 @@ export default function App() {
           </Routes>
         </PageTransition>
       </div>
+
+      {/* Global WhatsApp Button */}
+      {loaded && <WhatsAppButton />}
 
       {/* Music Toggle */}
       {loaded && <MusicToggle isPlaying={musicPlaying} onToggle={toggleMusic} />}
