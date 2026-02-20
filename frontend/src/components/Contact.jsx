@@ -134,7 +134,16 @@ export default function Contact() {
               <input type="email" placeholder="Email Address" />
             </div>
             <div className="form-group">
-              <textarea placeholder="Your Message"></textarea>
+              <select defaultValue="">
+                <option value="" disabled>Select Subject</option>
+                <option value="membership">Membership Inquiry</option>
+                <option value="training">Personal Training</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <textarea placeholder="Your Message" rows={5}></textarea>
             </div>
             <button type="submit" className="form-submit">
               Send Message →

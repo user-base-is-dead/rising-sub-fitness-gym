@@ -465,8 +465,8 @@
    Responsive
    ══════════════════════════════════════════════ */
 
-/* Mobile */
-@media (max-width: 768px) {
+/* Mobile & Tablet (iPad) -> Same Layout */
+@media (max-width: 1024px) {
   .pp-hero {
     height: 45vh;
     min-height: 300px;
@@ -482,7 +482,7 @@
 
   .pp-plans-grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 450px;
     margin: 0 auto;
     gap: 1.2rem;
   }
@@ -508,26 +508,6 @@
   .pp-faq-question {
     font-size: 0.85rem;
     padding: 1rem 1.2rem;
-  }
-}
-
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .pp-hero {
-    height: 60vh;
-    min-height: 400px;
-  }
-
-  .pp-plans,
-  .pp-compare,
-  .pp-faq {
-    min-height: 0;
-    display: block;
-  }
-
-  .pp-plans-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
   }
 }
 

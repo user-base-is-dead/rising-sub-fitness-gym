@@ -12,7 +12,7 @@ const plans = [
     name: 'Monthly',
     price: 700,
     period: 'per month',
-    badge: 'Popular',
+    badge: null,
     featured: true,
     features: [
       'Full Gym Access',
@@ -27,7 +27,7 @@ const plans = [
     name: 'Quarterly',
     price: 1800,
     period: 'per 3 months',
-    badge: 'Save 14%',
+    badge: null,
     featured: false,
     features: [
       'Full Gym Access',
@@ -43,7 +43,7 @@ const plans = [
     name: 'Yearly',
     price: 6000,
     period: 'per year',
-    badge: 'Best Value',
+    badge: null,
     featured: false,
     features: [
       'Full Gym Access',

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '../components/Footer';
@@ -8,6 +8,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactPage() {
   const pageRef = useRef(null);
+  const [copiedText, setCopiedText] = useState(null);
+
+  const handleCopy = (text, id) => {
+    navigator.clipboard.writeText(text);
+    setCopiedText(id);
+    setTimeout(() => setCopiedText(null), 2000);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -154,20 +161,37 @@ export default function ContactPage() {
         <div className="cp-main-inner">
           {/* Info Cards */}
           <div className="cp-info-grid">
-            <div className="cp-info-card">
+            <a 
+              href="https://maps.app.goo.gl/1AR1nqgAJexV1XZZ9" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="cp-info-card cp-info-link"
+            >
               <div className="cp-info-icon">📍</div>
               <h3 className="cp-info-title">Our Location</h3>
               <p className="cp-info-text">AT-Sanabazar, Near Ganjeswar Temple,<br />Jajpur Town, Odisha, India</p>
-            </div>
-            <div className="cp-info-card">
+            </a>
+            <div 
+              className="cp-info-card cp-info-link"
+              onClick={() => handleCopy('+91 63808 16041', 'phone')}
+            >
               <div className="cp-info-icon">📞</div>
               <h3 className="cp-info-title">Phone</h3>
-              <p className="cp-info-text">+91 63808 16041</p>
+              <p className="cp-info-text">
+                {copiedText === 'phone' ? <span style={{color: 'var(--orange)'}}>Copied!</span> : '+91 63808 16041'}
+              </p>
+              <span className="cp-copy-hint">Click to copy</span>
             </div>
-            <div className="cp-info-card">
+            <div 
+              className="cp-info-card cp-info-link"
+              onClick={() => handleCopy('risingsunofficial615@gmail.com', 'email')}
+            >
               <div className="cp-info-icon">✉️</div>
               <h3 className="cp-info-title">Email</h3>
-              <p className="cp-info-text">risingsunofficial615@gmail.com</p>
+              <p className="cp-info-text">
+                {copiedText === 'email' ? <span style={{color: 'var(--orange)'}}>Copied!</span> : 'risingsunofficial615@gmail.com'}
+              </p>
+              <span className="cp-copy-hint">Click to copy</span>
             </div>
             <div className="cp-info-card">
               <div className="cp-info-icon">🕐</div>
@@ -220,7 +244,7 @@ export default function ContactPage() {
           <div className="cp-map-wrap">
             <iframe
               title="Rising Sun Fitness Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.8!2d86.34!3d20.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sJajpur+Town!5e0!3m2!1sen!2sin!4v1"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.8!2d86.3387197!3d20.8521222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1be35742e28873%3A0xdfb7eee22e9610dd!2sRISING%20SUN%20FITNESS%20CENTER!5e0!3m2!1sen!2sin!4v1"
               width="100%"
               height="450"
               style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.9) contrast(1.1)' }}

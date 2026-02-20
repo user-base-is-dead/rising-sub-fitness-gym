@@ -118,7 +118,8 @@
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 18px 0;
   font-family: var(--font-body);
@@ -129,6 +130,18 @@
   border-bottom: 1px solid var(--gray);
   outline: none;
   transition: border-color 0.4s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-group select {
+  cursor: pointer;
+  color: var(--white-dim);
+}
+
+.form-group select option {
+  background: var(--black);
+  color: var(--white);
 }
 
 .form-group textarea {
@@ -146,7 +159,8 @@
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: var(--orange);
 }
 

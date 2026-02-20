@@ -124,6 +124,12 @@
   padding: 2rem 1.5rem;
   text-align: center;
   transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.cp-info-card.cp-info-link {
+  cursor: pointer;
 }
 
 .cp-info-card:hover {
@@ -161,6 +167,18 @@
   color: #aaa;
   line-height: 1.6;
   margin: 0;
+}
+
+.cp-copy-hint {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  color: #555;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Contact Form */
@@ -308,8 +326,8 @@
    Responsive
    ══════════════════════════════════════════════ */
 
-/* Mobile */
-@media (max-width: 768px) {
+/* Mobile & Tablet (iPad) -> Same Layout */
+@media (max-width: 1024px) {
   .cp-hero {
     height: 45vh;
     min-height: 300px;
@@ -324,7 +342,7 @@
 
   .cp-info-grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 450px;
     margin: 0 auto 3rem;
     gap: 1rem;
   }
@@ -338,26 +356,7 @@
   }
 
   .cp-map-wrap iframe {
-    min-height: 300px;
-  }
-}
-
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .cp-hero {
-    height: 60vh;
-    min-height: 400px;
-  }
-
-  .cp-main,
-  .cp-map {
-    min-height: 0;
-    display: block;
-  }
-
-  .cp-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    min-height: 350px;
   }
 }
 
