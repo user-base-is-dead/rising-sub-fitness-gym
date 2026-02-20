@@ -32,26 +32,7 @@ export default function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Disable right-click and inspect shortcuts
-  useEffect(() => {
-    const handleContextMenu = (e) => e.preventDefault();
-    const handleKeyDown = (e) => {
-      // F12
-      if (e.key === 'F12') e.preventDefault();
-      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-      if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) e.preventDefault();
-      // Ctrl+U (view source)
-      if (e.ctrlKey && e.key === 'u') e.preventDefault();
-    };
 
-    document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   // Initialize Lenis smooth scroll
   useEffect(() => {

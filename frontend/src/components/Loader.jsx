@@ -68,7 +68,7 @@ export default function Loader({ onEnter }) {
         ease: 'power2.out',
       }, 0.2);
 
-      tl.to('.loader-brand::after', {
+      tl.to('.loader-brand-line', {
         width: '60px',
         duration: 0.6,
         ease: 'power2.out',
@@ -150,6 +150,7 @@ export default function Loader({ onEnter }) {
       <div className="loader-brand" ref={brandRef}>
         <img src={logo} alt="Rising Sun Fitness" className="loader-brand-logo" />
         RISING SUN FITNESS
+        <div className="loader-brand-line"></div>
       </div>
 
       {/* Audio choice */}
