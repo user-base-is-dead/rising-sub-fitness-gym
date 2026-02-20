@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  /* Colors */
+  --black: #0a0a0a;
+  --black-light: #111111;
+  --black-mid: #1a1a1a;
+  --dark-gray: #222222;
+  --gray: #333333;
+  --gray-light: #666666;
+  --white: #f5f5f5;
+  --white-dim: #aaaaaa;
+
+  /* Accent Colors */
+  --orange: #ff4500;
+  --orange-glow: #ff6a33;
+  --red: #dc143c;
+  --red-dark: #8b0000;
+  --gold: #d4a017;
+  --gold-light: #f0c040;
+  --gold-dim: #b8860b;
+
+  /* Gradients */
+  --gradient-fire: linear-gradient(135deg, var(--orange), var(--red));
+  --gradient-gold: linear-gradient(135deg, var(--gold), var(--gold-light));
+  --gradient-dark: linear-gradient(180deg, var(--black), var(--black-mid));
+
+  /* Fonts */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --section-padding: clamp(80px, 10vw, 150px);
+  --container-width: min(90vw, 1400px);
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: none;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 4px;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.container {
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.section-padding {
+  padding: var(--section-padding) 0;
+}
+
+.text-gradient-fire {
+  background: var(--gradient-fire);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--gradient-fire);
+  z-index: 10000;
+  transition: none;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: var(--orange);
+  color: var(--black);
+}
+
+/* ===== PAGE WRAPPER ===== */
+.page-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.page-wrapper.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Restore native cursor on mobile & tablet */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  a, button {
+    cursor: pointer;
+  }
+}

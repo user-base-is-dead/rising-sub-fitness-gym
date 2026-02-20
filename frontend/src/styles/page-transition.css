@@ -1,0 +1,56 @@
+/* ── Page Transition Overlay ── */
+
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: none;
+  pointer-events: none;
+}
+
+.page-transition-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 100%;
+}
+
+.page-transition-path {
+  fill: #0a0a0a;
+}
+
+/* Brand mark shown during transition */
+.page-transition-brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.transition-brand-text {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.transition-brand-text .highlight {
+  background: linear-gradient(135deg, #ff4500, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transition-brand-text {
+    font-size: 1.8rem;
+  }
+}

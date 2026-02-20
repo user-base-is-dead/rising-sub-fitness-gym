@@ -1,0 +1,212 @@
+/* ===== PRICING SECTION ===== */
+.pricing {
+  position: relative;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+}
+
+.pricing-inner {
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.pricing-label {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.pricing-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 80px);
+  line-height: 1;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* Pricing Cards */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  position: relative;
+  padding: 50px 40px;
+  background: var(--black-light);
+  border: 1px solid var(--gray);
+  transition: all 0.5s var(--ease-out-expo);
+  overflow: hidden;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-fire);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.pricing-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pricing-card:hover {
+  border-color: rgba(255, 69, 0, 0.3);
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 69, 0, 0.05);
+}
+
+.pricing-card.featured {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.05), rgba(10, 10, 10, 1));
+}
+
+.pricing-card.featured::before {
+  transform: scaleX(1);
+}
+
+/* Featured badge */
+.pricing-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gradient-fire);
+  padding: 5px 15px;
+}
+
+.pricing-card-type {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+
+.pricing-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.pricing-currency {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--white-dim);
+}
+
+.pricing-value {
+  font-family: var(--font-display);
+  font-size: clamp(50px, 6vw, 80px);
+  color: var(--white);
+  line-height: 1;
+}
+
+.pricing-period {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--gray-light);
+  margin-bottom: 30px;
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--white-dim);
+}
+
+.pricing-feature .check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 69, 0, 0.1);
+  color: var(--orange);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.pricing-cta {
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid var(--gray);
+  background: transparent;
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-fire);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out-expo);
+  z-index: -1;
+}
+
+.pricing-cta:hover {
+  border-color: var(--orange);
+}
+
+.pricing-cta:hover::before {
+  transform: scaleX(1);
+}
+
+.pricing-card.featured .pricing-cta {
+  background: var(--gradient-fire);
+  border: none;
+}
+
+.pricing-card.featured .pricing-cta:hover {
+  box-shadow: 0 0 30px rgba(255, 69, 0, 0.4);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .pricing-cards {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+  }
+}
