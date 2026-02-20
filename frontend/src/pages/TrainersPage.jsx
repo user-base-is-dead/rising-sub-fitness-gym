@@ -173,22 +173,8 @@ export default function TrainersPage() {
         },
       });
 
-      // ── Management Cards ──
-      const mgmtCards = document.querySelectorAll('.tp-mgmt-card');
-      mgmtCards.forEach((card, i) => {
-        gsap.fromTo(card, {
-          y: 80, opacity: 0, rotateY: -15,
-        }, {
-          y: 0, opacity: 1, rotateY: 0,
-          duration: 1, ease: 'power3.out',
-          delay: i * 0.15,
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      });
+      // ── Management Cards (Static Entrance) ──
+      // Removed ScrollTrigger entrance animations per request.
 
       // ── Trainer Cards — Staggered clip-path reveal ──
       const trainerCards = document.querySelectorAll('.tp-trainer-card');
@@ -225,8 +211,8 @@ export default function TrainersPage() {
         });
       });
 
-      // ── Magnetic Hover on all cards ──
-      document.querySelectorAll('.tp-trainer-card, .tp-mgmt-card').forEach(card => {
+      // ── Magnetic Hover on trainer cards only ──
+      document.querySelectorAll('.tp-trainer-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
