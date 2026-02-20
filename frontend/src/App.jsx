@@ -10,6 +10,8 @@ import Navbar from './components/Navbar';
 import MusicToggle from './components/MusicToggle';
 import HomePage from './pages/HomePage';
 import TrainersPage from './pages/TrainersPage';
+import PricingPage from './pages/PricingPage';
+import ContactPage from './pages/ContactPage';
 import PageTransition from './components/PageTransition';
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -167,6 +169,8 @@ export default function App() {
           <Routes location={location}>
             <Route path="/" element={<HomePage loaded={loaded} />} />
             <Route path="/trainers" element={<TrainersPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </PageTransition>
       </div>

@@ -1,0 +1,584 @@
+/* ══════════════════════════════════════════════
+   Pricing Page — Premium Dark Theme
+   ══════════════════════════════════════════════ */
+
+/* ── Hero Banner ── */
+.pp-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pp-hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 40% 30%, rgba(212, 160, 23, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 70%, rgba(255, 69, 0, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+  z-index: 0;
+}
+
+.pp-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pp-hero-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #d4a017;
+  margin-bottom: 1rem;
+}
+
+.pp-hero-title {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.pp-hero-title .highlight {
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pp-hero-line {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a017, #f0c040);
+  margin: 1.5rem auto 0;
+  transform-origin: center;
+}
+
+/* ── Shared Section Headings ── */
+.pp-section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #d4a017;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.pp-section-title {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin: 0 0 3rem;
+}
+
+.pp-section-title .highlight {
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Plans Section ── */
+.pp-plans {
+  padding: 6rem 2rem;
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+}
+
+.pp-plans-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pp-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.pp-plan-card {
+  position: relative;
+  padding: 2.5rem 1.8rem;
+  background: linear-gradient(145deg, #121212, #181818);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.pp-plan-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a017, #f0c040);
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pp-plan-card:hover {
+  border-color: rgba(212, 160, 23, 0.3);
+  box-shadow: 0 0 40px rgba(212, 160, 23, 0.08), 0 15px 50px rgba(0, 0, 0, 0.6);
+  transform: translateY(-8px);
+}
+
+.pp-plan-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pp-plan-card.featured {
+  border-color: rgba(212, 160, 23, 0.4);
+  background: linear-gradient(145deg, rgba(212, 160, 23, 0.06), #121212);
+}
+
+.pp-plan-card.featured::before {
+  transform: scaleX(1);
+}
+
+.pp-plan-badge {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+}
+
+.pp-plan-type {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #d4a017;
+  margin-bottom: 1.2rem;
+}
+
+.pp-plan-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 0.4rem;
+}
+
+.pp-plan-currency {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: #888;
+}
+
+.pp-price-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  color: #fff;
+  line-height: 1;
+}
+
+.pp-plan-period {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 1.8rem;
+}
+
+.pp-plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.pp-plan-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.pp-check {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 160, 23, 0.1);
+  color: #d4a017;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  border-radius: 3px;
+}
+
+.pp-plan-cta {
+  width: 100%;
+  padding: 0.9rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pp-plan-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  border-radius: 6px;
+}
+
+.pp-plan-cta:hover {
+  border-color: #d4a017;
+  color: #0a0a0a;
+}
+
+.pp-plan-cta:hover::before {
+  transform: scaleX(1);
+}
+
+.pp-plan-card.featured .pp-plan-cta {
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  border: none;
+  color: #0a0a0a;
+  font-weight: 700;
+}
+
+.pp-plan-card.featured .pp-plan-cta:hover {
+  box-shadow: 0 0 30px rgba(212, 160, 23, 0.4);
+  transform: scale(1.02);
+}
+
+/* ── Comparison Section ── */
+.pp-compare {
+  padding: 6rem 2rem;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(212, 160, 23, 0.04) 0%, transparent 50%),
+    #0d0d0d;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  position: relative;
+}
+
+.pp-compare-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pp-compare-table {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pp-compare-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.3s ease;
+}
+
+.pp-compare-row:last-child {
+  border-bottom: none;
+}
+
+.pp-compare-row:hover {
+  background: rgba(212, 160, 23, 0.03);
+}
+
+.pp-compare-header {
+  background: rgba(212, 160, 23, 0.06);
+}
+
+.pp-compare-header:hover {
+  background: rgba(212, 160, 23, 0.08);
+}
+
+.pp-compare-cell {
+  padding: 1rem 1.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-align: center;
+}
+
+.pp-compare-feature {
+  text-align: left;
+  color: #ddd;
+  font-weight: 500;
+}
+
+.pp-compare-header .pp-compare-cell {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #d4a017;
+  font-weight: 600;
+}
+
+.pp-yes {
+  color: #d4a017;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.pp-no {
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.pp-text {
+  color: #d4a017;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ── FAQ Section ── */
+.pp-faq {
+  padding: 6rem 2rem;
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 4;
+  position: relative;
+}
+
+.pp-faq-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pp-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.pp-faq-item {
+  background: linear-gradient(145deg, #131313, #1a1a1a);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pp-faq-item:hover {
+  border-color: rgba(212, 160, 23, 0.2);
+}
+
+.pp-faq-item.open {
+  border-color: rgba(212, 160, 23, 0.35);
+  box-shadow: 0 0 20px rgba(212, 160, 23, 0.05);
+}
+
+.pp-faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #eee;
+  gap: 1rem;
+}
+
+.pp-faq-icon {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  color: #d4a017;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.pp-faq-item.open .pp-faq-icon {
+  transform: rotate(180deg);
+}
+
+.pp-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
+  padding: 0 1.5rem;
+}
+
+.pp-faq-item.open .pp-faq-answer {
+  max-height: 300px;
+  padding: 0 1.5rem 1.2rem;
+}
+
+.pp-faq-answer p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════
+   Responsive
+   ══════════════════════════════════════════════ */
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pp-hero {
+    height: 45vh;
+    min-height: 300px;
+  }
+
+  .pp-plans,
+  .pp-compare,
+  .pp-faq {
+    padding: 3rem 1.2rem;
+    min-height: 0;
+    display: block;
+  }
+
+  .pp-plans-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 1.2rem;
+  }
+
+  .pp-compare-table {
+    overflow-x: auto;
+  }
+
+  .pp-compare-row {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    min-width: 500px;
+  }
+
+  .pp-compare-cell {
+    padding: 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .pp-section-title {
+    margin-bottom: 2rem;
+  }
+
+  .pp-faq-question {
+    font-size: 0.85rem;
+    padding: 1rem 1.2rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .pp-hero {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .pp-plans,
+  .pp-compare,
+  .pp-faq {
+    min-height: 0;
+    display: block;
+  }
+
+  .pp-plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .pp-plans,
+  .pp-compare,
+  .pp-faq {
+    padding: 3.5rem 2rem;
+  }
+
+  .pp-plans-grid {
+    gap: 1rem;
+  }
+
+  .pp-plan-card {
+    padding: 2rem 1.4rem;
+  }
+
+  .pp-plan-type {
+    font-size: 0.75rem;
+  }
+
+  .pp-price-value {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+  }
+
+  .pp-plan-feature {
+    font-size: 0.8rem;
+  }
+
+  .pp-plan-cta {
+    font-size: 0.7rem;
+    padding: 0.7rem;
+  }
+
+  .pp-section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+  }
+
+  .pp-compare-cell {
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .pp-faq-question {
+    font-size: 0.9rem;
+  }
+
+  .pp-faq-answer p {
+    font-size: 0.8rem;
+  }
+}
