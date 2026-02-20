@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import MusicToggle from './components/MusicToggle';
 import HomePage from './pages/HomePage';
 import TrainersPage from './pages/TrainersPage';
+import PageTransition from './components/PageTransition';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,14 +101,12 @@ export default function App() {
     };
   }, [loaded]);
 
-  // Reset scroll & clean up ScrollTrigger on every route change
-  useEffect(() => {
+  // Handle page swap (called by PageTransition when screen is fully covered)
+  const handlePageSwap = () => {
     if (!loaded) return;
 
     // Kill all stale ScrollTrigger instances left over from the
-    // previous route (component cleanup via ctx.revert already ran
-    // because React unmounts children before parent effects fire,
-    // but pinned triggers can leave residual inline styles on body).
+    // previous route
     ScrollTrigger.getAll().forEach((t) => t.kill(true));
     ScrollTrigger.clearScrollMemory();
 
@@ -131,12 +130,10 @@ export default function App() {
 
     // After new page's component effects have set up their
     // ScrollTriggers, refresh to recalculate all positions.
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       ScrollTrigger.refresh(true);
     }, 400);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname, loaded]);
+  };
 
   const handleEnter = (withAudio) => {
     setLoaded(true);
@@ -193,12 +190,12 @@ export default function App() {
       <div className="page-wrapper">
         <Navbar />
 
-        <div key={location.pathname}>
+        <PageTransition onPageSwap={handlePageSwap}>
           <Routes location={location}>
             <Route path="/" element={<HomePage loaded={loaded} />} />
             <Route path="/trainers" element={<TrainersPage />} />
           </Routes>
-        </div>
+        </PageTransition>
       </div>
 
       {/* Music Toggle */}
