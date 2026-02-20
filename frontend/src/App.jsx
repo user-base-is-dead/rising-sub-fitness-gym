@@ -100,6 +100,44 @@ export default function App() {
     };
   }, [loaded]);
 
+  // Reset scroll & clean up ScrollTrigger on every route change
+  useEffect(() => {
+    if (!loaded) return;
+
+    // Kill all stale ScrollTrigger instances left over from the
+    // previous route (component cleanup via ctx.revert already ran
+    // because React unmounts children before parent effects fire,
+    // but pinned triggers can leave residual inline styles on body).
+    ScrollTrigger.getAll().forEach((t) => t.kill(true));
+    ScrollTrigger.clearScrollMemory();
+
+    // Reset scroll position
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+
+    // Re-create the scroll progress bar (we just killed it above)
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => {
+        if (progressRef.current) {
+          progressRef.current.style.width = `${self.progress * 100}%`;
+        }
+      },
+    });
+
+    // After new page's component effects have set up their
+    // ScrollTriggers, refresh to recalculate all positions.
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh(true);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname, loaded]);
+
   const handleEnter = (withAudio) => {
     setLoaded(true);
 
@@ -155,10 +193,12 @@ export default function App() {
       <div className="page-wrapper">
         <Navbar />
 
-        <Routes location={location}>
-          <Route path="/" element={<HomePage loaded={loaded} />} />
-          <Route path="/trainers" element={<TrainersPage />} />
-        </Routes>
+        <div key={location.pathname}>
+          <Routes location={location}>
+            <Route path="/" element={<HomePage loaded={loaded} />} />
+            <Route path="/trainers" element={<TrainersPage />} />
+          </Routes>
+        </div>
       </div>
 
       {/* Music Toggle */}
