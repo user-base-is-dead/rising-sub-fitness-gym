@@ -450,3 +450,64 @@
     gap: 2rem;
   }
 }
+
+/* Laptops / Small Desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .tp-owner,
+  .tp-management,
+  .tp-trainers {
+    padding: 3.5rem 2rem;
+  }
+  
+  .tp-owner-inner {
+    gap: 2.5rem;
+  }
+  
+  .tp-mgmt-grid,
+  .tp-trainers-grid {
+    gap: 1.25rem;
+  }
+  
+  .tp-trainer-info,
+  .tp-mgmt-info {
+    padding: 1.2rem;
+  }
+
+  /* Shrink Typography */
+  .tp-hero-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
+  
+  .tp-owner-name {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+  }
+  
+  .tp-section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+  }
+  
+  .tp-mgmt-name,
+  .tp-trainer-name {
+    font-size: 1.25rem;
+  }
+
+  .tp-owner-bio,
+  .tp-mgmt-bio,
+  .tp-trainer-bio {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
+  .tp-owner-role,
+  .tp-mgmt-role,
+  .tp-trainer-specialty {
+    font-size: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .tp-badge {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

@@ -66,6 +66,10 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  
+  /* Fallback for Firefox and standard scrollbar support */
+  scrollbar-color: var(--orange) var(--black);
+  scrollbar-width: thin;
 }
 
 a {
@@ -92,16 +96,26 @@ img {
 }
 
 /* ===== SCROLLBAR ===== */
+/* Firefox / Standard */
+html {
+  scrollbar-color: var(--orange) var(--black);
+  scrollbar-width: thin;
+}
+
+/* Chrome, Edge, Safari (including iOS/mobile Chrome) */
 ::-webkit-scrollbar {
   width: 4px;
+  background-color: var(--black);
 }
 
 ::-webkit-scrollbar-track {
   background: var(--black);
+  background-color: var(--black);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--orange);
+  background-color: var(--orange);
   border-radius: 4px;
 }
 

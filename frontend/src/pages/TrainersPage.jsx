@@ -89,14 +89,27 @@ export default function TrainersPage() {
         // We pin every section except the very last one so that the page ends naturally with the footer
         swipeSections.forEach((section, i) => {
           if (i !== swipeSections.length - 1) {
+            // Add a visual delay of '50vh' before the next section enters
+            section.style.marginBottom = '50vh';
+            
             ScrollTrigger.create({
               trigger: section,
-              start: 'top top',
+              // Wait until the section has fully scrolled into view (bottom hits bottom)
+              start: 'bottom bottom',
               pin: true,
               pinSpacing: false,
+              // Keep it pinned for the 50vh delay + 100vh overlap distance
+              end: () => `+=${window.innerHeight * 1.5}`,
             });
           }
         });
+
+        // Cleanup function for when media query unmatches (e.g. user resizes to mobile)
+        return () => {
+          swipeSections.forEach((section) => {
+            section.style.marginBottom = '';
+          });
+        };
       });
 
       // ── Hero Title Animation ──
