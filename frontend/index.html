@@ -12,6 +12,20 @@
         }
         originalInfo.apply(console, args);
       };
+
+      // Lock Inspect Option
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+      document.addEventListener('keydown', (e) => {
+        if (
+          e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+          (e.ctrlKey && ['U', 'u'].includes(e.key)) ||
+          (e.metaKey && e.altKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+          (e.metaKey && ['U', 'u'].includes(e.key))
+        ) {
+          e.preventDefault();
+        }
+      });
     </script>
     <meta
       name="description"

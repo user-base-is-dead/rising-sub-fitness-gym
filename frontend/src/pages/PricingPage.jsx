@@ -25,7 +25,7 @@ const plans = [
   },
   {
     name: 'Quarterly',
-    price: 1800,
+    price: 2100,
     period: 'per 3 months',
     badge: null,
     featured: false,
@@ -41,7 +41,7 @@ const plans = [
   },
   {
     name: 'Yearly',
-    price: 6000,
+    price: 84000,
     period: 'per year',
     badge: null,
     featured: false,
