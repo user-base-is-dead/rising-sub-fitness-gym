@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../styles/hero.css';
@@ -166,8 +167,15 @@ export default function Hero({ loaded }) {
         </div>
 
         <div className="hero-cta">
-          <a className="cta-btn primary" href="#pricing">Join Now</a>
-          <a className="cta-btn secondary" href="#services">Explore →</a>
+          <a
+            className="cta-btn primary"
+            href="https://wa.me/916380816041?text=Hello!%20I%20am%20interested%20in%20joining%20Rising%20Sun%20Fitness.%20Can%20I%20get%20more%20details%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join Now
+          </a>
+          <Link className="cta-btn secondary" to="/trainers">Explore →</Link>
         </div>
       </div>
 

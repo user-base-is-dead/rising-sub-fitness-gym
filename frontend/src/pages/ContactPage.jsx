@@ -139,6 +139,19 @@ export default function ContactPage() {
         });
       }
 
+      // ── Social Section ──
+      gsap.fromTo('.cp-social-card', {
+        y: 60, opacity: 0, scale: 0.95
+      }, {
+        y: 0, opacity: 1, scale: 1,
+        duration: 1.2, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.cp-social-card',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
     }, pageRef);
 
     return () => ctx.revert();
@@ -252,6 +265,28 @@ export default function ContactPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Social Media Section ── */}
+      <section className="cp-swipe-panel cp-social">
+        <div className="cp-social-inner">
+          <div className="cp-section-label">Connect & Follow</div>
+          <h2 className="cp-section-title">JOIN OUR <span className="highlight">COMMUNITY</span></h2>
+          
+          <div className="cp-social-card">
+            <div className="cp-social-bg"></div>
+            <div className="cp-social-content">
+               <div className="cp-social-icon">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+               </div>
+               <h3>@risingsun_fitness_center</h3>
+               <p>Follow our journey, get daily motivation, and see what our champions are up to.</p>
+               <a href="https://instagram.com/risingsun_fitness_center" target="_blank" rel="noopener noreferrer" className="cp-btn-instagram">
+                  Follow on Instagram
+               </a>
+            </div>
           </div>
         </div>
       </section>

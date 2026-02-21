@@ -392,3 +392,122 @@
     min-height: 400px;
   }
 }
+
+/* ── Social Media Section ── */
+.cp-social {
+  padding: 6rem 2rem;
+  background: #050505;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 4;
+  position: relative;
+}
+
+.cp-social-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.cp-social-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  border: 1px solid rgba(255, 69, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.cp-social-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 69, 0, 0.4);
+}
+
+.cp-social-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 69, 0, 0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.cp-social-card:hover .cp-social-bg {
+  opacity: 1;
+}
+
+.cp-social-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cp-social-icon {
+  color: var(--orange);
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.4));
+  transition: transform 0.4s ease;
+}
+
+.cp-social-card:hover .cp-social-icon {
+  transform: scale(1.1);
+}
+
+.cp-social-content h3 {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: #fff;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.cp-social-content p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #aaa;
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.cp-btn-instagram {
+  display: inline-block;
+  padding: 1.2rem 3rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--gradient-fire);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cp-btn-instagram:hover {
+  box-shadow: 0 15px 40px rgba(255, 69, 0, 0.5);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .cp-social {
+    padding: 4rem 1.2rem;
+    min-height: 0;
+    display: block;
+  }
+  .cp-social-card {
+    padding: 3rem 1.5rem;
+  }
+  .cp-btn-instagram {
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+  }
+}

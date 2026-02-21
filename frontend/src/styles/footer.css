@@ -182,10 +182,20 @@
   transition: all 0.4s var(--ease-out-expo);
 }
 
+.footer-social svg {
+  width: 18px;
+  height: 18px;
+  transition: color 0.4s var(--ease-out-expo);
+}
+
 .footer-social:hover {
   border-color: var(--orange);
   color: var(--orange);
   transform: translateY(-3px);
+}
+
+.footer-social:hover svg {
+  color: var(--orange);
 }
 
 @media (max-width: 768px) {
