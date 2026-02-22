@@ -163,7 +163,7 @@ export default function Hero({ loaded }) {
         </h1>
 
         <div className="hero-tagline">
-          <span>Where Champions Are Built • Since 2020</span>
+          <span>Where Champions Are Built • Since 2018</span>
         </div>
 
         <div className="hero-cta">
