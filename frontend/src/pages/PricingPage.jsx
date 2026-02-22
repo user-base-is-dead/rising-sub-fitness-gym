@@ -25,8 +25,8 @@ const plans = [
   },
   {
     name: 'Quarterly',
-    price: 2100,
-    period: 'per 3 months',
+    price: 2500,
+    period: 'per 3 months (+ 1 month free)',
     badge: null,
     featured: false,
     features: [
@@ -34,8 +34,8 @@ const plans = [
       'All Training Zones',
       'Cardio Equipment',
       'Free Weights Area',
-      '1 Free PT Session',
-      'Diet Consultation',
+      'Morning & Evening Slots',
+      '1 Month Free Membership'
     ],
     cta: 'Choose Plan',
   },
