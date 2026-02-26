@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ── Team Data ──
 const owner = {
-  name: 'Vikram Singh Rathore',
+  name: 'Susanta Mishra',
   role: 'Founder & Owner',
   img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
   bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Vikram founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jaipur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
@@ -16,22 +16,10 @@ const owner = {
 
 const management = [
   {
-    name: 'Ankit Mehra',
-    role: 'General Manager',
+    name: 'Barsha Priyadarsini Nanda',
+    role: 'Manager',
     img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
     bio: 'Keeps the operations running seamlessly. With 10 years in fitness management, Ankit ensures every member gets a world-class experience.',
-  },
-  {
-    name: 'Sneha Kapoor',
-    role: 'Head of Programs',
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80',
-    bio: 'Designs all training programs and class schedules. A certified strength & conditioning specialist with a passion for functional fitness.',
-  },
-  {
-    name: 'Rajesh Kumar',
-    role: 'Operations Lead',
-    img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80',
-    bio: 'Handles member relations, equipment maintenance, and daily operations. The backbone that keeps Rising Sun running 365 days a year.',
   },
 ];
 
