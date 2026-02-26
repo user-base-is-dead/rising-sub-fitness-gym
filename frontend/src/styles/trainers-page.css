@@ -205,9 +205,11 @@
 }
 
 .tp-mgmt-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .tp-mgmt-card {
@@ -216,6 +218,8 @@
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  flex: 0 1 350px;
+  max-width: 380px;
 }
 
 .tp-mgmt-card:hover {
@@ -401,7 +405,8 @@
   }
 
   .tp-mgmt-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: center;
     max-width: 400px;
     margin: 0 auto;
   }
@@ -439,7 +444,8 @@
   }
 
   .tp-mgmt-grid {
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: center;
     gap: 1.5rem;
   }
 

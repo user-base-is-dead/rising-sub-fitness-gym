@@ -11,15 +11,15 @@ const owner = {
   name: 'Susanta Mishra',
   role: 'Founder & Owner',
   img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
-  bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Vikram founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jaipur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
+  bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Susanta founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jaipur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
 };
 
 const management = [
   {
     name: 'Barsha Priyadarsini Nanda',
     role: 'Manager',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
-    bio: 'Keeps the operations running seamlessly. With 10 years in fitness management, Ankit ensures every member gets a world-class experience.',
+    img: '/manager-barsha.jpg',
+    bio: 'Keeps the operations running seamlessly. With 6 years in fitness management, Barsha ensures every member gets a best to best experience.',
   },
 ];
 
