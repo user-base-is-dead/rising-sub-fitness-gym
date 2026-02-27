@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const owner = {
   name: 'Susanta Mishra',
   role: 'Founder & Owner',
-  img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
+  img: '/owner.jpg',
   bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Susanta founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jaipur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
 };
 
@@ -25,18 +25,18 @@ const management = [
 
 const trainers = [
   {
-    name: 'Rahul Sharma',
-    specialty: 'Bodybuilding & Strength',
-    img: 'https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=80',
-    bio: 'IFBB-certified bodybuilding coach with 8 years of competitive experience. Known for his brutal leg day routines and transforming beginners into beasts.',
-    achievements: ['IFBB Pro Card Holder', '500+ Client Transformations'],
+    name: 'Babu',
+    specialty: 'Bodybuilding, Athlete & Strength',
+    img: '/babu.jpg',
+    bio: 'Babu is a bodybuilding coach and competitive athlete known for his disciplined training style. He helps beginners and athletes build strength, improve physique, and prepare for competitions through structured workout and nutrition guidance.',
+    achievements: ['MR.INDIA 2025🥇🥇', 'MR.ODISHA 2025🥈🥈', 'LIFELOOM CLASSIC 2026🥇🥈🥈', 'IP CLASSIC 2025🥉', 'BFO7 CLASSIC 2025 🥉', 'LIFELOOM CLASSIC 2025🥈🥉'],
   },
   {
-    name: 'Priya Patel',
-    specialty: 'Yoga & Flexibility',
-    img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80',
-    bio: 'A 200-hour RYT certified yoga instructor who blends traditional Hatha yoga with power stretching. Helps athletes recover faster and move better.',
-    achievements: ['RYT-200 Certified', 'Former National Gymnast'],
+    name: 'Masum',
+    specialty: 'Bodybuilding & Yoga Trainer',
+    img: '/masum.jpg',
+    bio: 'Masum is a yoga and fitness trainer who helps people improve flexibility, strength, and overall body balance. She combines yoga with bodybuilding techniques to support recovery, mobility, and daily fitness.',
+    // achievements: ['None'],
   },
   {
     name: 'Arjun Das',
@@ -165,7 +165,7 @@ export default function TrainersPage() {
       // Removed ScrollTrigger entrance animations per request.
 
       // ── Trainer Cards — Staggered clip-path reveal ──
-      const trainerCards = document.querySelectorAll('.tp-trainer-card');
+      const trainerCards = gsap.utils.toArray('.tp-trainer-card');
       trainerCards.forEach((card, i) => {
         const imgWrap = card.querySelector('.tp-trainer-img-wrap');
         const info = card.querySelector('.tp-trainer-info');
@@ -200,8 +200,9 @@ export default function TrainersPage() {
       });
 
       // ── Magnetic Hover on trainer cards only ──
-      document.querySelectorAll('.tp-trainer-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+      const cleanups = [];
+      trainerCards.forEach(card => {
+        const handleMouseMove = (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
           const y = e.clientY - rect.top - rect.height / 2;
@@ -211,11 +212,21 @@ export default function TrainersPage() {
             duration: 0.5,
             ease: 'power2.out',
           });
-        });
-        card.addEventListener('mouseleave', () => {
+        };
+        const handleMouseLeave = () => {
           gsap.to(card, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
+        };
+        card.addEventListener('mousemove', handleMouseMove);
+        card.addEventListener('mouseleave', handleMouseLeave);
+        cleanups.push(() => {
+          card.removeEventListener('mousemove', handleMouseMove);
+          card.removeEventListener('mouseleave', handleMouseLeave);
         });
       });
+
+      return () => {
+        cleanups.forEach(cleanup => cleanup());
+      };
 
     }, pageRef);
 
@@ -288,7 +299,7 @@ export default function TrainersPage() {
                   <div className="tp-trainer-specialty">{t.specialty}</div>
                   <p className="tp-trainer-bio">{t.bio}</p>
                   <div className="tp-trainer-achievements">
-                    {t.achievements.map((a, j) => (
+                    {t.achievements && t.achievements.map((a, j) => (
                       <span className="tp-badge" key={j}>{a}</span>
                     ))}
                   </div>

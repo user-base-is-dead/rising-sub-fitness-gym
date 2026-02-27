@@ -7,14 +7,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const trainers = [
   {
-    name: 'Rahul Sharma',
-    role: 'Head Coach — Bodybuilding',
-    img: 'https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=80',
+    name: 'Babu',
+    role: 'Bodybuilding, Athlete & Strength',
+    img: '/babu.jpg',
   },
   {
-    name: 'Priya Patel',
-    role: 'Yoga & Flexibility Expert',
-    img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80',
+    name: 'Masum',
+    role: 'Bodybuilding & Yoga Trainer',
+    img: '/masum.jpg',
   },
   {
     name: 'Arjun Das',
