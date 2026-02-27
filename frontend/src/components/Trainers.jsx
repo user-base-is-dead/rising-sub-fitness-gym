@@ -17,9 +17,9 @@ const trainers = [
     img: '/masum.jpg',
   },
   {
-    name: 'Arjun Das',
-    role: 'Cardio & HIIT Specialist',
-    img: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80',
+    name: 'Amarjit Dixit',
+    role: 'Cardio, Bodybuilding & HIIT Specialist',
+    img: '',
   },
 ];
 

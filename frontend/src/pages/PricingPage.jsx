@@ -41,7 +41,7 @@ const plans = [
   },
   {
     name: 'Yearly',
-    price: 84000,
+    price: 8400,
     period: 'per year',
     badge: null,
     featured: false,

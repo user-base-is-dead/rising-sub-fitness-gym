@@ -39,11 +39,11 @@ const trainers = [
     // achievements: ['None'],
   },
   {
-    name: 'Arjun Das',
-    specialty: 'Cardio & HIIT',
-    img: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80',
-    bio: 'The energy machine of Rising Sun. Arjun\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
-    achievements: ['ACE Certified Trainer', 'Marathon Runner'],
+    name: 'Amarjit Dixit',
+    specialty: 'Cardio, Bodybuilding & HIIT Specialist',
+    img: '',
+    bio: 'The energy machine of Rising Sun. Amarjit\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
+    // achievements: ['None'],
   },
   {
     name: 'Kavita Nair',
