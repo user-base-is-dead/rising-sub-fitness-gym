@@ -19,7 +19,7 @@ const trainers = [
   {
     name: 'Amarjit Dixit',
     role: 'Cardio, Bodybuilding & HIIT Specialist',
-    img: '',
+    img: '/amarjit.jpg',
   },
 ];
 

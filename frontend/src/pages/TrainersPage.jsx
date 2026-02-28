@@ -41,7 +41,7 @@ const trainers = [
   {
     name: 'Amarjit Dixit',
     specialty: 'Cardio, Bodybuilding & HIIT Specialist',
-    img: '',
+    img: '/amarjit.jpg',
     bio: 'The energy machine of Rising Sun. Amarjit\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
     // achievements: ['None'],
   },
