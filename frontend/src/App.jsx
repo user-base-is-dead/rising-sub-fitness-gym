@@ -12,6 +12,7 @@ import HomePage from './pages/HomePage';
 import TrainersPage from './pages/TrainersPage';
 import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
+import AchievementsPage from './pages/AchievementsPage';
 import PageTransition from './components/PageTransition';
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -149,6 +150,7 @@ export default function App() {
         <PageTransition onPageSwap={handlePageSwap}>
           <Routes location={location}>
             <Route path="/" element={<HomePage loaded={loaded} />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
             <Route path="/trainers" element={<TrainersPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/contact" element={<ContactPage />} />

@@ -192,6 +192,7 @@ export default function Navbar() {
 
           <div className="nav-links">
             <a className={`nav-link ${isActive('/') ? 'active' : ''}`} onClick={() => navigateTo('hero')}>Home</a>
+            <a className={`nav-link ${isActive('/achievements') ? 'active' : ''}`} onClick={() => navigateTo('/achievements')}>Achievements</a>
             <a className={`nav-link ${isActive('/trainers') ? 'active' : ''}`} onClick={() => navigateTo('/trainers')}>Trainers</a>
             <a className={`nav-link ${isActive('/pricing') ? 'active' : ''}`} onClick={() => navigateTo('/pricing')}>Pricing</a>
             <a className={`nav-link ${isActive('/contact') ? 'active' : ''}`} onClick={() => navigateTo('/contact')}>Contact Us</a>
@@ -214,6 +215,7 @@ export default function Navbar() {
         </button>
         <div ref={menuLinksRef}>
           <a className={`mobile-nav-link ${isActive('/') ? 'active' : ''}`} onClick={() => navigateTo('hero')}>Home</a>
+          <a className={`mobile-nav-link ${isActive('/achievements') ? 'active' : ''}`} onClick={() => navigateTo('/achievements')}>Achievements</a>
           <a className={`mobile-nav-link ${isActive('/trainers') ? 'active' : ''}`} onClick={() => navigateTo('/trainers')}>Trainers</a>
           <a className={`mobile-nav-link ${isActive('/pricing') ? 'active' : ''}`} onClick={() => navigateTo('/pricing')}>Pricing</a>
           <a className={`mobile-nav-link ${isActive('/contact') ? 'active' : ''}`} onClick={() => navigateTo('/contact')}>Contact Us</a>
