@@ -196,13 +196,14 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
 }
 
 .ach-comp-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   filter: brightness(0.8) contrast(1.1) saturate(0.95);
   transition: transform 0.6s ease, filter 0.6s ease;
 }
