@@ -45,20 +45,6 @@ const trainers = [
     bio: 'The energy machine of Rising Sun. Amarjit\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
     // achievements: ['None'],
   },
-  {
-    name: 'Kavita Nair',
-    specialty: 'CrossFit & Functional Training',
-    img: 'https://images.unsplash.com/photo-1550345332-09e3ac987658?w=600&q=80',
-    bio: 'CrossFit Level 2 trainer who believes in building real-world strength. Her WODs (Workouts of the Day) push every boundary you thought you had.',
-    achievements: ['CrossFit L2 Certified', 'Regional CF Champion'],
-  },
-  {
-    name: 'Sameer Khan',
-    specialty: 'Martial Arts & Combat',
-    img: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80',
-    bio: 'Black belt in Taekwondo and MMA fighter. Teaches kickboxing, self-defense, and combat conditioning classes that build both skill and savage conditioning.',
-    achievements: ['3rd Dan Black Belt', 'State MMA Champion'],
-  },
 ];
 
 export default function TrainersPage() {

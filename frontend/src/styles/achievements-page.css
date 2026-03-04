@@ -372,6 +372,230 @@
   transform: translateY(0);
 }
 
+/* ── Filter Bar ── */
+.ach-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 69, 0, 0.12);
+  padding: 5.5rem 1rem;
+}
+
+.ach-filter-inner {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ach-filter-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.ach-filter-btn {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 1.8rem;
+  border-radius: 50px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.35s ease;
+}
+
+.ach-filter-btn:hover {
+  color: #fff;
+  background: rgba(255, 69, 0, 0.1);
+  border-color: rgba(255, 69, 0, 0.3);
+}
+
+.ach-filter-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, #ff4500, #ff8c00);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 69, 0, 0.35);
+}
+
+/* ── Amarjit Roast Section ── */
+.amarjit-section {
+  padding: 4rem 2rem 6rem;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(148, 0, 211, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 0, 60, 0.06) 0%, transparent 50%),
+    #0a0a0a;
+}
+
+.amarjit-hero {
+  text-align: center;
+  padding: 2rem 0 3rem;
+}
+
+.amarjit-hero-photo-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.amarjit-hero-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 4px solid rgba(255, 0, 60, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.amarjit-photo-glow {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 0, 60, 0.3) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: 0;
+  animation: amarjitGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes amarjitGlow {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+.amarjit-hero-title {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.8rem;
+}
+
+.highlight-red {
+  background: linear-gradient(135deg, #ff003c, #ff6a00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.amarjit-hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #ff6a6a;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* Roast Card Grid */
+.amarjit-roast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.amarjit-roast-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 2rem 1.8rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.amarjit-roast-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff003c, #ff6a00, #9400d3);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.amarjit-roast-card:hover {
+  background: rgba(255, 0, 60, 0.05);
+  border-color: rgba(255, 0, 60, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(255, 0, 60, 0.1);
+}
+
+.amarjit-roast-card:hover::before {
+  opacity: 1;
+}
+
+.amarjit-roast-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.amarjit-roast-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.6rem;
+}
+
+.amarjit-roast-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #999;
+  line-height: 1.7;
+  margin: 0 0 1rem;
+}
+
+.amarjit-roast-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ff6a6a;
+  background: rgba(255, 0, 60, 0.1);
+  border: 1px solid rgba(255, 0, 60, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+/* Amarjit Bottom Banner */
+.amarjit-bottom-banner {
+  max-width: 700px;
+  margin: 3rem auto 0;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.amarjit-bottom-banner p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #bbb;
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* ── CTA Section ── */
 .ach-cta {
   padding: 6rem 2rem;
@@ -422,6 +646,7 @@
   padding: 1rem 3rem;
   border-radius: 6px;
   text-decoration: none;
+  cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -430,8 +655,53 @@
   box-shadow: 0 10px 40px rgba(255, 69, 0, 0.3);
 }
 
+/* ── Scroll-to-Top Button ── */
+.ach-scroll-top-btn {
+  position: fixed;
+  bottom: 160px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #ff4500, #ff8c00);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 69, 0, 0.3);
+}
+
+.ach-scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.ach-scroll-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(255, 69, 0, 0.5);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  /* Scroll-to-Top Mobile */
+  .ach-scroll-top-btn {
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px) + 65px + 56px + 15px); /* Above WhatsApp */
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+  }
+
   .ach-hero {
     min-height: 70vh;
   }
@@ -493,6 +763,41 @@
   .ach-section-title {
     margin-bottom: 2rem;
   }
+
+  /* Filter bar mobile */
+  .ach-filter-bar {
+    padding: 0.7rem 0.5rem;
+  }
+
+  .ach-filter-inner {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .ach-filter-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  /* Amarjit mobile */
+  .amarjit-section {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .amarjit-hero-photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .amarjit-roast-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .amarjit-roast-card {
+    padding: 1.5rem 1.3rem;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -510,6 +815,20 @@
 
   .ach-gallery {
     grid-auto-rows: 200px;
+  }
+
+  /* Filter bar & Amarjit tablet */
+  .ach-filter-bar {
+    padding: 1rem 1rem;
+  }
+
+  .amarjit-section {
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .amarjit-roast-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
   }
 }
 
@@ -545,5 +864,19 @@
 
   .ach-stat-value {
     font-size: 2rem;
+  }
+
+  /* Filter bar & Amarjit laptop */
+  .ach-filter-bar {
+    padding: 1.2rem 2rem;
+  }
+
+  .amarjit-section {
+    padding: 4rem 2rem 5rem;
+  }
+
+  .amarjit-roast-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 }
