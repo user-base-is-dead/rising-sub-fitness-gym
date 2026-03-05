@@ -90,6 +90,18 @@ const babuCompetitions = [
     description:
       'Babu\'s debut at the Lifeloom stage was nothing short of spectacular. Earning a Silver and Bronze across two categories, he announced himself as a force to be reckoned with on the national and international competitive circuit.',
   },
+  {
+    title: 'Thailand Pro Show',
+    subtitle: 'International Fitness Expo & Championship',
+    location: 'Mumbai, India',
+    date: 'January 2025',
+    img: '/babu-compi2.jpeg',
+    result: '🥈 SILVER + 🥉 BRONZE',
+    athlete: 'Babu',
+    category: 'Men\'s Physique & Classic Physique',
+    description:
+      'Babu\'s debut at the Lifeloom stage was nothing short of spectacular. Earning a Silver and Bronze across two categories, he announced himself as a force to be reckoned with on the national and international competitive circuit.',
+  },
 ];
 
 // ── Susanta's Dummy Achievements (using Babu's photos) ──
