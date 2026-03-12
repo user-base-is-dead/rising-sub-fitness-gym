@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const plans = [
   {
     name: 'Monthly',
-    price: 700,
+    price: 800,
     period: 'per month',
     badge: null,
     featured: true,
@@ -41,7 +41,7 @@ const plans = [
   },
   {
     name: 'Yearly',
-    price: 8400,
+    price: 9600,
     period: 'per year',
     badge: null,
     featured: false,
@@ -58,7 +58,7 @@ const plans = [
   },
   {
     name: 'Admission',
-    price: 1500,
+    price: 0,
     period: 'one-time',
     badge: null,
     featured: false,
@@ -90,19 +90,19 @@ const compareFeatures = [
 const faqs = [
   {
     q: 'What are the gym timings?',
-    a: 'We are open Monday to Saturday from 5:00 AM to 10:00 PM, and Sundays from 6:00 AM to 12:00 PM.',
+    a: 'We are open All days from 5:00 AM to 12:00 PM, and 4:00 PM to 11:00 PM.',
   },
   {
     q: 'Can I freeze or pause my membership?',
-    a: 'Yes, you can freeze your membership for up to 15 days per quarter. Contact the front desk to avail this.',
+    a: 'No, you cannot freeze your membership.',
   },
   {
-    q: 'Is the admission fee refundable?',
-    a: 'No, the admission fee is a one-time, non-refundable payment that covers your registration, fitness assessment, and lifetime membership.',
+    q: 'Is there any other secret admission fee?',
+    a: 'No, there is no secret charges or admission fees',
   },
   {
     q: 'Do I need to pay the admission fee again if I rejoin?',
-    a: 'No. Once you pay the admission fee, your membership is for life. You only need to renew your monthly/quarterly/yearly plan.',
+    a: 'No, as the admission cost is 0 rupees so you need not pay any price on rejoin',
   },
   {
     q: 'Are personal training sessions included?',

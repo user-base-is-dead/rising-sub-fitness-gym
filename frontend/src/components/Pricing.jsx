@@ -91,7 +91,7 @@ export default function Pricing() {
             <div className="pricing-card-type">Monthly</div>
             <div className="pricing-amount">
               <span className="pricing-currency">₹</span>
-              <span className="pricing-value" data-value="700" data-prefix="">0</span>
+              <span className="pricing-value" data-value="800" data-prefix="">0</span>
             </div>
             <div className="pricing-period">per month</div>
             <div className="pricing-features">
@@ -124,7 +124,7 @@ export default function Pricing() {
             <div className="pricing-card-type">Admission Fee</div>
             <div className="pricing-amount">
               <span className="pricing-currency">₹</span>
-              <span className="pricing-value" data-value="1500" data-prefix="">0</span>
+              <span className="pricing-value" data-value="0" data-prefix="">0</span>
             </div>
             <div className="pricing-period">one-time payment</div>
             <div className="pricing-features">
