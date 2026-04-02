@@ -9,6 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 // ── Plans Data ──
 const plans = [
   {
+    name: '1 Day Pass',
+    price: 100,
+    period: 'per day',
+    badge: null,
+    featured: false,
+    features: [
+      'Full Gym Access',
+      'All Training Zones',
+      'Cardio Equipment',
+      'Free Weights Area',
+      'Morning & Evening Slots',
+    ],
+    cta: 'Try Now',
+    whatsappMsg: `Hi! I'd like to try a *1 Day Pass* at Rising Sun Fitness for ₹100. When can I come in for my session?`,
+  },
+  {
     name: 'Monthly',
     price: 800,
     period: 'per month',
@@ -22,6 +38,7 @@ const plans = [
       'Morning & Evening Slots',
     ],
     cta: 'Start Training',
+    whatsappMsg: `Hello! I want to start my fitness journey with the *Monthly Plan* at ₹800/month. How do I sign up?`,
   },
   {
     name: 'Quarterly',
@@ -38,11 +55,29 @@ const plans = [
       '1 Month Free Membership'
     ],
     cta: 'Choose Plan',
+    whatsappMsg: `Hey! I'm interested in the *Quarterly Plan* (₹2500 for 3 months + 1 month free). Please let me know how to get started!`,
+  },
+  {
+    name: '6 Months',
+    price: 4000,
+    period: 'per 6 months (+ 2 month free)',
+    badge: null,
+    featured: false,
+    features: [
+      'Full Gym Access',
+      'All Training Zones',
+      'Cardio Equipment',
+      'Free Weights Area',
+      'Morning & Evening Slots',
+      '1 Month Free Membership'
+    ],
+    cta: 'Choose Plan',
+    whatsappMsg: `Hello! I'd like to go with the *6 Months Plan* at ₹4000 (+ 2 months free). Can you share the registration details?`,
   },
   {
     name: 'Yearly',
-    price: 9600,
-    period: 'per year',
+    price: 9000,
+    period: 'per year (+ 4 month free)',
     badge: null,
     featured: false,
     features: [
@@ -55,35 +90,34 @@ const plans = [
       'Priority Support',
     ],
     cta: 'Choose Plan',
+    whatsappMsg: `Hi! I'm ready to commit to the *Yearly Plan* at ₹9000 (+ 4 months free) with PT sessions and diet plan included. How do I register?`,
   },
   {
-    name: 'Admission',
-    price: 0,
-    period: 'one-time',
+    name: 'Personal Trainer',
+    price: 3500,
+    period: 'per month',
     badge: null,
     featured: false,
     features: [
-      'Registration & Onboarding',
-      'Fitness Assessment',
-      'Training Plan Setup',
-      'Gym Orientation Tour',
-      'Lifetime Membership',
+      'From Diet to Training, Everything will be cared',
+      
     ],
-    cta: 'Register Now',
+    cta: 'Hire Now',
+    whatsappMsg: `Hello! I want to hire a *Personal Trainer* at ₹3500/month. Can you tell me more about the trainers and schedule?`,
   },
 ];
 
 // ── Comparison Data ──
 const compareFeatures = [
-  { name: 'Full Gym Access', monthly: true, quarterly: true, yearly: true },
-  { name: 'All Training Zones', monthly: true, quarterly: true, yearly: true },
-  { name: 'Cardio Equipment', monthly: true, quarterly: true, yearly: true },
-  { name: 'Free Weights Area', monthly: true, quarterly: true, yearly: true },
-  { name: 'Free PT Sessions', monthly: false, quarterly: '1 Session', yearly: '4 Sessions' },
-  { name: 'Diet Consultation', monthly: false, quarterly: true, yearly: true },
-  { name: 'Diet Plan Included', monthly: false, quarterly: false, yearly: true },
-  { name: 'Priority Support', monthly: false, quarterly: false, yearly: true },
-  { name: 'Locker Facility', monthly: false, quarterly: true, yearly: true },
+  { name: 'Full Gym Access', daily: true, monthly: true, quarterly: true, sixMonth: true, yearly: true },
+  { name: 'All Training Zones', daily: true, monthly: true, quarterly: true, sixMonth: true, yearly: true },
+  { name: 'Cardio Equipment', daily: true, monthly: true, quarterly: true, sixMonth: true, yearly: true },
+  { name: 'Free Weights Area', daily: true, monthly: true, quarterly: true, sixMonth: true, yearly: true },
+  { name: 'Free PT Sessions', daily: false, monthly: false, quarterly: '1 Session', sixMonth: '2 Sessions', yearly: '4 Sessions' },
+  { name: 'Diet Consultation', daily: false, monthly: false, quarterly: true, sixMonth: true, yearly: true },
+  { name: 'Diet Plan Included', daily: false, monthly: false, quarterly: false, sixMonth: false, yearly: true },
+  { name: 'Priority Support', daily: false, monthly: false, quarterly: false, sixMonth: false, yearly: true },
+  { name: 'Locker Facility', daily: false, monthly: false, quarterly: true, sixMonth: true, yearly: true },
 ];
 
 // ── FAQ Data ──
@@ -113,6 +147,12 @@ const faqs = [
     a: 'Yes! We offer a free 1-day trial. Walk in anytime during gym hours with a valid ID to try us out.',
   },
 ];
+
+const WHATSAPP_NUMBER = '916380816041';
+
+const getWhatsAppUrl = (msg) => {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+};
 
 export default function PricingPage() {
   const pageRef = useRef(null);
@@ -309,7 +349,7 @@ export default function PricingPage() {
                     </div>
                   ))}
                 </div>
-                <button className="pp-plan-cta">{plan.cta}</button>
+                <button className="pp-plan-cta" onClick={() => window.open(getWhatsAppUrl(plan.whatsappMsg), '_blank')}>{plan.cta}</button>
               </div>
             ))}
           </div>
@@ -325,8 +365,10 @@ export default function PricingPage() {
             {/* Header */}
             <div className="pp-compare-row pp-compare-header">
               <div className="pp-compare-cell pp-compare-feature">Feature</div>
+              <div className="pp-compare-cell">1 Day</div>
               <div className="pp-compare-cell">Monthly</div>
               <div className="pp-compare-cell">Quarterly</div>
+              <div className="pp-compare-cell">6 Months</div>
               <div className="pp-compare-cell">Yearly</div>
             </div>
             {/* Rows */}
@@ -334,10 +376,16 @@ export default function PricingPage() {
               <div className="pp-compare-row" key={i}>
                 <div className="pp-compare-cell pp-compare-feature">{cf.name}</div>
                 <div className="pp-compare-cell">
+                  {cf.daily === true ? <span className="pp-yes">✓</span> : cf.daily === false ? <span className="pp-no">✕</span> : <span className="pp-text">{cf.daily}</span>}
+                </div>
+                <div className="pp-compare-cell">
                   {cf.monthly === true ? <span className="pp-yes">✓</span> : cf.monthly === false ? <span className="pp-no">✕</span> : <span className="pp-text">{cf.monthly}</span>}
                 </div>
                 <div className="pp-compare-cell">
                   {cf.quarterly === true ? <span className="pp-yes">✓</span> : cf.quarterly === false ? <span className="pp-no">✕</span> : <span className="pp-text">{cf.quarterly}</span>}
+                </div>
+                <div className="pp-compare-cell">
+                  {cf.sixMonth === true ? <span className="pp-yes">✓</span> : cf.sixMonth === false ? <span className="pp-no">✕</span> : <span className="pp-text">{cf.sixMonth}</span>}
                 </div>
                 <div className="pp-compare-cell">
                   {cf.yearly === true ? <span className="pp-yes">✓</span> : cf.yearly === false ? <span className="pp-no">✕</span> : <span className="pp-text">{cf.yearly}</span>}

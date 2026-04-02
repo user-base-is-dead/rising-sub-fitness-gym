@@ -111,7 +111,7 @@
 
 .pp-plans-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -313,7 +313,7 @@
 
 .pp-compare-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   transition: background 0.3s ease;
@@ -492,8 +492,8 @@
   }
 
   .pp-compare-row {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    min-width: 500px;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    min-width: 650px;
   }
 
   .pp-compare-cell {

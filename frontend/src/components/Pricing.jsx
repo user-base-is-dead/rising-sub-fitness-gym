@@ -5,6 +5,12 @@ import '../styles/pricing.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const WHATSAPP_NUMBER = '916380816041';
+
+const getWhatsAppUrl = (msg) => {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+};
+
 export default function Pricing() {
   const sectionRef = useRef(null);
 
@@ -85,6 +91,39 @@ export default function Pricing() {
         </div>
 
         <div className="pricing-cards">
+          {/* 1 Day Pass */}
+          <div className="pricing-card">
+            <div className="pricing-card-type">1 Day Pass</div>
+            <div className="pricing-amount">
+              <span className="pricing-currency">₹</span>
+              <span className="pricing-value" data-value="100" data-prefix="">0</span>
+            </div>
+            <div className="pricing-period">per day</div>
+            <div className="pricing-features">
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Full Gym Access</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>All Training Zones</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Cardio Equipment</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Free Weights Area</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Morning & Evening Slots</span>
+              </div>
+            </div>
+            <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'd like to try a *1 Day Pass* at Rising Sun Fitness for ₹100. When can I come in for my session?`), '_blank')}>Try Now</button>
+          </div>
+
           {/* Monthly Plan */}
           <div className="pricing-card featured">
             <div className="pricing-badge">Popular</div>
@@ -116,7 +155,40 @@ export default function Pricing() {
                 <span>Morning & Evening Slots</span>
               </div>
             </div>
-            <button className="pricing-cta">Start Training</button>
+            <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hello! I want to start my fitness journey with the *Monthly Plan* at ₹800/month. How do I sign up?`), '_blank')}>Start Training</button>
+          </div>
+
+          {/* 6 Months */}
+          <div className="pricing-card">
+            <div className="pricing-card-type">6 Months</div>
+            <div className="pricing-amount">
+              <span className="pricing-currency">₹</span>
+              <span className="pricing-value" data-value="4000" data-prefix="">0</span>
+            </div>
+            <div className="pricing-period">per 6 months</div>
+            <div className="pricing-features">
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Full Gym Access</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>All Training Zones</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Cardio Equipment</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Free Weights Area</span>
+              </div>
+              <div className="pricing-feature">
+                <span className="check">✓</span>
+                <span>Morning & Evening Slots</span>
+              </div>
+            </div>
+            <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hello! I'd like to go with the *6 Months Plan* at ₹4000 (+ 2 months free). Can you share the registration details?`), '_blank')}>Choose Plan</button>
           </div>
 
           {/* Admission */}
@@ -149,7 +221,7 @@ export default function Pricing() {
                 <span>Lifetime Membership</span>
               </div>
             </div>
-            <button className="pricing-cta">Register Now</button>
+            <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>Register Now</button>
           </div>
         </div>
       </div>
