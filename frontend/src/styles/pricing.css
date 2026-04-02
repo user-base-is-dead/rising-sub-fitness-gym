@@ -209,4 +209,60 @@
     grid-template-columns: 1fr;
     max-width: 450px;
   }
+
+  .pricing-card {
+    padding: 35px 25px;
+  }
+
+  .pricing-value {
+    font-size: clamp(40px, 10vw, 60px);
+  }
+
+  .pricing-badge {
+    top: 15px;
+    right: 15px;
+    font-size: 9px;
+    padding: 4px 12px;
+  }
+
+  .pricing-header {
+    margin-bottom: 50px;
+  }
+
+  .pricing-title {
+    font-size: clamp(30px, 7vw, 50px);
+  }
+}
+
+@media (max-width: 400px) {
+  .pricing-card {
+    padding: 25px 18px;
+  }
+
+  .pricing-card-type {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .pricing-value {
+    font-size: clamp(36px, 10vw, 50px);
+  }
+
+  .pricing-currency {
+    font-size: 22px;
+  }
+
+  .pricing-feature {
+    font-size: 13px;
+  }
+
+  .pricing-cta {
+    font-size: 11px;
+    padding: 14px;
+    letter-spacing: 2px;
+  }
+
+  .pricing-header {
+    margin-bottom: 35px;
+  }
 }

@@ -256,14 +256,18 @@ export default function PricingPage() {
       const vals = document.querySelectorAll('.pp-price-value');
       vals.forEach((val) => {
         const target = parseInt(val.getAttribute('data-value'));
-        const obj = { v: 0 };
+        const start = parseInt(val.getAttribute('data-start') || '0');
+        const obj = { v: start };
+        let counterTween = null;
+
+        val.textContent = start;
 
         ScrollTrigger.create({
           trigger: val,
           start: 'top 85%',
-          once: true,
           onEnter: () => {
-            gsap.to(obj, {
+            if (counterTween) counterTween.kill();
+            counterTween = gsap.to(obj, {
               v: target,
               duration: 2,
               ease: 'power2.out',
@@ -272,8 +276,111 @@ export default function PricingPage() {
               },
             });
           },
+          onLeaveBack: () => {
+            if (counterTween) counterTween.kill();
+            counterTween = gsap.to(obj, {
+              v: start,
+              duration: 1,
+              ease: 'power2.in',
+              onUpdate: () => {
+                val.textContent = Math.round(obj.v);
+              },
+            });
+          },
         });
       });
+
+      // ── Surprise Admission Reveal ──
+      const surpriseSection = document.querySelector('.pp-surprise');
+      if (surpriseSection) {
+        gsap.fromTo('.pp-surprise-label', {
+          y: 30, opacity: 0,
+        }, {
+          y: 0, opacity: 1,
+          duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', toggleActions: 'play none none reverse' },
+        });
+
+        gsap.fromTo('.pp-surprise-question', {
+          y: 50, opacity: 0,
+        }, {
+          y: 0, opacity: 1,
+          duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', toggleActions: 'play none none reverse' },
+          delay: 0.2,
+        });
+
+        // Counter drops from 1500 to 0 (and reverses back)
+        const surpriseVal = document.querySelector('.pp-surprise-number');
+        if (surpriseVal) {
+          const obj = { v: 1500 };
+          let surpriseTween = null;
+
+          ScrollTrigger.create({
+            trigger: surpriseVal,
+            start: 'top 80%',
+            onEnter: () => {
+              if (surpriseTween) surpriseTween.kill();
+              surpriseTween = gsap.to(obj, {
+                v: 0,
+                duration: 2.5,
+                ease: 'power3.inOut',
+                onUpdate: () => {
+                  surpriseVal.textContent = Math.round(obj.v);
+                },
+                onComplete: () => {
+                  surpriseVal.textContent = '0';
+                  // Show the FREE badge with a burst
+                  gsap.fromTo('.pp-surprise-free', {
+                    scale: 0, opacity: 0, rotation: -15,
+                  }, {
+                    scale: 1, opacity: 1, rotation: 0,
+                    duration: 0.6, ease: 'back.out(2)',
+                  });
+                  // Glow pulse on the number
+                  gsap.fromTo('.pp-surprise-amount', {
+                    boxShadow: '0 0 0px rgba(212, 160, 23, 0)',
+                  }, {
+                    boxShadow: '0 0 80px rgba(212, 160, 23, 0.5), 0 0 120px rgba(212, 160, 23, 0.2)',
+                    duration: 0.8, ease: 'power2.out',
+                    yoyo: true, repeat: 1,
+                  });
+                  // Show the subtext
+                  gsap.fromTo('.pp-surprise-subtext', {
+                    y: 20, opacity: 0,
+                  }, {
+                    y: 0, opacity: 1,
+                    duration: 0.6, ease: 'power3.out', delay: 0.3,
+                  });
+                  // Show the CTA
+                  gsap.fromTo('.pp-surprise-cta', {
+                    y: 20, opacity: 0,
+                  }, {
+                    y: 0, opacity: 1,
+                    duration: 0.6, ease: 'power3.out', delay: 0.5,
+                  });
+                },
+              });
+            },
+            onLeaveBack: () => {
+              if (surpriseTween) surpriseTween.kill();
+              // Reset everything back
+              gsap.to('.pp-surprise-free', { scale: 0, opacity: 0, duration: 0.3 });
+              gsap.to('.pp-surprise-subtext', { y: 20, opacity: 0, duration: 0.3 });
+              gsap.to('.pp-surprise-cta', { y: 20, opacity: 0, duration: 0.3 });
+              gsap.to('.pp-surprise-amount', { boxShadow: '0 0 0px rgba(212, 160, 23, 0)', duration: 0.3 });
+              surpriseTween = gsap.to(obj, {
+                v: 1500,
+                duration: 1,
+                ease: 'power2.in',
+                onUpdate: () => {
+                  surpriseVal.textContent = Math.round(obj.v);
+                },
+              });
+            },
+          });
+        }
+      }
 
       // ── Compare Table Rows ──
       const rows = document.querySelectorAll('.pp-compare-row');
@@ -326,6 +433,23 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* ── Surprise Admission Reveal ── */}
+      <section className="pp-swipe-panel pp-surprise">
+        <div className="pp-surprise-inner">
+          <div className="pp-surprise-label">Before We Begin...</div>
+          <h2 className="pp-surprise-question">What's Our <span className="highlight">Admission Fee</span>?</h2>
+          <div className="pp-surprise-reveal">
+            <div className="pp-surprise-amount">
+              <span className="pp-surprise-currency">₹</span>
+              <span className="pp-surprise-number">1500</span>
+              <div className="pp-surprise-free">FREE!</div>
+            </div>
+            <p className="pp-surprise-subtext">Zero admission fee. Zero hidden charges. Just walk in and start your journey.</p>
+            <button className="pp-surprise-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>Register Now — It's Free</button>
+          </div>
+        </div>
+      </section>
+
       {/* ── Plans Section ── */}
       <section className="pp-swipe-panel pp-plans">
         <div className="pp-plans-inner">
@@ -338,7 +462,7 @@ export default function PricingPage() {
                 <div className="pp-plan-type">{plan.name}</div>
                 <div className="pp-plan-amount">
                   <span className="pp-plan-currency">₹</span>
-                  <span className="pp-price-value" data-value={plan.price}>0</span>
+                  <span className="pp-price-value" data-value={plan.price} data-start={plan.startFrom || 0}>{plan.startFrom || 0}</span>
                 </div>
                 <div className="pp-plan-period">{plan.period}</div>
                 <div className="pp-plan-features">
