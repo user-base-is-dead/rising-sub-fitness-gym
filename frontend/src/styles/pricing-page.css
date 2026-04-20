@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════
    Pricing Page — Premium Dark Theme
+   Interactive Tab-Based Plan Selector
    ══════════════════════════════════════════════ */
 
 /* ── Hero Banner ── */
@@ -132,68 +133,75 @@
   margin: 0 0 3rem;
 }
 
-.pp-surprise-reveal {
+/* ── Scratch Card Wrapper ── */
+.pp-scratch-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
 }
 
-.pp-surprise-amount {
-  position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 1.5rem 3rem;
-  border: 2px solid rgba(212, 160, 23, 0.25);
-  border-radius: 20px;
-  background: linear-gradient(145deg, rgba(212, 160, 23, 0.05), rgba(10, 10, 10, 0.9));
-  transition: box-shadow 0.5s ease;
-}
-
-.pp-surprise-currency {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.5rem;
-  color: #888;
-}
-
-.pp-surprise-number {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 12vw, 9rem);
-  line-height: 1;
-  background: linear-gradient(135deg, #d4a017, #f0c040, #d4a017);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.pp-surprise-free {
-  position: absolute;
-  top: -18px;
-  right: -20px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: #0a0a0a;
-  background: linear-gradient(135deg, #d4a017, #f0c040);
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  opacity: 0;
-  box-shadow: 0 0 30px rgba(212, 160, 23, 0.5);
-}
-
-.pp-surprise-subtext {
+.pp-scratch-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.82rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.pp-scratch-coin {
+  font-size: 1.2rem;
+  animation: coinWiggle 1.5s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes coinWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.pp-scratch-revealed-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: revealSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pp-scratch-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
   color: #888;
   line-height: 1.6;
   max-width: 450px;
-  opacity: 0;
+  text-align: center;
   margin: 0;
 }
 
-.pp-surprise-cta {
+.pp-scratch-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   font-family: 'Oswald', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
@@ -203,18 +211,28 @@
   background: linear-gradient(135deg, #d4a017, #f0c040);
   border: none;
   padding: 1rem 2.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  opacity: 0;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.pp-surprise-cta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 40px rgba(212, 160, 23, 0.4);
+.pp-scratch-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 40px rgba(212, 160, 23, 0.4);
 }
 
-/* ── Plans Section ── */
+.pp-scratch-cta .pp-cta-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.pp-scratch-cta:hover .pp-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ══════════════════════════════════════════════
+   Plans Section — Tab-Based Interactive Selector
+   ══════════════════════════════════════════════ */
 .pp-plans {
   padding: 6rem 2rem;
   background: #0a0a0a;
@@ -226,189 +244,576 @@
 }
 
 .pp-plans-inner {
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 0 auto;
   width: 100%;
 }
 
-.pp-plans-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+/* ── Tab Navigation ── */
+.pp-tabs-wrapper {
+  margin-bottom: 3rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.pp-plan-card {
-  position: relative;
-  padding: 2.5rem 1.8rem;
-  background: linear-gradient(145deg, #121212, #181818);
+.pp-tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.pp-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
-  overflow: hidden;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
 }
 
-.pp-plan-card::before {
+.pp-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.9rem 1.6rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #666;
+  min-width: 100px;
+}
+
+.pp-tab:hover {
+  color: #aaa;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.pp-tab.active {
+  background: linear-gradient(145deg, rgba(212, 160, 23, 0.12), rgba(212, 160, 23, 0.04));
+  border-color: rgba(212, 160, 23, 0.35);
+  color: #fff;
+  box-shadow: 
+    0 0 30px rgba(212, 160, 23, 0.1),
+    inset 0 1px 0 rgba(212, 160, 23, 0.15);
+}
+
+.pp-tab-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pp-tab-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pp-tab-badge {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+
+.pp-tab.tab-popular .pp-tab-badge {
+  background: linear-gradient(135deg, #ff6b35, #ff4500);
+  color: #fff;
+}
+
+/* ── Showcase Card (Single Active Plan) ── */
+.pp-showcase {
+  position: relative;
+  border: 1px solid rgba(212, 160, 23, 0.15);
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #121212, #181818, #121212);
+}
+
+.pp-showcase-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15), transparent 40%, transparent 60%, rgba(212, 160, 23, 0.08));
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pp-showcase::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #d4a017, #f0c040);
-  transform: scaleX(0);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(90deg, transparent, #d4a017, #f0c040, #d4a017, transparent);
 }
 
-.pp-plan-card:hover {
-  border-color: rgba(212, 160, 23, 0.3);
-  box-shadow: 0 0 40px rgba(212, 160, 23, 0.08), 0 15px 50px rgba(0, 0, 0, 0.6);
-  transform: translateY(-8px);
+.pp-showcase-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 400px;
 }
 
-.pp-plan-card:hover::before {
-  transform: scaleX(1);
-}
-
-.pp-plan-card.featured {
-  border-color: rgba(212, 160, 23, 0.4);
-  background: linear-gradient(145deg, rgba(212, 160, 23, 0.06), #121212);
-}
-
-.pp-plan-card.featured::before {
-  transform: scaleX(1);
-}
-
-.pp-plan-badge {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: linear-gradient(135deg, #d4a017, #f0c040);
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-}
-
-.pp-plan-type {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #d4a017;
-  margin-bottom: 1.2rem;
-}
-
-.pp-plan-amount {
+/* Left Side */
+.pp-showcase-left {
+  padding: 3.5rem 3rem;
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-  margin-bottom: 0.4rem;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
-.pp-plan-currency {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem;
-  color: #888;
+.pp-showcase-left::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(212, 160, 23, 0.2), transparent);
 }
 
-.pp-price-value {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.8rem, 5vw, 4rem);
-  color: #fff;
+.pp-showcase-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
   line-height: 1;
 }
 
-.pp-plan-period {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  color: #666;
-  margin-bottom: 1.8rem;
+.pp-showcase-name {
+  font-family: 'Oswald', 'Anton', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem;
+  line-height: 1.1;
 }
 
-.pp-plan-features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+.pp-showcase-price-block {
+  margin-bottom: 1.5rem;
 }
 
-.pp-plan-feature {
+.pp-showcase-price {
   display: flex;
-  align-items: center;
-  gap: 0.7rem;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.pp-showcase-currency {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: #888;
+}
+
+.pp-showcase-amount-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  line-height: 1;
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pp-showcase-period {
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  color: #aaa;
+  color: #666;
+  margin-top: 0.3rem;
 }
 
-.pp-check {
-  width: 18px;
-  height: 18px;
-  display: flex;
+/* Bonus / Free months — big bold reveal style */
+.pp-showcase-bonus {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(212, 160, 23, 0.1);
-  color: #d4a017;
-  font-size: 0.65rem;
-  flex-shrink: 0;
-  border-radius: 3px;
-}
-
-.pp-plan-cta {
-  width: 100%;
-  padding: 0.9rem;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.12), rgba(212, 160, 23, 0.04));
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
 }
 
-.pp-plan-cta::before {
+.pp-showcase-bonus::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #d4a017, #f0c040);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-  border-radius: 6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: bonusShimmer 3s ease-in-out infinite;
 }
 
-.pp-plan-cta:hover {
-  border-color: #d4a017;
+@keyframes bonusShimmer {
+  0%, 100% { background-position: -200% 0; }
+  50% { background-position: 200% 0; }
+}
+
+.pp-bonus-plus {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: #d4a017;
+  line-height: 1;
+}
+
+.pp-bonus-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #d4a017, #f0c040, #fff, #f0c040, #d4a017);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: bonusTextShimmer 4s ease-in-out infinite;
+  line-height: 1.2;
+}
+
+@keyframes bonusTextShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.pp-showcase-per-month {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #d4a017;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background: rgba(212, 160, 23, 0.08);
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.pp-showcase-badge {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: #0a0a0a;
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  padding: 0.35rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
 }
 
-.pp-plan-cta:hover::before {
-  transform: scaleX(1);
+/* ── Extra Offer Toggle ── */
+.pp-extra-offer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.pp-plan-card.featured .pp-plan-cta {
+.pp-extra-offer:hover {
+  border-color: rgba(212, 160, 23, 0.2);
+  background: rgba(212, 160, 23, 0.03);
+}
+
+.pp-extra-offer.active {
+  border-color: rgba(212, 160, 23, 0.4);
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.08), rgba(212, 160, 23, 0.02));
+  box-shadow: 0 0 25px rgba(212, 160, 23, 0.08);
+}
+
+/* Toggle track & thumb */
+.pp-extra-offer-toggle {
+  flex-shrink: 0;
+}
+
+.pp-extra-toggle-track {
+  width: 38px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.pp-extra-offer.active .pp-extra-toggle-track {
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+}
+
+.pp-extra-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pp-extra-offer.active .pp-extra-toggle-thumb {
+  transform: translateX(18px);
+}
+
+/* Info text */
+.pp-extra-offer-info {
+  flex: 1;
+}
+
+.pp-extra-offer-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.pp-extra-offer.active .pp-extra-offer-label {
+  color: #fff;
+}
+
+.pp-extra-offer-detail {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 0.15rem;
+  transition: color 0.3s ease;
+}
+
+.pp-extra-offer.active .pp-extra-offer-detail {
+  color: #d4a017;
+}
+
+/* Active tag */
+.pp-extra-offer-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #d4a017;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 4px;
+  flex-shrink: 0;
+  animation: tagPulse 2s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 rgba(212, 160, 23, 0); }
+  50% { opacity: 0.8; box-shadow: 0 0 12px rgba(212, 160, 23, 0.2); }
+}
+
+.pp-showcase-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem 2rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0a0a0a;
   background: linear-gradient(135deg, #d4a017, #f0c040);
   border: none;
-  color: #0a0a0a;
-  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 0.5rem;
 }
 
-.pp-plan-card.featured .pp-plan-cta:hover {
-  box-shadow: 0 0 30px rgba(212, 160, 23, 0.4);
-  transform: scale(1.02);
+.pp-showcase-cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(212, 160, 23, 0.35);
 }
 
-/* ── Comparison Section ── */
+.pp-cta-arrow {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.pp-showcase-cta:hover .pp-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Right Side */
+.pp-showcase-right {
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.pp-showcase-features-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #d4a017;
+  margin-bottom: 1.5rem;
+}
+
+.pp-showcase-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pp-showcase-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.pp-showcase-feature:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.pp-showcase-feature.excluded {
+  color: #444;
+  text-decoration: line-through;
+  text-decoration-color: #333;
+}
+
+.pp-showcase-feature.excluded:hover {
+  color: #555;
+  transform: none;
+}
+
+.pp-feature-check {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 160, 23, 0.12);
+  color: #d4a017;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.pp-feature-cross {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  color: #444;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Quick Price Comparison Strip ── */
+.pp-quick-compare {
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+  margin-top: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pp-quick-item {
+  flex: 1;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.pp-quick-item:last-child {
+  border-right: none;
+}
+
+.pp-quick-item:hover {
+  background: rgba(212, 160, 23, 0.04);
+}
+
+.pp-quick-item.active {
+  background: rgba(212, 160, 23, 0.08);
+}
+
+.pp-quick-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.pp-quick-item.active .pp-quick-name {
+  color: #d4a017;
+}
+
+.pp-quick-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  color: #888;
+}
+
+.pp-quick-price span {
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.pp-quick-item.active .pp-quick-price {
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════
+   Comparison Section (unchanged)
+   ══════════════════════════════════════════════ */
 .pp-compare {
   padding: 6rem 2rem;
   background:
@@ -497,7 +902,9 @@
   font-weight: 500;
 }
 
-/* ── FAQ Section ── */
+/* ══════════════════════════════════════════════
+   FAQ Section (unchanged)
+   ══════════════════════════════════════════════ */
 .pp-faq {
   padding: 6rem 2rem;
   background: #0a0a0a;
@@ -584,10 +991,9 @@
 }
 
 /* ══════════════════════════════════════════════
-   Responsive
+   Responsive — Mobile & Tablet
    ══════════════════════════════════════════════ */
 
-/* Mobile & Tablet (iPad) -> Same Layout */
 @media (max-width: 1024px) {
   .pp-hero {
     height: 45vh;
@@ -617,47 +1023,99 @@
     margin-bottom: 2rem;
   }
 
-  .pp-surprise-amount {
-    padding: 1rem 2rem;
+  .pp-scratch-hint {
+    font-size: 0.72rem;
   }
 
-  .pp-surprise-number {
-    font-size: clamp(3.5rem, 10vw, 5rem);
-  }
-
-  .pp-surprise-currency {
-    font-size: 1.8rem;
-  }
-
-  .pp-surprise-free {
-    font-size: 1rem;
-    top: -14px;
-    right: -14px;
-    padding: 0.3rem 0.8rem;
-  }
-
-  .pp-surprise-subtext {
-    font-size: 0.85rem;
+  .pp-scratch-sub {
+    font-size: 0.82rem;
     max-width: 350px;
   }
 
-  .pp-surprise-cta {
+  .pp-scratch-cta {
     font-size: 0.8rem;
     padding: 0.85rem 2rem;
     letter-spacing: 0.15em;
   }
 
-  .pp-plans-grid {
+  /* Tabs — wrap into grid on mobile */
+  .pp-tabs-wrapper {
+    overflow-x: visible;
+  }
+
+  .pp-tabs {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.4rem;
+  }
+
+  .pp-tab {
+    padding: 0.7rem 1.2rem;
+    min-width: 0;
+    flex: 1 1 calc(33.33% - 0.3rem);
+    max-width: calc(33.33% - 0.3rem);
+  }
+
+  .pp-tab-icon {
+    font-size: 1.2rem;
+  }
+
+  .pp-tab-name {
+    font-size: 0.62rem;
+  }
+
+  /* Showcase — stack vertically */
+  .pp-showcase-content {
     grid-template-columns: 1fr;
-    max-width: 450px;
-    margin: 0 auto;
-    gap: 1.2rem;
+    min-height: 0;
   }
 
-  .pp-plan-card {
-    padding: 2rem 1.5rem;
+  .pp-showcase-left {
+    padding: 2.5rem 2rem 2rem;
   }
 
+  .pp-showcase-left::after {
+    display: none;
+  }
+
+  .pp-showcase-right {
+    padding: 0 2rem 2.5rem;
+  }
+
+  .pp-showcase-name {
+    font-size: 1.5rem;
+  }
+
+  .pp-showcase-amount-val {
+    font-size: 3.5rem;
+  }
+
+  .pp-showcase-cta {
+    max-width: 100%;
+  }
+
+  /* Quick Compare */
+  .pp-quick-compare {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .pp-quick-item {
+    min-width: calc(33.33% - 1px);
+    flex: 0 0 calc(33.33% - 1px);
+    padding: 0.8rem 0.3rem;
+  }
+
+  .pp-quick-name {
+    font-size: 0.55rem;
+  }
+
+  .pp-quick-price {
+    font-size: 1rem;
+  }
+
+  /* Compare table */
   .pp-compare-table {
     overflow-x: auto;
   }
@@ -686,7 +1144,7 @@
   }
 }
 
-/* Small Phones */
+/* ── Small Phones ── */
 @media (max-width: 400px) {
   .pp-hero {
     height: 35vh;
@@ -707,30 +1165,15 @@
     margin-bottom: 1.5rem;
   }
 
-  .pp-surprise-amount {
-    padding: 0.8rem 1.5rem;
-    border-radius: 14px;
+  .pp-scratch-hint {
+    font-size: 0.65rem;
   }
 
-  .pp-surprise-number {
-    font-size: clamp(3rem, 12vw, 4rem);
+  .pp-scratch-sub {
+    font-size: 0.72rem;
   }
 
-  .pp-surprise-currency {
-    font-size: 1.4rem;
-  }
-
-  .pp-surprise-free {
-    font-size: 0.8rem;
-    top: -12px;
-    right: -10px;
-  }
-
-  .pp-surprise-subtext {
-    font-size: 0.78rem;
-  }
-
-  .pp-surprise-cta {
+  .pp-scratch-cta {
     font-size: 0.72rem;
     padding: 0.75rem 1.5rem;
   }
@@ -741,30 +1184,101 @@
     padding: 2.5rem 1rem;
   }
 
-  .pp-plans-grid {
-    max-width: 100%;
+  .pp-tabs {
+    gap: 0.2rem;
+    padding: 0.3rem;
   }
 
-  .pp-plan-card {
-    padding: 1.5rem 1.2rem;
+  .pp-tab {
+    padding: 0.5rem 0.6rem;
+    min-width: 0;
+    flex: 1 1 calc(33.33% - 0.2rem);
+    max-width: calc(33.33% - 0.2rem);
   }
 
-  .pp-plan-type {
+  .pp-tab-icon {
+    font-size: 1rem;
+  }
+
+  .pp-tab-name {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .pp-tab-badge {
+    font-size: 0.4rem;
+    padding: 1px 4px;
+  }
+
+  .pp-showcase {
+    border-radius: 16px;
+  }
+
+  .pp-showcase-left {
+    padding: 1.8rem 1.5rem 1.2rem;
+  }
+
+  .pp-showcase-right {
+    padding: 0 1.5rem 1.8rem;
+  }
+
+  .pp-showcase-icon {
+    font-size: 2rem;
+  }
+
+  .pp-showcase-name {
+    font-size: 1.2rem;
+  }
+
+  .pp-showcase-amount-val {
+    font-size: 2.8rem;
+  }
+
+  .pp-showcase-currency {
+    font-size: 1.4rem;
+  }
+
+  .pp-showcase-period {
+    font-size: 0.75rem;
+  }
+
+  .pp-showcase-per-month {
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
   }
 
-  .pp-price-value {
-    font-size: clamp(2rem, 8vw, 3rem);
+  .pp-showcase-cta {
+    font-size: 0.8rem;
+    padding: 0.85rem 1.5rem;
+    letter-spacing: 0.15em;
   }
 
-  .pp-plan-feature {
+  .pp-showcase-features-title {
+    font-size: 0.7rem;
+  }
+
+  .pp-showcase-feature {
     font-size: 0.78rem;
   }
 
-  .pp-plan-cta {
-    font-size: 0.68rem;
-    padding: 0.65rem;
+  .pp-feature-check,
+  .pp-feature-cross {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+
+  .pp-quick-item {
+    min-width: calc(33.33% - 1px);
+    flex: 0 0 calc(33.33% - 1px);
+    padding: 0.6rem 0.2rem;
+  }
+
+  .pp-quick-name {
+    font-size: 0.5rem;
+  }
+
+  .pp-quick-price {
+    font-size: 0.85rem;
   }
 
   .pp-section-title {
@@ -795,7 +1309,7 @@
   }
 }
 
-/* Laptop */
+/* ── Laptop ── */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .pp-plans,
   .pp-compare,
@@ -809,31 +1323,6 @@
 
   .pp-surprise-question {
     font-size: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .pp-plans-grid {
-    gap: 1rem;
-  }
-
-  .pp-plan-card {
-    padding: 2rem 1.4rem;
-  }
-
-  .pp-plan-type {
-    font-size: 0.75rem;
-  }
-
-  .pp-price-value {
-    font-size: clamp(2.2rem, 4vw, 3rem);
-  }
-
-  .pp-plan-feature {
-    font-size: 0.8rem;
-  }
-
-  .pp-plan-cta {
-    font-size: 0.7rem;
-    padding: 0.7rem;
   }
 
   .pp-section-title {
@@ -854,4 +1343,3 @@
     font-size: 0.8rem;
   }
 }
-
