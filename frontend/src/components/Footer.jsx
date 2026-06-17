@@ -25,7 +25,7 @@ export default function Footer() {
         scrollTrigger: {
           trigger: '.footer-content',
           start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -42,7 +42,7 @@ export default function Footer() {
         scrollTrigger: {
           trigger: '.footer-bottom',
           start: 'top 90%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
     }, footerRef);

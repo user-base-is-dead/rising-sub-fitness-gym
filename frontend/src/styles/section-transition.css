@@ -10,7 +10,7 @@
 .st-reveal {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #0a0000 0%, #1a0800 40%, #0d0502 70%, #050000 100%);
+  background: linear-gradient(160deg, #0d0d10 0%, #141417 45%, #0d0d10 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,27 +18,26 @@
   z-index: 2;
 }
 
-/* Strong fiery glow on the reveal panel */
+/* Subtle bronze glow on the reveal panel */
 .st-reveal::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 50%, rgba(255, 69, 0, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 30% 70%, rgba(255, 120, 0, 0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 70% 30%, rgba(255, 60, 0, 0.06) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 50%, rgba(185, 147, 90, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 30% 70%, rgba(185, 147, 90, 0.06) 0%, transparent 45%);
   pointer-events: none;
 }
 
-/* Bottom border glow */
+/* Bottom border line */
 .st-reveal::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bronze), transparent);
   opacity: 0.5;
 }
 
@@ -51,33 +50,29 @@
 /* Horizontal accent line */
 .st-line {
   width: 200px;
-  height: 3px;
-  background: var(--gradient-fire);
+  height: 1px;
+  background: var(--grad-bronze);
   margin: 0 auto 30px;
   transform-origin: center;
   transform: scaleX(0);
-  box-shadow: 0 0 20px rgba(255, 69, 0, 0.4), 0 0 60px rgba(255, 69, 0, 0.15);
 }
 
 /* Tagline */
 .st-tagline {
-  font-family: var(--font-heading);
+  font-family: var(--font-sans);
   font-size: 15px;
-  letter-spacing: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--bronze);
   opacity: 0;
-  text-shadow: 0 0 30px rgba(255, 69, 0, 0.3);
 }
 
 /* Mobile — simple spacer, no animation */
 @media (max-width: 768px) {
   .section-transition {
     height: 80px;
-    background: var(--black);
+    background: var(--void);
   }
-
-  .st-reveal {
-    display: none;
-  }
+  .st-reveal { display: none; }
 }

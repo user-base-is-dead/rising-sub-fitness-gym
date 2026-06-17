@@ -1,146 +1,100 @@
-/* ===== TRAINERS SECTION ===== */
+/* ===== HOME TRAINERS — portrait gallery ===== */
 .trainers {
   position: relative;
+  background: var(--void);
   padding: var(--section-padding) 0;
-  overflow: hidden;
-  background: var(--black);
-  z-index: 2;
-  margin-top: -100vh;
-  border-radius: 30px 30px 0 0;
-
+  border-top: 1px solid var(--line);
 }
-
 .trainers-inner {
-  width: var(--container-width);
+  width: var(--container);
   margin: 0 auto;
 }
-
 .trainers-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: clamp(50px, 7vw, 90px);
 }
-
 .trainers-label {
-  font-family: var(--font-heading);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 6px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--bronze);
   margin-bottom: 20px;
 }
-
 .trainers-title {
   font-family: var(--font-display);
-  font-size: clamp(40px, 5vw, 80px);
-  line-height: 1;
-  color: var(--white);
-  text-transform: uppercase;
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  letter-spacing: -0.02em;
+  color: var(--bone);
 }
 
-/* Trainers Grid */
 .trainers-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(24px, 3vw, 44px);
+  max-width: 780px;
+  margin: 0 auto;
 }
-
 .trainer-card {
   position: relative;
-  overflow: hidden;
+  will-change: transform;
 }
-
 .trainer-image-wrap {
   position: relative;
-  height: 450px;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  border-radius: 2px;
+  border: 1px solid var(--line);
 }
-
 .trainer-image-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.1);
-  transition: all 0.6s var(--ease-out-expo);
+  filter: grayscale(1) brightness(0.78) contrast(1.05);
+  transition: filter 0.7s var(--ease-expo), transform 0.9s var(--ease-expo);
 }
-
-.trainer-card:hover .trainer-image-wrap img {
-  filter: grayscale(0%) contrast(1);
-  transform: scale(1.08);
-}
-
-/* Orange overlay on hover */
 .trainer-image-wrap::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(255, 69, 0, 0.3), transparent);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  background: linear-gradient(180deg, transparent 50%, rgba(8, 8, 10, 0.7) 100%);
 }
-
-.trainer-card:hover .trainer-image-wrap::after {
-  opacity: 1;
+.trainer-card:hover .trainer-image-wrap img {
+  filter: grayscale(0.2) brightness(0.85) contrast(1.05);
+  transform: scale(1.05);
 }
-
-/* Trainer info */
 .trainer-info {
-  padding: 25px 0;
-  position: relative;
-}
-
-.trainer-info::before {
-  content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 40px;
-  height: 2px;
-  background: var(--orange);
-  transition: width 0.5s var(--ease-out-expo);
-}
-
-.trainer-card:hover .trainer-info::before {
+  z-index: 2;
+  padding: 30px;
   width: 100%;
 }
-
 .trainer-name {
   font-family: var(--font-display);
-  font-size: 28px;
-  color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  color: var(--bone);
+  margin-bottom: 8px;
 }
-
 .trainer-role {
-  font-family: var(--font-heading);
-  font-size: 12px;
-  letter-spacing: 4px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--orange);
-  font-weight: 400;
+  color: var(--bronze-light);
+  padding-top: 10px;
+  border-top: 1px solid var(--line-strong);
+  display: inline-block;
 }
 
-@media (max-width: 968px) {
-  .trainers {
-    margin-top: 0;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .trainers-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .trainer-image-wrap {
-    height: 380px;
-  }
+@media (max-width: 900px) {
+  .trainers-grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 600px) {
-  .trainers-grid {
-    grid-template-columns: 1fr;
-  }
+  .trainers-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
 }

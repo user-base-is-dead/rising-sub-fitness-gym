@@ -42,7 +42,7 @@ export default function App() {
     window.scrollTo(0, 0); // Double check before lenis starts
 
     const lenis = new Lenis({
-      duration: 2.5,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Standard expo out
       direction: 'vertical',
       gestureDirection: 'vertical',

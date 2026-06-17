@@ -138,7 +138,7 @@ export default function Hero({ loaded }) {
       {/* Background */}
       <div className="hero-bg" ref={bgRef}>
         <img
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=1920&q=80"
           alt="Gym"
         />
       </div>
@@ -153,17 +153,17 @@ export default function Hero({ loaded }) {
       {/* Content */}
       <div className="hero-content">
         <div className="hero-subtitle">
-          <span>⚡ Jajpur Town's Premier Gym</span>
+          <span>Jajpur Town, Odisha &nbsp;·&nbsp; Established 2018</span>
         </div>
 
         <h1 className="hero-title">
-          <div className="line"><span>FORGE</span></div>
-          <div className="line"><span className="outline">YOUR</span></div>
-          <div className="line"><span className="fire">LEGACY</span></div>
+          <div className="line"><span>Forge</span></div>
+          <div className="line"><span className="serif-italic">your</span></div>
+          <div className="line"><span className="fire">Legacy</span></div>
         </h1>
 
         <div className="hero-tagline">
-          <span>Where Champions Are Built • Since 2018</span>
+          <span>A discipline. A craft. A way of life — where strength is built with intent.</span>
         </div>
 
         <div className="hero-cta">
@@ -173,9 +173,9 @@ export default function Hero({ loaded }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Join Now
+            Begin Your Journey
           </a>
-          <Link className="cta-btn secondary" to="/trainers">Explore →</Link>
+          <Link className="cta-btn secondary" to="/trainers">Meet the Team</Link>
         </div>
       </div>
 

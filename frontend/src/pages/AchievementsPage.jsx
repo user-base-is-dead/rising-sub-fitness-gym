@@ -12,7 +12,6 @@ const FILTERS = [
   { key: 'gym', label: 'Gym' },
   { key: 'susanta', label: 'Susanta' },
   { key: 'babu', label: 'Babu' },
-  { key: 'masum', label: 'Masum' },
   { key: 'amarjit', label: 'Amarjit' },
 ];
 
@@ -156,58 +155,6 @@ const susantaCompetitions = [
   },
 ];
 
-// ── Masum's Dummy Achievements (using Babu's photos) ──
-const masumCompetitions = [
-  {
-    title: 'EASTERN CLASSIC 2025',
-    subtitle: 'Regional Bodybuilding Championship',
-    location: 'Patna, India',
-    date: 'February 2025',
-    img: '/babu-compi1.jpeg',
-    result: '🥇 GOLD MEDAL',
-    athlete: 'Masum',
-    category: 'Men\'s Physique — Under 70kg',
-    description:
-      'Masum kicked off 2025 with a dominating Gold at the Eastern Classic. His incredible definition and stage presence earned him the top spot in a highly competitive category.',
-  },
-  {
-    title: 'BHARAT MUSCLE FEST 2025',
-    subtitle: 'National Muscle & Fitness Expo',
-    location: 'Lucknow, India',
-    date: 'June 2025',
-    img: '/babu-compi2.jpeg',
-    result: '🥈 SILVER MEDAL',
-    athlete: 'Masum',
-    category: 'Classic Physique — Under 75kg',
-    description:
-      'Masum\'s balanced physique and confident posing earned him a Silver medal at the Bharat Muscle Fest. Competing against some of the best in the nation, he proved he belongs on the big stage.',
-  },
-  {
-    title: 'STEEL CITY SHOWDOWN 2025',
-    subtitle: 'East Zone Fitness Championship',
-    location: 'Jamshedpur, India',
-    date: 'August 2025',
-    img: '/babu-compi3.jpeg',
-    result: '🥇 GOLD + 🥉 BRONZE',
-    athlete: 'Masum',
-    category: 'Men\'s Physique & Classic Physique',
-    description:
-      'A dual-category performance at the Steel City Showdown. Masum claimed Gold in Men\'s Physique and added a Bronze in Classic, showcasing his versatility and determination.',
-  },
-  {
-    title: 'KONARK CLASSIC 2025',
-    subtitle: 'Odisha State Bodybuilding Championship',
-    location: 'Bhubaneswar, Odisha',
-    date: 'October 2025',
-    img: '/babu-compi4.jpeg',
-    result: '🥈 SILVER MEDAL',
-    athlete: 'Masum',
-    category: 'Men\'s Physique — Open',
-    description:
-      'Masum impressed everyone at the Konark Classic with his sharp conditioning and aesthetic proportions. His Silver medal finish was well-deserved among stiff competition from across the state.',
-  },
-];
-
 // ── Amarjit's "Achievements" (Roasts 😂) ──
 const amarjitRoasts = [
   { emoji: '🏆', title: 'Aura in Debt', desc: 'Negative aura balance since birth. Owes the universe 10,000 aura points. Every room he enters loses its vibe instantly.' },
@@ -239,13 +186,6 @@ const susantaStats = [
   { value: 'Top 5', label: 'In State Ranking' },
 ];
 
-const masumStats = [
-  { value: '4+', label: 'Championships' },
-  { value: '5+', label: 'Medals Won' },
-  { value: '2', label: 'Gold Medals' },
-  { value: 'Top 5', label: 'In State Ranking' },
-];
-
 const gymStats = [
   { value: '14+', label: 'Championships' },
   { value: '20+', label: 'Medals Won' },
@@ -257,7 +197,6 @@ function getStats(filter) {
   switch (filter) {
     case 'babu': return babuStats;
     case 'susanta': return susantaStats;
-    case 'masum': return masumStats;
     default: return gymStats;
   }
 }
@@ -266,8 +205,7 @@ function getCompetitions(filter) {
   switch (filter) {
     case 'babu': return babuCompetitions;
     case 'susanta': return susantaCompetitions;
-    case 'masum': return masumCompetitions;
-    case 'gym': return [...babuCompetitions, ...susantaCompetitions, ...masumCompetitions];
+    case 'gym': return [...babuCompetitions, ...susantaCompetitions];
     default: return [];
   }
 }
@@ -352,7 +290,7 @@ export default function AchievementsPage() {
             scrollTrigger: {
               trigger: card,
               start: 'top 75%',
-              toggleActions: 'play none none reverse',
+              end: '+=400', scrub: 1,
             },
           });
 
@@ -364,7 +302,7 @@ export default function AchievementsPage() {
             scrollTrigger: {
               trigger: card,
               start: 'top 70%',
-              toggleActions: 'play none none reverse',
+              end: '+=400', scrub: 1,
             },
           });
 
@@ -377,7 +315,7 @@ export default function AchievementsPage() {
               scrollTrigger: {
                 trigger: card,
                 start: 'top 65%',
-                toggleActions: 'play none none reverse',
+                end: '+=400', scrub: 1,
               },
             });
           }
@@ -395,7 +333,7 @@ export default function AchievementsPage() {
             scrollTrigger: {
               trigger: '.ach-gallery',
               start: 'top 80%',
-              toggleActions: 'play none none reverse',
+              end: '+=400', scrub: 1,
             },
           });
         });
@@ -410,7 +348,7 @@ export default function AchievementsPage() {
             scrollTrigger: {
               trigger: title,
               start: 'top 80%',
-              toggleActions: 'play none none reverse',
+              end: '+=400', scrub: 1,
             },
           });
         });
@@ -427,7 +365,7 @@ export default function AchievementsPage() {
             scrollTrigger: {
               trigger: '.amarjit-roast-grid',
               start: 'top 85%',
-              toggleActions: 'play none none reverse',
+              end: '+=400', scrub: 1,
             },
           });
         });
@@ -535,7 +473,7 @@ export default function AchievementsPage() {
         </section>
       )}
 
-      {/* ── Competitions Section (for gym, babu, susanta, masum) ── */}
+      {/* ── Competitions Section (for gym, babu, susanta) ── */}
       {activeFilter !== 'amarjit' && competitions.length > 0 && (
         <section className="ach-competitions">
           <div className="ach-competitions-inner">

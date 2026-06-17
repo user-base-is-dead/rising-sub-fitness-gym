@@ -258,31 +258,8 @@ export default function PricingPage() {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // ── Swipe Slider / Layered Pinning Effect (Desktop Only) ──
-      const mm = gsap.matchMedia();
-
-      mm.add('(min-width: 1025px)', () => {
-        const swipeSections = gsap.utils.toArray('section.pp-swipe-panel');
-        swipeSections.forEach((section, i) => {
-          if (i !== swipeSections.length - 1) {
-            section.style.marginBottom = '50vh';
-
-            ScrollTrigger.create({
-              trigger: section,
-              start: 'bottom bottom',
-              pin: true,
-              pinSpacing: false,
-              end: () => `+=${window.innerHeight * 1.5}`,
-            });
-          }
-        });
-
-        return () => {
-          swipeSections.forEach((section) => {
-            section.style.marginBottom = '';
-          });
-        };
-      });
+      // ── Swipe-panel pinning removed — it caused the magnet/stick scroll feel.
+      //    Sections now scroll naturally; content still reveals on enter below.
 
       // ── Hero Title Animation ──
       gsap.fromTo('.pp-hero-label', {
@@ -316,7 +293,7 @@ export default function PricingPage() {
           scrollTrigger: {
             trigger: title,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
         });
       });
@@ -329,7 +306,7 @@ export default function PricingPage() {
         }, {
           y: 0, opacity: 1,
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', toggleActions: 'play none none reverse' },
+          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', end: '+=400', scrub: 1 },
         });
 
         gsap.fromTo('.pp-surprise-question', {
@@ -337,7 +314,7 @@ export default function PricingPage() {
         }, {
           y: 0, opacity: 1,
           duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', toggleActions: 'play none none reverse' },
+          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', end: '+=400', scrub: 1 },
           delay: 0.2,
         });
 
@@ -346,7 +323,7 @@ export default function PricingPage() {
         }, {
           y: 0, opacity: 1, scale: 1,
           duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: surpriseSection, start: 'top 70%', toggleActions: 'play none none reverse' },
+          scrollTrigger: { trigger: surpriseSection, start: 'top 70%', end: '+=400', scrub: 1 },
           delay: 0.4,
         });
       }
@@ -363,7 +340,7 @@ export default function PricingPage() {
           scrollTrigger: {
             trigger: row,
             start: 'top 90%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
         });
       });
@@ -380,7 +357,7 @@ export default function PricingPage() {
           scrollTrigger: {
             trigger: item,
             start: 'top 90%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
         });
       });
@@ -407,11 +384,11 @@ export default function PricingPage() {
       {/* ── Scratch Card — Admission Fee Reveal ── */}
       <section className="pp-swipe-panel pp-surprise">
         <div className="pp-surprise-inner">
-          <div className="pp-surprise-label">🎁 Special Offer Inside</div>
+          <div className="pp-surprise-label">Special Offer Inside</div>
           <h2 className="pp-surprise-question">Scratch To Reveal Your <span className="highlight">Admission Fee</span></h2>
           <div className="pp-scratch-wrapper">
             <div className="pp-scratch-hint">
-              <span className="pp-scratch-coin">🪙</span>
+              <span className="pp-scratch-coin"></span>
               Use your finger or mouse to scratch
             </div>
             <ScratchCard onReveal={handleScratchReveal} revealed={scratchRevealed} />
@@ -443,7 +420,6 @@ export default function PricingPage() {
                   className={`pp-tab ${activePlan === i ? 'active' : ''} ${plan.featured ? 'tab-popular' : ''}`}
                   onClick={() => setActivePlan(i)}
                 >
-                  <span className="pp-tab-icon">{plan.icon}</span>
                   <span className="pp-tab-name">{plan.name}</span>
                   {plan.badge && <span className="pp-tab-badge">{plan.badge}</span>}
                 </button>
@@ -457,7 +433,6 @@ export default function PricingPage() {
             <div className="pp-showcase-content">
               {/* Left — Plan Info */}
               <div className="pp-showcase-left">
-                <div className="pp-showcase-icon">{currentPlan.icon}</div>
                 <h3 className="pp-showcase-name">{currentPlan.fullName}</h3>
                 <div className="pp-showcase-price-block">
                   <div className="pp-showcase-price">

@@ -1,58 +1,33 @@
-/* ── Page Transition Overlay ── */
-
+/* ===== PAGE TRANSITION — bronze curtain wipe ===== */
 .page-transition-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
+  inset: 0;
+  z-index: 9800;
   display: none;
   pointer-events: none;
 }
-
 .page-transition-svg {
   position: absolute;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
-
 .page-transition-path {
-  /* fill: var(--black); */
-    fill: #3b1203;
+  fill: var(--ink);
 }
-
-/* Brand mark shown during transition */
 .page-transition-brand {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .transition-brand-text {
-  font-family: 'Oswald', 'Anton', sans-serif;
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: 0.15em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 7vw, 4rem);
+  letter-spacing: 0.04em;
+  color: var(--bone);
   text-transform: uppercase;
-  color: #fff;
 }
-
-.transition-brand-text .highlight {
-  background: linear-gradient(135deg, #ff4500, #ff8c00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .transition-brand-text {
-    font-size: 1.8rem;
-  }
-}
+.transition-brand-text .highlight { font-style: italic; }

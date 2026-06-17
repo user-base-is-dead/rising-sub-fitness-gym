@@ -25,7 +25,7 @@ export default function HomePage({ loaded }) {
 
       <Gallery />
 
-      <SectionMarquee text="₹700/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" />
+      <SectionMarquee text="₹800/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" />
 
       <Pricing />
 

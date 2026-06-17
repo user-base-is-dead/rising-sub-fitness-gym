@@ -129,8 +129,8 @@ export default function Loader({ onEnter }) {
         <svg className="loader-progress-svg" viewBox="0 0 200 200">
           <defs>
             <linearGradient id="fireGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ff4500" />
-              <stop offset="100%" stopColor="#dc143c" />
+              <stop offset="0%" stopColor="#dcb87c" />
+              <stop offset="100%" stopColor="#8a6b3c" />
             </linearGradient>
           </defs>
           <circle className="loader-progress-track" cx="100" cy="100" r="90" />
@@ -156,16 +156,16 @@ export default function Loader({ onEnter }) {
       {/* Audio choice */}
       <div className="loader-audio-choice" ref={audioChoiceRef}>
         <button className="audio-btn primary" onClick={() => handleEnter(true)}>
-          ▶ Enter with Audio
+          Enter with Sound
         </button>
         <button className="audio-btn" onClick={() => handleEnter(false)}>
-          Enter without Audio
+          Enter in Silence
         </button>
       </div>
 
       {/* Loading text */}
       <div className="loader-loading-text" ref={loadingTextRef}>
-        Loading Experience...
+        Preparing the experience
       </div>
     </div>
   );

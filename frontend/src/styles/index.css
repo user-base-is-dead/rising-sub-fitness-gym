@@ -1,44 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
-/* ===== CSS VARIABLES ===== */
+/* =====================================================================
+   RISING SUN FITNESS — "REFINED" DESIGN SYSTEM
+   Mature · Classic · Editorial · Full-Motion
+   ===================================================================== */
+
 :root {
-  /* Colors */
-  --black: #0a0a0a;
-  --black-light: #111111;
-  --black-mid: #1a1a1a;
-  --dark-gray: #222222;
-  --gray: #333333;
-  --gray-light: #666666;
-  --white: #f5f5f5;
-  --white-dim: #aaaaaa;
+  /* ---- Neutrals (warm charcoal → bone) ---- */
+  --void: #08080a;
+  --ink: #0d0d10;
+  --surface: #141417;
+  --surface-2: #1b1b20;
+  --surface-3: #232329;
 
-  /* Accent Colors */
-  --orange: #ff4500;
-  --orange-glow: #ff6a33;
-  --red: #dc143c;
-  --red-dark: #8b0000;
-  --gold: #d4a017;
-  --gold-light: #f0c040;
-  --gold-dim: #b8860b;
+  --bone: #ece9e2;
+  --bone-dim: #9d998f;
+  --muted: #6b675f;
+  --faint: #423f3a;
 
-  /* Gradients */
-  --gradient-fire: linear-gradient(135deg, var(--orange), var(--red));
-  --gradient-gold: linear-gradient(135deg, var(--gold), var(--gold-light));
-  --gradient-dark: linear-gradient(180deg, var(--black), var(--black-mid));
+  /* ---- Hairlines ---- */
+  --line: rgba(236, 233, 226, 0.10);
+  --line-soft: rgba(236, 233, 226, 0.06);
+  --line-strong: rgba(236, 233, 226, 0.20);
 
-  /* Fonts */
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-heading: 'Oswald', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* ---- Accent — classic bronze/gold ---- */
+  --bronze: #b9935a;
+  --bronze-light: #dcb87c;
+  --bronze-deep: #8a6b3c;
+  --ember: #9e4a32; /* rare deep emphasis */
 
-  /* Spacing */
-  --section-padding: clamp(80px, 10vw, 150px);
-  --container-width: min(90vw, 1400px);
+  /* ---- Gradients ---- */
+  --grad-bronze: linear-gradient(135deg, #e3c189 0%, #b9935a 45%, #8a6b3c 100%);
+  --grad-sheen: linear-gradient(120deg, transparent 0%, rgba(220, 184, 124, 0.35) 50%, transparent 100%);
+  --grad-vignette: radial-gradient(120% 120% at 50% 0%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
 
-  /* Transitions */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  /* ---- Fonts ---- */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Archivo', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Metrics ---- */
+  --section-padding: clamp(90px, 11vw, 180px);
+  --container: min(92vw, 1380px);
+  --container-narrow: min(90vw, 1080px);
+
+  /* ---- Easings ---- */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* ===== RESET ===== */
@@ -50,124 +59,145 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
-  overflow-x: hidden;
+  scroll-behavior: auto;
+  overflow-x: clip;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--black);
-  color: var(--white);
-  overflow-x: hidden;
+  background-color: var(--void);
+  color: var(--bone);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
-  
-  /* Fallback for Firefox and standard scrollbar support */
-  scrollbar-color: var(--orange) var(--black);
+  scrollbar-color: var(--bronze) var(--void);
   scrollbar-width: thin;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  cursor: none;
+a { text-decoration: none; color: inherit; cursor: none; }
+button { border: none; outline: none; background: none; cursor: none; font-family: inherit; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ===== TYPOGRAPHY PRIMITIVES ===== */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
 }
 
-button {
-  border: none;
-  outline: none;
-  background: none;
-  cursor: none;
-  font-family: inherit;
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--bronze);
 }
 
-ul, ol {
-  list-style: none;
+/* Shared section eyebrow with leading rule */
+.rule-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.rule-label::before {
+  content: '';
+  width: 44px;
+  height: 1px;
+  background: var(--bronze);
+  opacity: 0.7;
 }
 
-img {
-  max-width: 100%;
-  display: block;
+/* Accent helpers used across pages */
+.highlight {
+  background: var(--grad-bronze);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.highlight-red { color: var(--ember); }
+.gold, .fire, .outline-text, .outline {
+  background: var(--grad-bronze);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* ===== SCROLLBAR ===== */
-/* Firefox / Standard */
-html {
-  scrollbar-color: var(--orange) var(--black);
-  scrollbar-width: thin;
-}
-
-/* Chrome, Edge, Safari (including iOS/mobile Chrome) */
-::-webkit-scrollbar {
-  width: 4px;
-  background-color: var(--black);
-}
-
-::-webkit-scrollbar-track {
-  background: var(--black);
-  background-color: var(--black);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--orange);
-  background-color: var(--orange);
-  border-radius: 4px;
-}
-
-/* ===== UTILITY CLASSES ===== */
-.container {
-  width: var(--container-width);
-  margin: 0 auto;
-}
-
-.section-padding {
-  padding: var(--section-padding) 0;
-}
-
-.text-gradient-fire {
-  background: var(--gradient-fire);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-gold {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-
+::-webkit-scrollbar { width: 5px; background-color: var(--void); }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--bronze-deep); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bronze); }
 
 /* ===== SELECTION ===== */
-::selection {
-  background: var(--orange);
-  color: var(--black);
-}
+::selection { background: var(--bronze); color: var(--void); }
+
+/* ===== UTILITIES ===== */
+.container { width: var(--container); margin: 0 auto; }
+.section-padding { padding: var(--section-padding) 0; }
 
 /* ===== PAGE WRAPPER ===== */
-.page-wrapper {
-  opacity: 0;
-  visibility: hidden;
+.page-wrapper { opacity: 0; visibility: hidden; }
+.page-wrapper.visible { opacity: 1; visibility: visible; }
+
+/* ===== SECTION DIVIDER MARQUEE (mature, hairline framed) ===== */
+.section-divider-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 0;
+  background: var(--ink);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.section-divider-marquee .marquee-track {
+  display: inline-flex;
+  gap: 0;
+  animation: marquee-scroll 38s linear infinite;
+  will-change: transform;
+}
+.section-divider-marquee .marquee-item {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+  letter-spacing: 0.04em;
+  color: var(--bone-dim);
+  padding: 0 2.2rem;
+  position: relative;
+}
+.section-divider-marquee .marquee-item::after {
+  content: '—';
+  position: absolute;
+  right: -0.3rem;
+  color: var(--bronze);
+  opacity: 0.55;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-.page-wrapper.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Restore native cursor on mobile & tablet */
+/* ===== MOBILE: restore native cursor ===== */
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
-  }
-  a, button {
-    cursor: pointer;
-  }
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-divider-marquee .marquee-track { animation: none; }
 }

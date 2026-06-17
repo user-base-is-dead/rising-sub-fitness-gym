@@ -15,21 +15,21 @@ export default function Contact() {
         x: -50, opacity: 0,
       }, {
         x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       gsap.fromTo('.contact-title', {
         y: 60, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       gsap.fromTo('.contact-text', {
         y: 30, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%', end: '+=400', scrub: 1 },
       });
 
       // Contact detail items
@@ -37,7 +37,7 @@ export default function Contact() {
         x: -30, opacity: 0,
       }, {
         x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out',
-        scrollTrigger: { trigger: '.contact-details', start: 'top 80%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: '.contact-details', start: 'top 80%', end: '+=400', scrub: 1 },
       });
 
       // Form inputs — sequential slide in
@@ -45,14 +45,14 @@ export default function Contact() {
         y: 40, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: '.contact-form', start: 'top 80%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: '.contact-form', start: 'top 80%', end: '+=400', scrub: 1 },
       });
 
       gsap.fromTo('.form-submit', {
         y: 30, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: '.form-submit', start: 'top 90%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: '.form-submit', start: 'top 90%', end: '+=400', scrub: 1 },
       });
 
       // Magnetic effect on submit button
@@ -89,28 +89,36 @@ export default function Contact() {
 
           <div className="contact-details">
             <div className="contact-detail-item">
-              <div className="contact-detail-icon">📍</div>
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+              </div>
               <div className="contact-detail-content">
                 <h4>Location</h4>
                 <p>AT-Sanabazar, Near Ganjeswar Temple, Jajpur Town, Odisha<br />India</p>
               </div>
             </div>
             <div className="contact-detail-item">
-              <div className="contact-detail-icon">📞</div>
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M5 4h3l1.5 4.5L7.5 10a11 11 0 0 0 6 6l1.5-2 4.5 1.5V19a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 1-2z"/></svg>
+              </div>
               <div className="contact-detail-content">
                 <h4>Phone</h4>
                 <p>+91 63808 16041</p>
               </div>
             </div>
             <div className="contact-detail-item">
-              <div className="contact-detail-icon">✉️</div>
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </div>
               <div className="contact-detail-content">
                 <h4>Email</h4>
                 <p>risingsunofficial615@gmail.com</p>
               </div>
             </div>
             <div className="contact-detail-item">
-              <div className="contact-detail-icon">🕐</div>
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              </div>
               <div className="contact-detail-content">
                 <h4>Hours</h4>
                 <p>All Days: 5 AM – 11 AM & 4 PM – 11 PM</p>

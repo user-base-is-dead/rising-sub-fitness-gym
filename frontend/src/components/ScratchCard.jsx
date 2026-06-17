@@ -76,14 +76,14 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
 
     // Text
     ctx.save();
-    ctx.fillStyle = '#999';
-    ctx.font = 'bold 14px "Oswald", sans-serif';
+    ctx.fillStyle = '#b8b3a8';
+    ctx.font = '600 14px "Archivo", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.letterSpacing = '4px';
-    ctx.fillText('✦  SCRATCH HERE  ✦', w / 2, h / 2 - 14);
+    ctx.fillText('SCRATCH TO REVEAL', w / 2, h / 2 - 14);
     
-    ctx.fillStyle = '#666';
+    ctx.fillStyle = '#6b675f';
     ctx.font = '11px "Inter", sans-serif';
     ctx.fillText('Reveal your offer', w / 2, h / 2 + 14);
     ctx.restore();
@@ -210,7 +210,7 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
                   '--y': `${(Math.random() - 0.5) * 200}px`,
                   '--rot': `${Math.random() * 720}deg`,
                   '--size': `${4 + Math.random() * 8}px`,
-                  '--color': ['#d4a017', '#f0c040', '#ff6b35', '#fff', '#d4a017'][Math.floor(Math.random() * 5)],
+                  '--color': ['#dcb87c', '#b9935a', '#8a6b3c', '#ece9e2', '#dcb87c'][Math.floor(Math.random() * 5)],
                 }} />
               ))}
             </div>

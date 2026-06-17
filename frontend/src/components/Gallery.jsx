@@ -42,14 +42,14 @@ export default function Gallery() {
         y: 30, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       gsap.fromTo('.gallery-title', {
         y: 60, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       // Gallery items — staggered scale + fade
@@ -68,7 +68,7 @@ export default function Gallery() {
           scrollTrigger: {
             trigger: item,
             start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.1,
         });
@@ -108,8 +108,8 @@ export default function Gallery() {
     <section className="gallery" id="gallery" ref={sectionRef}>
       <div className="gallery-inner">
         <div className="gallery-header">
-          <div className="gallery-label">Our Achievements</div>
-          <h2 className="gallery-title">HALL OF GAINS</h2>
+          <div className="gallery-label">Inside The Floor</div>
+          <h2 className="gallery-title">Moments In Motion</h2>
         </div>
 
         <div className="gallery-grid">

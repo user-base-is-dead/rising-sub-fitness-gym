@@ -21,14 +21,14 @@ export default function Pricing() {
         y: 30, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       gsap.fromTo('.pricing-title', {
         y: 60, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
       // Cards — 3D flip-in
@@ -48,7 +48,7 @@ export default function Pricing() {
           scrollTrigger: {
             trigger: card,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.2,
         });
@@ -106,10 +106,10 @@ export default function Pricing() {
         </div>
 
         <div className="pricing-cards">
-          {/* Admission — Surprise! */}
+          {/* Admission — Zero Fee */}
           <div className="pricing-card">
-            <div className="pricing-badge">Surprise!</div>
-            <div className="pricing-card-type">Admission Fee</div>
+            <div className="pricing-badge">No Joining Fee</div>
+            <div className="pricing-card-type">Admission</div>
             <div className="pricing-amount">
               <span className="pricing-currency">₹</span>
               <span className="pricing-value" data-value="0" data-start="1500" data-prefix="">1500</span>

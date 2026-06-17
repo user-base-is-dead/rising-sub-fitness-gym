@@ -12,11 +12,6 @@ const trainers = [
     img: '/babu.jpg',
   },
   {
-    name: 'Masum',
-    role: 'Bodybuilding & Yoga Trainer',
-    img: '/masum.jpg',
-  },
-  {
     name: 'Amarjit Dixit',
     role: 'Cardio, Bodybuilding & HIIT Specialist',
     img: '/amarjit.jpg',
@@ -40,7 +35,7 @@ export default function Trainers() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 75%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -55,7 +50,7 @@ export default function Trainers() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 75%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -74,7 +69,7 @@ export default function Trainers() {
           scrollTrigger: {
             trigger: card,
             start: 'top 75%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.2,
         });
@@ -90,7 +85,7 @@ export default function Trainers() {
           scrollTrigger: {
             trigger: card,
             start: 'top 70%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.2 + 0.5,
         });

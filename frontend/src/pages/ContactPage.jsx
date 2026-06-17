@@ -20,31 +20,8 @@ export default function ContactPage() {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // ── Swipe Slider / Layered Pinning Effect (Desktop Only) ──
-      const mm = gsap.matchMedia();
-
-      mm.add('(min-width: 1025px)', () => {
-        const swipeSections = gsap.utils.toArray('section.cp-swipe-panel');
-        swipeSections.forEach((section, i) => {
-          if (i !== swipeSections.length - 1) {
-            section.style.marginBottom = '50vh';
-
-            ScrollTrigger.create({
-              trigger: section,
-              start: 'bottom bottom',
-              pin: true,
-              pinSpacing: false,
-              end: () => `+=${window.innerHeight * 1.5}`,
-            });
-          }
-        });
-
-        return () => {
-          swipeSections.forEach((section) => {
-            section.style.marginBottom = '';
-          });
-        };
-      });
+      // ── Swipe-panel pinning removed — it caused the magnet/stick scroll feel.
+      //    Sections now scroll naturally; content still reveals on enter below.
 
       // ── Hero Animations ──
       gsap.fromTo('.cp-hero-label', {
@@ -79,7 +56,7 @@ export default function ContactPage() {
           scrollTrigger: {
             trigger: card,
             start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
         });
       });
@@ -93,7 +70,7 @@ export default function ContactPage() {
         scrollTrigger: {
           trigger: '.cp-form-wrap',
           start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -106,7 +83,7 @@ export default function ContactPage() {
         scrollTrigger: {
           trigger: '.cp-map',
           start: 'top 70%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -120,7 +97,7 @@ export default function ContactPage() {
           scrollTrigger: {
             trigger: title,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
         });
       });
@@ -148,7 +125,7 @@ export default function ContactPage() {
         scrollTrigger: {
           trigger: '.cp-social-card',
           start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -180,7 +157,9 @@ export default function ContactPage() {
               rel="noopener noreferrer" 
               className="cp-info-card cp-info-link"
             >
-              <div className="cp-info-icon">📍</div>
+              <div className="cp-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+              </div>
               <h3 className="cp-info-title">Our Location</h3>
               <p className="cp-info-text">AT-Sanabazar, Near Ganjeswar Temple,<br />Jajpur Town, Odisha, India</p>
             </a>
@@ -188,10 +167,12 @@ export default function ContactPage() {
               className="cp-info-card cp-info-link"
               onClick={() => handleCopy('+91 63808 16041', 'phone')}
             >
-              <div className="cp-info-icon">📞</div>
+              <div className="cp-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M5 4h3l1.5 4.5L7.5 10a11 11 0 0 0 6 6l1.5-2 4.5 1.5V19a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 1-2z"/></svg>
+              </div>
               <h3 className="cp-info-title">Phone</h3>
               <p className="cp-info-text">
-                {copiedText === 'phone' ? <span style={{color: 'var(--orange)'}}>Copied!</span> : '+91 63808 16041'}
+                {copiedText === 'phone' ? <span style={{color: 'var(--bronze)'}}>Copied!</span> : '+91 63808 16041'}
               </p>
               <span className="cp-copy-hint">Click to copy</span>
             </div>
@@ -199,15 +180,19 @@ export default function ContactPage() {
               className="cp-info-card cp-info-link"
               onClick={() => handleCopy('risingsunofficial615@gmail.com', 'email')}
             >
-              <div className="cp-info-icon">✉️</div>
+              <div className="cp-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </div>
               <h3 className="cp-info-title">Email</h3>
               <p className="cp-info-text">
-                {copiedText === 'email' ? <span style={{color: 'var(--orange)'}}>Copied!</span> : 'risingsunofficial615@gmail.com'}
+                {copiedText === 'email' ? <span style={{color: 'var(--bronze)'}}>Copied!</span> : 'risingsunofficial615@gmail.com'}
               </p>
               <span className="cp-copy-hint">Click to copy</span>
             </div>
             <div className="cp-info-card">
-              <div className="cp-info-icon">🕐</div>
+              <div className="cp-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              </div>
               <h3 className="cp-info-title">Working Hours</h3>
               <p className="cp-info-text">All Days: 5 AM – 11 AM<br />& 4 PM – 11 PM</p>
             </div>

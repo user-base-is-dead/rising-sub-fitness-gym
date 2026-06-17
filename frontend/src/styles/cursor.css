@@ -1,26 +1,17 @@
-/* ===== CUSTOM CURSOR ===== */
+/* ===== CUSTOM CURSOR — refined ring + dot ===== */
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--orange);
+  width: 6px;
+  height: 6px;
+  background: var(--bronze-light);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 100000;
-  mix-blend-mode: difference;
+  z-index: 100002;
   transform: translate(-50%, -50%);
-  transition: width 0.3s var(--ease-out-expo),
-              height 0.3s var(--ease-out-expo),
-              background 0.3s var(--ease-out-expo);
-}
-
-.custom-cursor.hover {
-  width: 50px;
-  height: 50px;
-  background: var(--gold-light);
-  mix-blend-mode: difference;
+  transition: width 0.3s var(--ease-expo), height 0.3s var(--ease-expo),
+    background 0.3s ease;
 }
 
 .cursor-follower {
@@ -29,32 +20,28 @@
   left: 0;
   width: 40px;
   height: 40px;
-  border: 1px solid rgba(255, 69, 0, 0.3);
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 100001;
   transform: translate(-50%, -50%);
-  transition: width 0.3s var(--ease-out-expo),
-              height 0.3s var(--ease-out-expo),
-              border-color 0.3s var(--ease-out-expo);
+  transition: width 0.4s var(--ease-expo), height 0.4s var(--ease-expo),
+    border-color 0.4s ease, background 0.4s ease;
+}
+
+.custom-cursor.hover {
+  width: 0;
+  height: 0;
 }
 
 .cursor-follower.hover {
-  width: 70px;
-  height: 70px;
-  border-color: rgba(212, 160, 23, 0.4);
+  width: 64px;
+  height: 64px;
+  border-color: var(--bronze);
+  background: rgba(185, 147, 90, 0.08);
 }
 
-/* Hide custom cursor on mobile & tablet */
 @media (max-width: 768px) {
   .custom-cursor,
-  .cursor-follower {
-    display: none;
-  }
-  body {
-    cursor: auto;
-  }
-  a, button {
-    cursor: pointer;
-  }
+  .cursor-follower { display: none; }
 }

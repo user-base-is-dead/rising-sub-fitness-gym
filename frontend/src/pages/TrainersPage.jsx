@@ -32,13 +32,6 @@ const trainers = [
     achievements: ['MR.INDIA 2025🥇🥇', 'MR.ODISHA 2025🥈🥈', 'LIFELOOM CLASSIC 2026🥇🥈🥈', 'IP CLASSIC 2025🥉', 'BFO7 CLASSIC 2025 🥉', 'LIFELOOM CLASSIC 2025🥈🥉'],
   },
   {
-    name: 'Masum',
-    specialty: 'Bodybuilding & Yoga Trainer',
-    img: '/masum.jpg',
-    bio: 'Masum is a yoga and fitness trainer who helps people improve flexibility, strength, and overall body balance. She combines yoga with bodybuilding techniques to support recovery, mobility, and daily fitness.',
-    // achievements: ['None'],
-  },
-  {
     name: 'Amarjit Dixit',
     specialty: 'Cardio, Bodybuilding & HIIT Specialist',
     img: '/amarjit.jpg',
@@ -55,36 +48,8 @@ export default function TrainersPage() {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // ── Swipe Slider / Layered Pinning Effect (Desktop Only) ──
-      const mm = gsap.matchMedia();
-
-      mm.add('(min-width: 1025px)', () => {
-        const swipeSections = gsap.utils.toArray('section.swipe-panel');
-        // We pin every section except the very last one so that the page ends naturally with the footer
-        swipeSections.forEach((section, i) => {
-          if (i !== swipeSections.length - 1) {
-            // Add a visual delay of '50vh' before the next section enters
-            section.style.marginBottom = '50vh';
-            
-            ScrollTrigger.create({
-              trigger: section,
-              // Wait until the section has fully scrolled into view (bottom hits bottom)
-              start: 'bottom bottom',
-              pin: true,
-              pinSpacing: false,
-              // Keep it pinned for the 50vh delay + 100vh overlap distance
-              end: () => `+=${window.innerHeight * 1.5}`,
-            });
-          }
-        });
-
-        // Cleanup function for when media query unmatches (e.g. user resizes to mobile)
-        return () => {
-          swipeSections.forEach((section) => {
-            section.style.marginBottom = '';
-          });
-        };
-      });
+      // ── Swipe-panel pinning removed — it caused the magnet/stick scroll feel.
+      //    Sections now scroll naturally; content still reveals on enter below.
 
       // ── Hero Title Animation ──
       gsap.fromTo('.tp-hero-label', {
@@ -117,7 +82,7 @@ export default function TrainersPage() {
         scrollTrigger: {
           trigger: '.tp-owner',
           start: 'top 70%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -129,7 +94,7 @@ export default function TrainersPage() {
         scrollTrigger: {
           trigger: '.tp-owner',
           start: 'top 65%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -143,7 +108,7 @@ export default function TrainersPage() {
         scrollTrigger: {
           trigger: '.tp-management',
           start: 'top 75%',
-          toggleActions: 'play none none reverse',
+          end: '+=400', scrub: 1,
         },
       });
 
@@ -165,7 +130,7 @@ export default function TrainersPage() {
           scrollTrigger: {
             trigger: card,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.1,
         });
@@ -179,7 +144,7 @@ export default function TrainersPage() {
           scrollTrigger: {
             trigger: card,
             start: 'top 75%',
-            toggleActions: 'play none none reverse',
+            end: '+=400', scrub: 1,
           },
           delay: i * 0.1 + 0.4,
         });

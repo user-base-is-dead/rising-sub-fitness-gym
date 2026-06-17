@@ -18,11 +18,9 @@ export default function About() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: 'top top',
-            end: '+=150%',
-            pin: true,
+            start: 'top 78%',
+            end: 'center 55%',
             scrub: 1,
-            anticipatePin: 1,
           },
         });
 
@@ -121,9 +119,9 @@ export default function About() {
           scale: 1,
           opacity: 1,
           rotation: 0,
-          duration: 0.4,
+          duration: 0.5,
           stagger: 0.08,
-          ease: 'back.out(1.7)',
+          ease: 'power3.out',
         }, 0.75);
 
         // Overlay glow pulse
@@ -165,18 +163,18 @@ export default function About() {
         <div className="about-content">
           <div className="about-label">Who We Are</div>
           <h2 className="about-title">
-            NOT JUST A GYM.<br />
-            A <span className="gold">BATTLEFIELD</span>.
+            More than a gym.<br />
+            A <span className="gold">standard</span>.
           </h2>
           <p className="about-text">
-            Rising Sun Fitness isn't for everyone — it's for those who refuse to stay average. 
-            Located in the heart of Jajpur Town, Odisha, we are the training ground where 
-            raw discipline meets unbreakable spirit.
+            Rising Sun Fitness was built for those who refuse to settle for average.
+            In the heart of Jajpur Town, Odisha, we have created a training environment
+            where discipline is the culture and progress is the only currency.
           </p>
           <p className="about-text">
-            From dawn warriors crushing it at 5 AM to late-night grinders pushing past their 
-            limits, our gym runs on one fuel — pure, relentless dedication. No shortcuts. 
-            No excuses. Only results.
+            From the first lift at dawn to the final set at night, the floor runs on one
+            principle — consistent, deliberate effort. No shortcuts. No noise.
+            Only the quiet work that builds lasting strength.
           </p>
 
           {/* Accent line */}
@@ -184,19 +182,27 @@ export default function About() {
 
           <div className="about-features">
             <div className="about-feature">
-              <div className="icon">🔥</div>
-              <span>Hardcore Training Zone</span>
+              <div className="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M6.5 6.5h11v11h-11z"/><path d="M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21"/></svg>
+              </div>
+              <span>Premium Strength Floor</span>
             </div>
             <div className="about-feature">
-              <div className="icon">💪</div>
-              <span>Expert Trainers</span>
+              <div className="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="7" r="3.2"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg>
+              </div>
+              <span>Certified Trainers</span>
             </div>
             <div className="about-feature">
-              <div className="icon">⚡</div>
-              <span>Premium Equipment</span>
+              <div className="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>
+              </div>
+              <span>Modern Equipment</span>
             </div>
             <div className="about-feature">
-              <div className="icon">🏆</div>
+              <div className="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 2.5M17 6h2.5A2.5 2.5 0 0 1 17 8.5M9.5 13.5h5M10 17h4M9 20h6"/></svg>
+              </div>
               <span>Champion Mindset</span>
             </div>
           </div>
