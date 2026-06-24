@@ -38,6 +38,18 @@ const trainers = [
     bio: 'The energy machine of Rising Sun. Amarjit\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
     // achievements: ['None'],
   },
+  {
+    name: 'Swarnaprava Senapati',
+    specialty: 'Fitness Trainer',
+    img: '/swarnaprava-senapati.jpg',
+    bio: 'Swarnaprava guides members with focused workout support, clean movement, and consistent training discipline to help them build strength and confidence.',
+  },
+  {
+    name: 'Satyajit Jena',
+    specialty: 'Fitness Trainer',
+    img: '/satyajit-jena.jpg',
+    bio: 'Satyajit helps members train with proper form, steady progression, and practical strength routines built around their fitness goals.',
+  },
 ];
 
 export default function TrainersPage() {

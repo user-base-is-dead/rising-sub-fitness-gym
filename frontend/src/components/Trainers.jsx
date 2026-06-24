@@ -16,6 +16,16 @@ const trainers = [
     role: 'Cardio, Bodybuilding & HIIT Specialist',
     img: '/amarjit.jpg',
   },
+  {
+    name: 'Swarnaprava Senapati',
+    role: 'Fitness Trainer',
+    img: '/swarnaprava-senapati.jpg',
+  },
+  {
+    name: 'Satyajit Jena',
+    role: 'Fitness Trainer',
+    img: '/satyajit-jena.jpg',
+  },
 ];
 
 export default function Trainers() {
