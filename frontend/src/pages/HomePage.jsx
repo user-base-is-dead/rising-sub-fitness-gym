@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import Manifesto from '../components/Manifesto';
 import About from '../components/About';
 import Services from '../components/Services';
 import Trainers from '../components/Trainers';
@@ -13,11 +14,13 @@ export default function HomePage({ loaded }) {
     <>
       <Hero loaded={loaded} />
 
-      <SectionMarquee text="DISCIPLINE • STRENGTH • POWER • DEDICATION • GRIND • FOCUS" />
+      <SectionMarquee text="DISCIPLINE • STRENGTH • POWER • DEDICATION • GRIND • FOCUS" baseDirection={1} />
+
+      <Manifesto />
 
       <About />
 
-      <SectionMarquee text="YOGA • PERSONAL TRAINING • CARDIO • BODYBUILDING • FITNESS" />
+      <SectionMarquee text="YOGA • PERSONAL TRAINING • CARDIO • BODYBUILDING • FITNESS" baseDirection={-1} />
 
       <Services />
 
@@ -25,7 +28,7 @@ export default function HomePage({ loaded }) {
 
       <Gallery />
 
-      <SectionMarquee text="₹800/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" />
+      <SectionMarquee text="₹800/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" baseDirection={1} />
 
       <Pricing />
 

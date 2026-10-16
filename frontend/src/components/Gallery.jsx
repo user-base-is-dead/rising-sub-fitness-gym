@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useSplitReveal } from '../hooks/useMotion';
 import '../styles/gallery.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -35,6 +36,8 @@ const galleryItems = [
 export default function Gallery() {
   const sectionRef = useRef(null);
 
+  useSplitReveal(sectionRef);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Header
@@ -42,13 +45,6 @@ export default function Gallery() {
         y: 30, opacity: 0,
       }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
-      });
-
-      gsap.fromTo('.gallery-title', {
-        y: 60, opacity: 0,
-      }, {
-        y: 0, opacity: 1, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: '+=400', scrub: 1 },
       });
 
@@ -109,7 +105,7 @@ export default function Gallery() {
       <div className="gallery-inner">
         <div className="gallery-header">
           <div className="gallery-label">Inside The Floor</div>
-          <h2 className="gallery-title">Moments In Motion</h2>
+          <h2 className="gallery-title" data-reveal>Moments In Motion</h2>
         </div>
 
         <div className="gallery-grid">

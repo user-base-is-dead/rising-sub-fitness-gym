@@ -167,7 +167,7 @@ img { max-width: 100%; display: block; }
 .section-divider-marquee .marquee-track {
   display: inline-flex;
   gap: 0;
-  animation: marquee-scroll 38s linear infinite;
+  /* Motion is driven by GSAP (velocity-reactive) — no CSS animation. */
   will-change: transform;
 }
 .section-divider-marquee .marquee-item {
@@ -179,6 +179,7 @@ img { max-width: 100%; display: block; }
   color: var(--bone-dim);
   padding: 0 2.2rem;
   position: relative;
+  will-change: transform;
 }
 .section-divider-marquee .marquee-item::after {
   content: '—';

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useSplitReveal } from '../hooks/useMotion';
 import '../styles/trainers.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,6 +32,8 @@ const trainers = [
 export default function Trainers() {
   const sectionRef = useRef(null);
 
+  useSplitReveal(sectionRef);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Header animations
@@ -41,21 +44,6 @@ export default function Trainers() {
         y: 0,
         opacity: 1,
         duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          end: '+=400', scrub: 1,
-        },
-      });
-
-      gsap.fromTo('.trainers-title', {
-        y: 60,
-        opacity: 0,
-      }, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -134,7 +122,7 @@ export default function Trainers() {
       <div className="trainers-inner">
         <div className="trainers-header">
           <div className="trainers-label">Meet The Beasts</div>
-          <h2 className="trainers-title">OUR TRAINERS</h2>
+          <h2 className="trainers-title" data-reveal>OUR TRAINERS</h2>
         </div>
 
         <div className="trainers-grid">

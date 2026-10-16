@@ -1,0 +1,104 @@
+/* ===== MANIFESTO — pinned word-by-word illumination ===== */
+.manifesto {
+  position: relative;
+  height: 240vh; /* scroll distance that drives the reveal */
+  background: var(--void);
+  border-top: 1px solid var(--line);
+}
+
+.manifesto-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.manifesto-inner {
+  width: var(--container-narrow);
+  margin: 0 auto;
+}
+
+/* Meta row */
+.manifesto-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(34px, 5vw, 60px);
+}
+.manifesto-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  padding-left: 60px;
+  position: relative;
+}
+.manifesto-eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 44px;
+  height: 1px;
+  background: var(--bronze);
+}
+.manifesto-index {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* Statement */
+.manifesto-statement {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4.6vw, 4.2rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--bone);
+}
+.manifesto-word {
+  display: inline-block;
+  opacity: 0.13;
+  color: var(--bone);
+  will-change: opacity;
+}
+.manifesto-word.accent {
+  font-style: italic;
+  color: var(--bronze-light);
+}
+
+/* Progress rail */
+.manifesto-rail {
+  position: absolute;
+  right: clamp(20px, 4vw, 60px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 38vh;
+  background: var(--line);
+}
+.manifesto-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--grad-bronze);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+@media (max-width: 1024px) {
+  .manifesto { height: 200vh; }
+  .manifesto-rail { display: none; }
+}
+
+@media (max-width: 768px) {
+  .manifesto { height: 180vh; }
+  .manifesto-eyebrow { padding-left: 0; }
+  .manifesto-eyebrow::before { display: none; }
+  .manifesto-statement { font-size: clamp(1.6rem, 7vw, 2.6rem); }
+}

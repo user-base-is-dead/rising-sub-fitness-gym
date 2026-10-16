@@ -39,7 +39,7 @@ export default function Cursor() {
 
     // Add hover effect to all interactive elements
     const addHoverListeners = () => {
-      const interactiveElements = document.querySelectorAll('a, button, .cta-btn, .service-card, .trainer-card, .gallery-item, .nav-link');
+      const interactiveElements = document.querySelectorAll('a, button, .cta-btn, .service-card, .trainer-card, .gallery-item, .nav-link, [data-magnetic]');
       interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', handleHover);
         el.addEventListener('mouseleave', handleUnhover);
