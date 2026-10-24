@@ -11,7 +11,7 @@ const owner = {
   name: 'Susanta Mishra',
   role: 'Founder & Owner',
   img: '/owner.jpg',
-  bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Susanta founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jaipur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
+  bio: 'A former national-level powerlifter with 20+ years in the fitness industry, Susanta founded Rising Sun Fitness with a single mission — to build the most hardcore training facility in Jajpur. His no-excuses philosophy and relentless work ethic have shaped the gym\'s identity and inspired hundreds of athletes to push beyond their limits.',
 };
 
 const management = [
@@ -19,36 +19,17 @@ const management = [
     name: 'Barsha Priyadarsini Nanda',
     role: 'Manager',
     img: '/manager-barsha.jpg',
-    bio: 'Keeps the operations running seamlessly. With 6 years in fitness management, Barsha ensures every member gets a best to best experience.',
+    bio: 'Keeps the operations running seamlessly. With 6 years in fitness management, Barsha ensures every member gets the best possible experience.',
   },
 ];
 
 const trainers = [
-  {
-    name: 'Babu',
-    specialty: 'Bodybuilding, Athlete & Strength',
-    img: '/babu.jpg',
-    bio: 'Babu is a bodybuilding coach and competitive athlete known for his disciplined training style. He helps beginners and athletes build strength, improve physique, and prepare for competitions through structured workout and nutrition guidance.',
-    achievements: ['MR.INDIA 2025🥇🥇', 'MR.ODISHA 2025🥈🥈', 'LIFELOOM CLASSIC 2026🥇🥈🥈', 'IP CLASSIC 2025🥉', 'BFO7 CLASSIC 2025 🥉', 'LIFELOOM CLASSIC 2025🥈🥉'],
-  },
   {
     name: 'Amarjit Dixit',
     specialty: 'Cardio, Bodybuilding & HIIT Specialist',
     img: '/amarjit.jpg',
     bio: 'The energy machine of Rising Sun. Amarjit\'s HIIT sessions are legendary — high-intensity, zero rest, maximum burn. Not for the faint-hearted.',
     // achievements: ['None'],
-  },
-  {
-    name: 'Swarnaprava Senapati',
-    specialty: 'Fitness Trainer',
-    img: '/swarnaprava-senapati.jpg',
-    bio: 'Swarnaprava guides members with focused workout support, clean movement, and consistent training discipline to help them build strength and confidence.',
-  },
-  {
-    name: 'Satyajit Jena',
-    specialty: 'Fitness Trainer',
-    img: '/satyajit-jena.jpg',
-    bio: 'Satyajit helps members train with proper form, steady progression, and practical strength routines built around their fitness goals.',
   },
 ];
 

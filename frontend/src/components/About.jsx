@@ -191,7 +191,7 @@ export default function About() {
               <div className="icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="7" r="3.2"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg>
               </div>
-              <span>Certified Trainers</span>
+              <span>Expert Coaching</span>
             </div>
             <div className="about-feature">
               <div className="icon">

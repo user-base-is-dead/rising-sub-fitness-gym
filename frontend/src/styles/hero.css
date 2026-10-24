@@ -143,6 +143,10 @@
   padding-left: 0.1em;
 }
 .hero-title-line.fire {
+  /* Override the global .fire gradient-text (transparent fill) — it renders
+     invisible once SplitText wraps the chars and text-shadow is applied */
+  background: none;
+  -webkit-text-fill-color: currentColor;
   color: var(--bronze-light);
   text-shadow: 0 0 38px rgba(220, 184, 124, 0.28);
 }
@@ -266,7 +270,7 @@
   width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 .stat-item {
   padding: 22px 10px;
@@ -326,9 +330,8 @@
   .hero-eyebrow { padding-left: 0; font-size: 0.66rem; letter-spacing: 0.28em; }
   .hero-eyebrow::before { display: none; }
   .hero-grain { opacity: 0.04; }
-  .hero-stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0; }
-  .stat-item:nth-child(3) { border-left: none; }
-  .stat-item:nth-child(n+3) { border-top: 1px solid var(--line-soft); }
+  .hero-stats-inner { padding: 0; }
+  .stat-label { letter-spacing: 0.12em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import logo from '../assets/images/logo.png';
 import '../styles/loader.css';
 
+const circumference = 2 * Math.PI * 90; // r=90
+
 export default function Loader({ onEnter }) {
   const [count, setCount] = useState(0);
   const [ready, setReady] = useState(false);
@@ -12,7 +14,6 @@ export default function Loader({ onEnter }) {
   const audioChoiceRef = useRef(null);
   const loadingTextRef = useRef(null);
   const counterRef = useRef(null);
-  const circumference = 2 * Math.PI * 90; // r=90
 
   useEffect(() => {
     const tl = gsap.timeline();

@@ -1,21 +1,87 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 
+function drawScratchOverlay(ctx, w, h) {
+  // Gradient metallic background
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#2a2a2a');
+  grad.addColorStop(0.3, '#4a4a4a');
+  grad.addColorStop(0.5, '#3a3a3a');
+  grad.addColorStop(0.7, '#555555');
+  grad.addColorStop(1, '#2a2a2a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Metallic shine streaks
+  for (let i = 0; i < 20; i++) {
+    ctx.beginPath();
+    const x = Math.random() * w;
+    const y = Math.random() * h;
+    const length = 30 + Math.random() * 80;
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + length, y + length * 0.3);
+    ctx.strokeStyle = `rgba(255,255,255,${0.03 + Math.random() * 0.06})`;
+    ctx.lineWidth = 1 + Math.random() * 2;
+    ctx.stroke();
+  }
+
+  // Scratch pattern dots
+  for (let i = 0; i < 200; i++) {
+    const x = Math.random() * w;
+    const y = Math.random() * h;
+    ctx.beginPath();
+    ctx.arc(x, y, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${0.02 + Math.random() * 0.05})`;
+    ctx.fill();
+  }
+
+  // Text
+  ctx.save();
+  ctx.fillStyle = '#b8b3a8';
+  ctx.font = '600 14px "Archivo", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('SCRATCH TO REVEAL', w / 2, h / 2 - 14);
+  
+  ctx.fillStyle = '#6b675f';
+  ctx.font = '11px "Inter", sans-serif';
+  ctx.fillText('Reveal your offer', w / 2, h / 2 + 14);
+  ctx.restore();
+
+  // Animated shimmer line
+  const shimmerGrad = ctx.createLinearGradient(0, 0, w, 0);
+  shimmerGrad.addColorStop(0, 'rgba(255,255,255,0)');
+  shimmerGrad.addColorStop(0.4, 'rgba(255,255,255,0)');
+  shimmerGrad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
+  shimmerGrad.addColorStop(0.6, 'rgba(255,255,255,0)');
+  shimmerGrad.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = shimmerGrad;
+  ctx.fillRect(0, 0, w, h);
+}
+
+// Confetti positions are random but fixed once per page load
+const PARTICLE_COLORS = ['#dcb87c', '#b9935a', '#8a6b3c', '#ece9e2', '#dcb87c'];
+const PARTICLES = [...Array(20)].map((_, i) => ({
+  '--delay': `${i * 0.05}s`,
+  '--x': `${(Math.random() - 0.5) * 300}px`,
+  '--y': `${(Math.random() - 0.5) * 200}px`,
+  '--rot': `${Math.random() * 720}deg`,
+  '--size': `${4 + Math.random() * 8}px`,
+  '--color': PARTICLE_COLORS[Math.floor(Math.random() * 5)],
+}));
+
 export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [isScratching, setIsScratching] = useState(false);
-  const [revealed, setRevealed] = useState(false);
+  const [localRevealed, setLocalRevealed] = useState(false);
+  // Revealed either by scratching here or by the parent
+  const revealed = localRevealed || !!externalRevealed;
   const [scratchPercent, setScratchPercent] = useState(0);
   const lastPos = useRef(null);
   const scratchedPixels = useRef(0);
   const totalPixels = useRef(0);
-  const animFrameRef = useRef(null);
-
-  // Sync with external revealed state
-  useEffect(() => {
-    if (externalRevealed) setRevealed(true);
-  }, [externalRevealed]);
 
   // Initialize canvas
   useEffect(() => {
@@ -40,65 +106,6 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
     scratchedPixels.current = 0;
   }, []);
 
-  const drawScratchOverlay = (ctx, w, h) => {
-    // Gradient metallic background
-    const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, '#2a2a2a');
-    grad.addColorStop(0.3, '#4a4a4a');
-    grad.addColorStop(0.5, '#3a3a3a');
-    grad.addColorStop(0.7, '#555555');
-    grad.addColorStop(1, '#2a2a2a');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    // Metallic shine streaks
-    for (let i = 0; i < 20; i++) {
-      ctx.beginPath();
-      const x = Math.random() * w;
-      const y = Math.random() * h;
-      const length = 30 + Math.random() * 80;
-      ctx.moveTo(x, y);
-      ctx.lineTo(x + length, y + length * 0.3);
-      ctx.strokeStyle = `rgba(255,255,255,${0.03 + Math.random() * 0.06})`;
-      ctx.lineWidth = 1 + Math.random() * 2;
-      ctx.stroke();
-    }
-
-    // Scratch pattern dots
-    for (let i = 0; i < 200; i++) {
-      const x = Math.random() * w;
-      const y = Math.random() * h;
-      ctx.beginPath();
-      ctx.arc(x, y, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${0.02 + Math.random() * 0.05})`;
-      ctx.fill();
-    }
-
-    // Text
-    ctx.save();
-    ctx.fillStyle = '#b8b3a8';
-    ctx.font = '600 14px "Archivo", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.letterSpacing = '4px';
-    ctx.fillText('SCRATCH TO REVEAL', w / 2, h / 2 - 14);
-    
-    ctx.fillStyle = '#6b675f';
-    ctx.font = '11px "Inter", sans-serif';
-    ctx.fillText('Reveal your offer', w / 2, h / 2 + 14);
-    ctx.restore();
-
-    // Animated shimmer line
-    const shimmerGrad = ctx.createLinearGradient(0, 0, w, 0);
-    shimmerGrad.addColorStop(0, 'rgba(255,255,255,0)');
-    shimmerGrad.addColorStop(0.4, 'rgba(255,255,255,0)');
-    shimmerGrad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
-    shimmerGrad.addColorStop(0.6, 'rgba(255,255,255,0)');
-    shimmerGrad.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = shimmerGrad;
-    ctx.fillRect(0, 0, w, h);
-  };
-
   const getPos = useCallback((e) => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
@@ -115,6 +122,23 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
       y: e.clientY - rect.top,
     };
   }, []);
+
+  const revealOffer = useCallback(() => {
+    if (revealed) return;
+    setLocalRevealed(true);
+
+    const canvas = canvasRef.current;
+    if (canvas) {
+      // Animate the canvas fading away
+      gsap.to(canvas, {
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+    }
+
+    if (onReveal) onReveal();
+  }, [revealed, onReveal]);
 
   const scratch = useCallback((pos) => {
     const canvas = canvasRef.current;
@@ -152,24 +176,7 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
     if (percent >= 40 && !revealed) {
       revealOffer();
     }
-  }, [revealed]);
-
-  const revealOffer = useCallback(() => {
-    if (revealed) return;
-    setRevealed(true);
-
-    const canvas = canvasRef.current;
-    if (canvas) {
-      // Animate the canvas fading away
-      gsap.to(canvas, {
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
-    }
-
-    if (onReveal) onReveal();
-  }, [revealed, onReveal]);
+  }, [revealed, revealOffer]);
 
   const handleStart = useCallback((e) => {
     if (revealed) return;
@@ -203,15 +210,8 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
         {revealed && (
           <>
             <div className="scratch-particles">
-              {[...Array(20)].map((_, i) => (
-                <div key={i} className="scratch-particle" style={{
-                  '--delay': `${i * 0.05}s`,
-                  '--x': `${(Math.random() - 0.5) * 300}px`,
-                  '--y': `${(Math.random() - 0.5) * 200}px`,
-                  '--rot': `${Math.random() * 720}deg`,
-                  '--size': `${4 + Math.random() * 8}px`,
-                  '--color': ['#dcb87c', '#b9935a', '#8a6b3c', '#ece9e2', '#dcb87c'][Math.floor(Math.random() * 5)],
-                }} />
+              {PARTICLES.map((style, i) => (
+                <div key={i} className="scratch-particle" style={style} />
               ))}
             </div>
           </>

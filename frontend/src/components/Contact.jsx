@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { sendContactForm } from '../utils/whatsapp';
 import '../styles/contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -129,20 +130,20 @@ export default function Contact() {
 
         {/* Right: Form */}
         <div className="contact-form-wrap">
-          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="contact-form" onSubmit={sendContactForm}>
             <div className="form-row">
               <div className="form-group">
-                <input type="text" placeholder="Your Name" />
+                <input type="text" name="name" placeholder="Your Name" required />
               </div>
               <div className="form-group">
-                <input type="tel" placeholder="Phone Number" />
+                <input type="tel" name="phone" placeholder="Phone Number" required />
               </div>
             </div>
             <div className="form-group">
-              <input type="email" placeholder="Email Address" />
+              <input type="email" name="email" placeholder="Email Address" />
             </div>
             <div className="form-group">
-              <select defaultValue="">
+              <select name="subject" defaultValue="">
                 <option value="" disabled>Select Subject</option>
                 <option value="membership">Membership Inquiry</option>
                 <option value="training">Personal Training</option>
@@ -151,10 +152,10 @@ export default function Contact() {
               </select>
             </div>
             <div className="form-group">
-              <textarea placeholder="Your Message" rows={5}></textarea>
+              <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
             </div>
             <button type="submit" className="form-submit">
-              Send Message →
+              Send on WhatsApp →
             </button>
           </form>
         </div>

@@ -41,7 +41,8 @@
   background: rgba(185, 147, 90, 0.08);
 }
 
-@media (max-width: 768px) {
+/* Hide on small screens and on touch devices (tablets/iPads in landscape too) */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
   .custom-cursor,
   .cursor-follower { display: none; }
 }

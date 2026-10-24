@@ -24,7 +24,7 @@ const plans = [
       'All Training Zones',
       'Cardio Equipment',
       'Free Weights Area',
-      'Morning & Evening Slots',
+      'First Visit FREE for Newcomers',
     ],
     excluded: ['Free PT Sessions', 'Diet Consultation', 'Priority Support'],
     cta: 'Try Now',
@@ -162,7 +162,7 @@ const compareFeatures = [
 const faqs = [
   {
     q: 'What are the gym timings?',
-    a: 'We are open All days from 5:00 AM to 12:00 PM, and 4:00 PM to 11:00 PM.',
+    a: 'We are open all days from 5:00 AM to 11:00 AM, and 4:00 PM to 11:00 PM.',
   },
   {
     q: 'Can I freeze or pause my membership?',
@@ -170,11 +170,11 @@ const faqs = [
   },
   {
     q: 'Is there any other secret admission fee?',
-    a: 'No, there is no secret charges or admission fees',
+    a: 'No, there are no hidden charges or admission fees.',
   },
   {
     q: 'Do I need to pay the admission fee again if I rejoin?',
-    a: 'No, as the admission cost is 0 rupees so you need not pay any price on rejoin',
+    a: 'No. The admission fee is ₹0, so you pay nothing extra when you rejoin.',
   },
   {
     q: 'Are personal training sessions included?',
@@ -182,7 +182,7 @@ const faqs = [
   },
   {
     q: 'Is there a trial class available?',
-    a: 'Yes! We offer a free 1-day trial. Walk in anytime during gym hours with a valid ID to try us out.',
+    a: 'Yes! If you are new to Rising Sun Fitness, your first visit is completely FREE — just walk in during gym hours with a valid ID. After that, a 1 Day Pass costs ₹100 per day.',
   },
 ];
 
@@ -196,7 +196,6 @@ export default function PricingPage() {
   const pageRef = useRef(null);
   const [activePlan, setActivePlan] = useState(1); // Monthly by default
   const [openFaq, setOpenFaq] = useState(null);
-  const [animatingPrice, setAnimatingPrice] = useState(false);
   const [scratchRevealed, setScratchRevealed] = useState(false);
   const [extraOfferActive, setExtraOfferActive] = useState(false);
   const priceRef = useRef(null);
@@ -210,10 +209,11 @@ export default function PricingPage() {
     setOpenFaq(openFaq === i ? null : i);
   };
 
-  // Reset extra offer when switching plans
-  useEffect(() => {
+  // Switching plans also resets the extra offer
+  const selectPlan = (i) => {
+    setActivePlan(i);
     setExtraOfferActive(false);
-  }, [activePlan]);
+  };
 
   // Animate price counter when plan changes or extra offer toggles
   useEffect(() => {
@@ -223,7 +223,6 @@ export default function PricingPage() {
     const el = priceRef.current;
     const target = (extraOfferActive && plan.extraOffer) ? plan.extraOffer.price : plan.price;
 
-    setAnimatingPrice(true);
     const obj = { v: 0 };
     const tween = gsap.to(obj, {
       v: target,
@@ -232,7 +231,6 @@ export default function PricingPage() {
       onUpdate: () => {
         el.textContent = Math.round(obj.v).toLocaleString('en-IN');
       },
-      onComplete: () => setAnimatingPrice(false),
     });
 
     // Animate card entrance (only on plan switch, not toggle)
@@ -418,7 +416,7 @@ export default function PricingPage() {
                 <button
                   key={i}
                   className={`pp-tab ${activePlan === i ? 'active' : ''} ${plan.featured ? 'tab-popular' : ''}`}
-                  onClick={() => setActivePlan(i)}
+                  onClick={() => selectPlan(i)}
                 >
                   <span className="pp-tab-name">{plan.name}</span>
                   {plan.badge && <span className="pp-tab-badge">{plan.badge}</span>}
@@ -522,7 +520,7 @@ export default function PricingPage() {
               <div
                 className={`pp-quick-item ${plans.indexOf(plan) === activePlan ? 'active' : ''}`}
                 key={i}
-                onClick={() => setActivePlan(plans.indexOf(plan))}
+                onClick={() => selectPlan(plans.indexOf(plan))}
               >
                 <div className="pp-quick-name">{plan.name}</div>
                 <div className="pp-quick-price">₹{plan.perMonth}<span>/mo</span></div>

@@ -198,15 +198,11 @@ export default function Hero({ loaded }) {
             <div className="stat-label">Members</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number" data-target="5" data-suffix="+">0</div>
-            <div className="stat-label">Expert Trainers</div>
+            <div className="stat-number" data-target="1">0</div>
+            <div className="stat-label">Expert Trainer</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number" data-target="4" data-suffix="">0</div>
-            <div className="stat-label">Achievements</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number" data-target="3" data-suffix="+">0</div>
+            <div className="stat-number" data-target="8" data-suffix="+">0</div>
             <div className="stat-label">Years Strong</div>
           </div>
         </div>

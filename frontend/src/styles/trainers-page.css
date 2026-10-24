@@ -224,7 +224,9 @@
 .tp-trainers-inner { width: var(--container); margin: 0 auto; text-align: center; }
 .tp-trainers-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* auto-fit + justify-content keeps any card count (even one) centred */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 418px));
+  justify-content: center;
   gap: clamp(24px, 3vw, 44px);
   max-width: 880px;
   margin: 0 auto;
@@ -298,7 +300,6 @@
 @media (max-width: 900px) {
   .tp-owner-inner { grid-template-columns: 1fr; gap: 40px; }
   .tp-owner-image-wrap { max-height: 60vh; }
-  .tp-trainers-grid { grid-template-columns: 1fr 1fr; }
   .tp-mgmt-card { grid-template-columns: 1fr; gap: 24px; }
 }
 @media (max-width: 600px) {

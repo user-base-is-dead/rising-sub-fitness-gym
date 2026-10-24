@@ -1,0 +1,50 @@
+/* ===== BLACKLIST PAGE ===== */
+.blacklist-page { position: relative; background: var(--void); }
+
+/* ── Hero ── */
+.bl-hero {
+  position: relative;
+  padding: clamp(150px, 18vw, 220px) 16px clamp(20px, 4vw, 40px);
+  text-align: center;
+  overflow: hidden;
+}
+.bl-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 30%, rgba(214, 64, 52, 0.16), transparent 65%);
+  pointer-events: none;
+}
+.bl-hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.bl-hero-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #e5574b;
+  margin-bottom: 24px;
+}
+.bl-hero-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3.2rem, 11vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+}
+.bl-red { color: #e5574b; font-style: italic; }
+.bl-hero-line {
+  width: 120px;
+  height: 2px;
+  background: #d64034;
+  margin: 30px auto;
+}
+.bl-hero-text {
+  color: var(--bone-dim);
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  line-height: 1.7;
+}
+
+/* Notice sits right under the hero on this page */
+.blacklist-page .public-notice { padding-top: clamp(30px, 5vw, 60px); }

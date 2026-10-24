@@ -134,7 +134,7 @@ export default function Pricing() {
               </div>
               <div className="pricing-feature">
                 <span className="check">✓</span>
-                <span>Lifetime Membership</span>
+                <span>Never Pay Admission Again</span>
               </div>
             </div>
             <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>Register Now</button>
@@ -142,6 +142,7 @@ export default function Pricing() {
 
           {/* 1 Day Pass */}
           <div className="pricing-card">
+            <div className="pricing-badge">1st Visit FREE</div>
             <div className="pricing-card-type">1 Day Pass</div>
             <div className="pricing-amount">
               <span className="pricing-currency">₹</span>

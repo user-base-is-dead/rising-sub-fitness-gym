@@ -8,24 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const trainers = [
   {
-    name: 'Babu',
-    role: 'Bodybuilding, Athlete & Strength',
-    img: '/babu.jpg',
-  },
-  {
     name: 'Amarjit Dixit',
     role: 'Cardio, Bodybuilding & HIIT Specialist',
     img: '/amarjit.jpg',
-  },
-  {
-    name: 'Swarnaprava Senapati',
-    role: 'Fitness Trainer',
-    img: '/swarnaprava-senapati.jpg',
-  },
-  {
-    name: 'Satyajit Jena',
-    role: 'Fitness Trainer',
-    img: '/satyajit-jena.jpg',
   },
 ];
 

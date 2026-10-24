@@ -11,10 +11,17 @@ export default function PageTransition({ children, onPageSwap }) {
   const overlayRef = useRef(null);
   const pathRef = useRef(null);
   const brandRef = useRef(null);
+  // Latest callback in a ref so the effect doesn't re-run on every parent render
+  const onPageSwapRef = useRef(onPageSwap);
+  useEffect(() => {
+    onPageSwapRef.current = onPageSwap;
+  });
 
   useEffect(() => {
     // If location changes, and we aren't already transitioning to that location
     if (location.pathname !== displayLocation.pathname && !transitioning) {
+      // State here drives a GSAP animation (external system), so setting it in the effect is intended
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTransitioning(true);
 
       const overlay = overlayRef.current;
@@ -23,7 +30,7 @@ export default function PageTransition({ children, onPageSwap }) {
       
       if (!overlay || !path) {
         setDisplayLocation(location);
-        if (onPageSwap) onPageSwap();
+        onPageSwapRef.current?.();
         setTransitioning(false);
         return;
       }
@@ -63,7 +70,7 @@ export default function PageTransition({ children, onPageSwap }) {
       // 3. Swap route and change path orientation for uncover
       tl.call(() => {
         setDisplayLocation(location);
-        if (onPageSwap) onPageSwap();
+        onPageSwapRef.current?.();
         
         // Change path so it draws from top down (fills same visual area)
         gsap.set(path, { attr: { d: "M 0 0 L 0 100 Q 50 100 100 100 L 100 0 Z" } });

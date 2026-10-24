@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '../components/Footer';
+import { sendContactForm } from '../utils/whatsapp';
 import '../styles/contact-page.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -202,20 +203,20 @@ export default function ContactPage() {
           <div className="cp-form-wrap">
             <div className="cp-section-label">Drop A Message</div>
             <h2 className="cp-section-title">SEND US A <span className="highlight">MESSAGE</span></h2>
-            <form className="cp-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="cp-form" onSubmit={sendContactForm}>
               <div className="cp-form-row">
                 <div className="cp-form-group">
-                  <input type="text" placeholder="Your Name" />
+                  <input type="text" name="name" placeholder="Your Name" required />
                 </div>
                 <div className="cp-form-group">
-                  <input type="tel" placeholder="Phone Number" />
+                  <input type="tel" name="phone" placeholder="Phone Number" required />
                 </div>
               </div>
               <div className="cp-form-group">
-                <input type="email" placeholder="Email Address" />
+                <input type="email" name="email" placeholder="Email Address" />
               </div>
               <div className="cp-form-group">
-                <select defaultValue="">
+                <select name="subject" defaultValue="">
                   <option value="" disabled>Select Subject</option>
                   <option value="membership">Membership Inquiry</option>
                   <option value="training">Personal Training</option>
@@ -224,10 +225,10 @@ export default function ContactPage() {
                 </select>
               </div>
               <div className="cp-form-group">
-                <textarea placeholder="Your Message" rows={5}></textarea>
+                <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
               </div>
               <button type="submit" className="cp-form-submit">
-                Send Message →
+                Send on WhatsApp →
               </button>
             </form>
           </div>

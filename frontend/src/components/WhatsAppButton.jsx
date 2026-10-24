@@ -1,36 +1,19 @@
-import React from 'react';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 import '../styles/whatsapp-button.css';
 
 export default function WhatsAppButton() {
-  const phoneNumber = '916380816041'; // Format: Country code + Number without '+'
-  const message = 'Hello! I am interested in joining Rising Sun Fitness. Can I get more details?';
-  const encodedMessage = encodeURIComponent(message);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    // Check if user is on mobile/tablet based on standard User-Agent strings
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      // On mobile, try deep linking to the app first
-      // The browser will typically fall back gracefully or prompt if not installed
-      window.open(`whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
-      
-      // Fallback in case whatsapp:// scheme isn't supported/handled (timeout hack)
-      setTimeout(() => {
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-      }, 500);
-    } else {
-      // On desktop, use wa.me standard link. 
-      // This will prompt the user's browser to open the native WhatsApp Desktop App if installed,
-      // and it also provides a graceful fallback to WhatsApp Web if they don't have it.
-      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-    }
-  };
+  // wa.me opens the WhatsApp app on phones and WhatsApp Web/Desktop on computers,
+  // so a single link covers every device (no double-open)
+  const href = getWhatsAppUrl('Hello! I am interested in joining Rising Sun Fitness. Can I get more details?');
 
   return (
-    <a href="#" className="whatsapp-float-btn" onClick={handleClick} aria-label="Chat with us on WhatsApp">
+    <a
+      href={href}
+      className="whatsapp-float-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+    >
       {/* WhatsApp SVG Icon */}
       <svg 
         xmlns="http://www.w3.org/2000/svg" 

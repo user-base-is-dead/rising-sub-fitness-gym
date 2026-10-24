@@ -172,3 +172,12 @@
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
 }
+
+/* Blacklist link — red so it stands out as a warning */
+.nav-link.nav-link-alert,
+.mobile-nav-link.nav-link-alert { color: #e5574b; }
+.nav-link.nav-link-alert::after { background: #e5574b; }
+.nav-link.nav-link-alert:hover,
+.nav-link.nav-link-alert.active,
+.mobile-nav-link.nav-link-alert:hover,
+.mobile-nav-link.nav-link-alert.active { color: #ff6f61; }

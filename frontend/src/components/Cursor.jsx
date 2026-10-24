@@ -25,35 +25,20 @@ export default function Cursor() {
       });
     };
 
-    const handleHover = () => {
-      cursor.classList.add('hover');
-      follower.classList.add('hover');
-    };
-
-    const handleUnhover = () => {
-      cursor.classList.remove('hover');
-      follower.classList.remove('hover');
+    // One delegated listener instead of re-binding every element on each DOM change
+    const INTERACTIVE = 'a, button, .cta-btn, .service-card, .trainer-card, .gallery-item, .nav-link, [data-magnetic]';
+    const handleOver = (e) => {
+      const isHover = !!e.target.closest?.(INTERACTIVE);
+      cursor.classList.toggle('hover', isHover);
+      follower.classList.toggle('hover', isHover);
     };
 
     window.addEventListener('mousemove', moveCursor);
-
-    // Add hover effect to all interactive elements
-    const addHoverListeners = () => {
-      const interactiveElements = document.querySelectorAll('a, button, .cta-btn, .service-card, .trainer-card, .gallery-item, .nav-link, [data-magnetic]');
-      interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', handleHover);
-        el.addEventListener('mouseleave', handleUnhover);
-      });
-    };
-
-    // Use MutationObserver to handle dynamically added elements
-    const observer = new MutationObserver(addHoverListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
-    addHoverListeners();
+    document.addEventListener('mouseover', handleOver);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      observer.disconnect();
+      document.removeEventListener('mouseover', handleOver);
     };
   }, []);
 

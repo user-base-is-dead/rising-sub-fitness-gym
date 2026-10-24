@@ -21,7 +21,7 @@ const services = [
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3"><circle cx="12" cy="6" r="2.4"/><path d="M12 8.4V14m0 0-4 6m4-6 4 6M7 11h10"/></svg>
     ),
     title: 'Personal Training',
-    desc: 'One-to-one coaching with certified trainers. Programmes are tailored to your body, goals, and pace for measured, lasting results.',
+    desc: 'One-to-one coaching with a certified trainer. Programmes are tailored to your body, goals, and pace for measured, lasting results.',
     img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80',
   },
   {

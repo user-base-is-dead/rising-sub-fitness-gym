@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const galleryItems = [
   {
     img: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&q=80',
-    title: 'Competition Winners',
+    title: 'Strength Floor',
   },
   {
     img: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80',
@@ -17,7 +17,7 @@ const galleryItems = [
   },
   {
     img: 'https://images.unsplash.com/photo-1605296867424-35fc25c9212a?w=800&q=80',
-    title: 'Transformation Stories',
+    title: 'Daily Grind',
   },
   {
     img: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80',

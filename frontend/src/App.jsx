@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,7 +12,7 @@ import HomePage from './pages/HomePage';
 import TrainersPage from './pages/TrainersPage';
 import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
-import AchievementsPage from './pages/AchievementsPage';
+import BlacklistPage from './pages/BlacklistPage';
 import PageTransition from './components/PageTransition';
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -132,8 +132,8 @@ export default function App() {
 
   return (
     <>
-      {/* Audio element — user will add their mp3 file here */}
-      <audio ref={audioRef} loop preload="auto">
+      {/* Background music — only downloaded once the visitor chooses to play it */}
+      <audio ref={audioRef} loop preload="none">
         <source src="/bg-music.mp3" type="audio/mpeg" />
       </audio>
 
@@ -150,10 +150,11 @@ export default function App() {
         <PageTransition onPageSwap={handlePageSwap}>
           <Routes location={location}>
             <Route path="/" element={<HomePage loaded={loaded} />} />
-            <Route path="/achievements" element={<AchievementsPage />} />
             <Route path="/trainers" element={<TrainersPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blacklist" element={<BlacklistPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </PageTransition>
       </div>
