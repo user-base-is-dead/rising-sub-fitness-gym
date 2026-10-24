@@ -128,6 +128,13 @@ img { max-width: 100%; display: block; }
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+/* Italic glyphs overhang their box; pad the gradient area so the last letter isn't clipped */
+.highlight, .gold, .fire, .outline-text, .outline {
+  padding-right: 0.14em;
+  margin-right: -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 .highlight-red { color: var(--ember); }
 .gold, .fire, .outline-text, .outline {
   background: var(--grad-bronze);
