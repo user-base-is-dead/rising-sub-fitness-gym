@@ -1,87 +1,111 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 
+// Share of the foil that must be cleared before the offer auto-reveals
+const REVEAL_AT = 45;
+const FOIL_COLORS = ['#e3c189', '#dcb87c', '#b9935a', '#8a6b3c'];
+const CONFETTI_COLORS = ['#e3c189', '#dcb87c', '#b9935a', '#8a6b3c', '#ece9e2'];
+
+const rand = (min, max) => min + Math.random() * (max - min);
+const prefersReducedMotion = () =>
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
 function drawScratchOverlay(ctx, w, h) {
-  // Gradient metallic background
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.clearRect(0, 0, w, h);
+
+  // Bronze foil base
   const grad = ctx.createLinearGradient(0, 0, w, h);
-  grad.addColorStop(0, '#2a2a2a');
-  grad.addColorStop(0.3, '#4a4a4a');
-  grad.addColorStop(0.5, '#3a3a3a');
-  grad.addColorStop(0.7, '#555555');
-  grad.addColorStop(1, '#2a2a2a');
+  grad.addColorStop(0, '#5a4526');
+  grad.addColorStop(0.28, '#b9935a');
+  grad.addColorStop(0.5, '#e3c189');
+  grad.addColorStop(0.72, '#a07c45');
+  grad.addColorStop(1, '#5a4526');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
 
-  // Metallic shine streaks
-  for (let i = 0; i < 20; i++) {
-    ctx.beginPath();
-    const x = Math.random() * w;
-    const y = Math.random() * h;
-    const length = 30 + Math.random() * 80;
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + length, y + length * 0.3);
-    ctx.strokeStyle = `rgba(255,255,255,${0.03 + Math.random() * 0.06})`;
-    ctx.lineWidth = 1 + Math.random() * 2;
-    ctx.stroke();
+  // Brushed-metal grain
+  for (let y = 0; y < h; y += 2) {
+    ctx.fillStyle = Math.random() > 0.5
+      ? `rgba(255,255,255,${rand(0.02, 0.07)})`
+      : `rgba(0,0,0,${rand(0.02, 0.06)})`;
+    ctx.fillRect(0, y, w, 1);
   }
 
-  // Scratch pattern dots
-  for (let i = 0; i < 200; i++) {
-    const x = Math.random() * w;
-    const y = Math.random() * h;
-    ctx.beginPath();
-    ctx.arc(x, y, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${0.02 + Math.random() * 0.05})`;
-    ctx.fill();
+  // Diamond dot pattern
+  ctx.fillStyle = 'rgba(40,28,12,0.14)';
+  for (let y = 12; y < h; y += 18) {
+    for (let x = (y / 18) % 2 ? 12 : 21; x < w; x += 18) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
-  // Text
+  // Dashed inner frame
   ctx.save();
-  ctx.fillStyle = '#b8b3a8';
-  ctx.font = '600 14px "Archivo", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.letterSpacing = '4px';
-  ctx.fillText('SCRATCH TO REVEAL', w / 2, h / 2 - 14);
-  
-  ctx.fillStyle = '#6b675f';
-  ctx.font = '11px "Inter", sans-serif';
-  ctx.fillText('Reveal your offer', w / 2, h / 2 + 14);
+  ctx.setLineDash([5, 5]);
+  ctx.strokeStyle = 'rgba(40,28,12,0.4)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(12.5, 12.5, w - 25, h - 25);
   ctx.restore();
 
-  // Animated shimmer line
-  const shimmerGrad = ctx.createLinearGradient(0, 0, w, 0);
-  shimmerGrad.addColorStop(0, 'rgba(255,255,255,0)');
-  shimmerGrad.addColorStop(0.4, 'rgba(255,255,255,0)');
-  shimmerGrad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
-  shimmerGrad.addColorStop(0.6, 'rgba(255,255,255,0)');
-  shimmerGrad.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = shimmerGrad;
-  ctx.fillRect(0, 0, w, h);
-}
+  // Rising sun emblem
+  const cx = w / 2;
+  const cy = h / 2 - 12;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(40,28,12,0.6)';
+  ctx.fillStyle = 'rgba(40,28,12,0.6)';
+  ctx.lineWidth = 1.6;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 11, Math.PI, 0);
+  ctx.fill();
+  for (let i = 0; i <= 8; i++) {
+    const a = Math.PI + (Math.PI * i) / 8;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * 15, cy + Math.sin(a) * 15);
+    ctx.lineTo(cx + Math.cos(a) * 21, cy + Math.sin(a) * 21);
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.moveTo(cx - 28, cy + 0.5);
+  ctx.lineTo(cx + 28, cy + 0.5);
+  ctx.stroke();
+  ctx.restore();
 
-// Confetti positions are random but fixed once per page load
-const PARTICLE_COLORS = ['#dcb87c', '#b9935a', '#8a6b3c', '#ece9e2', '#dcb87c'];
-const PARTICLES = [...Array(20)].map((_, i) => ({
-  '--delay': `${i * 0.05}s`,
-  '--x': `${(Math.random() - 0.5) * 300}px`,
-  '--y': `${(Math.random() - 0.5) * 200}px`,
-  '--rot': `${Math.random() * 720}deg`,
-  '--size': `${4 + Math.random() * 8}px`,
-  '--color': PARTICLE_COLORS[Math.floor(Math.random() * 5)],
-}));
+  // Embossed label
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '700 15px "Archivo", sans-serif';
+  ctx.letterSpacing = '5px';
+  ctx.fillStyle = 'rgba(255,240,210,0.35)';
+  ctx.fillText('SCRATCH HERE', cx + 2.5, cy + 27);
+  ctx.fillStyle = 'rgba(30,20,8,0.85)';
+  ctx.fillText('SCRATCH HERE', cx + 2.5, cy + 26);
+
+  ctx.font = '500 11px "Inter", sans-serif';
+  ctx.letterSpacing = '0.5px';
+  ctx.fillStyle = 'rgba(30,20,8,0.65)';
+  ctx.fillText('Your admission offer is hidden underneath', cx, cy + 48);
+  ctx.restore();
+}
 
 export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const [isScratching, setIsScratching] = useState(false);
+  const fxRef = useRef(null);
   const [localRevealed, setLocalRevealed] = useState(false);
   // Revealed either by scratching here or by the parent
   const revealed = localRevealed || !!externalRevealed;
+  const [started, setStarted] = useState(false);
   const [scratchPercent, setScratchPercent] = useState(0);
+  const isScratching = useRef(false);
+  const startedRef = useRef(false);
   const lastPos = useRef(null);
-  const scratchedPixels = useRef(0);
-  const totalPixels = useRef(0);
+  const lastCheck = useRef(0);
+  const lastFlake = useRef(0);
 
   // Initialize canvas
   useEffect(() => {
@@ -93,150 +117,245 @@ export default function ScratchCard({ onReveal, revealed: externalRevealed }) {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
-    canvas.style.width = rect.width + 'px';
-    canvas.style.height = rect.height + 'px';
 
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-
-    // Draw the scratch overlay
-    drawScratchOverlay(ctx, rect.width, rect.height);
-
-    totalPixels.current = rect.width * rect.height;
-    scratchedPixels.current = 0;
-  }, []);
-
-  const getPos = useCallback((e) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
-    const rect = canvas.getBoundingClientRect();
-
-    if (e.touches && e.touches.length > 0) {
-      return {
-        x: e.touches[0].clientX - rect.left,
-        y: e.touches[0].clientY - rect.top,
-      };
-    }
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const paint = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawScratchOverlay(ctx, rect.width, rect.height);
     };
+    paint();
+
+    // Repaint once web fonts arrive, unless the visitor already started scratching
+    document.fonts?.ready.then(() => {
+      if (!startedRef.current) paint();
+    });
   }, []);
+
+  const getPos = (e) => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+
+  // Tiny foil shavings that fall off where the visitor scratches
+  const spawnFlakes = (pos) => {
+    const fx = fxRef.current;
+    const now = performance.now();
+    if (!fx || now - lastFlake.current < 35 || prefersReducedMotion()) return;
+    lastFlake.current = now;
+
+    for (let i = 0; i < 3; i++) {
+      const flake = document.createElement('span');
+      const size = rand(2, 5);
+      flake.className = 'scratch-flake';
+      Object.assign(flake.style, {
+        left: `${pos.x}px`,
+        top: `${pos.y}px`,
+        width: `${size}px`,
+        height: `${size * rand(0.5, 1)}px`,
+        background: FOIL_COLORS[Math.floor(Math.random() * FOIL_COLORS.length)],
+      });
+      fx.appendChild(flake);
+      gsap.to(flake, {
+        x: rand(-28, 28),
+        y: rand(30, 80),
+        rotation: rand(-200, 200),
+        opacity: 0,
+        duration: rand(0.5, 0.9),
+        ease: 'power1.in',
+        onComplete: () => flake.remove(),
+      });
+    }
+  };
+
+  const burstConfetti = () => {
+    const fx = fxRef.current;
+    const card = containerRef.current;
+    if (!fx || !card || prefersReducedMotion()) return;
+
+    const { width, height } = card.getBoundingClientRect();
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement('span');
+      const isDot = Math.random() > 0.6;
+      piece.className = 'scratch-confetti';
+      Object.assign(piece.style, {
+        left: `${width / 2}px`,
+        top: `${height / 2}px`,
+        width: `${isDot ? 6 : rand(6, 11)}px`,
+        height: `${isDot ? 6 : rand(3, 5)}px`,
+        borderRadius: isDot ? '50%' : '1px',
+        background: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      });
+      fx.appendChild(piece);
+      gsap.timeline({ onComplete: () => piece.remove() })
+        .to(piece, {
+          x: rand(-width * 0.7, width * 0.7),
+          y: rand(-height * 0.9, -height * 0.2),
+          rotation: rand(-360, 360),
+          duration: rand(0.5, 0.75),
+          ease: 'power3.out',
+        })
+        .to(piece, {
+          y: `+=${rand(height * 0.8, height * 1.3)}`,
+          rotation: `+=${rand(-180, 180)}`,
+          opacity: 0,
+          duration: rand(1, 1.5),
+          ease: 'power1.in',
+        });
+    }
+  };
 
   const revealOffer = useCallback(() => {
     if (revealed) return;
     setLocalRevealed(true);
+    isScratching.current = false;
 
     const canvas = canvasRef.current;
+    const card = containerRef.current;
     if (canvas) {
-      // Animate the canvas fading away
-      gsap.to(canvas, {
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
+      gsap.to(canvas, { opacity: 0, scale: 1.06, duration: 0.7, ease: 'power2.out' });
     }
+    const free = card?.querySelector('.scratch-free-text');
+    if (free) {
+      gsap.fromTo(free, { scale: 0.7 }, { scale: 1, duration: 1, ease: 'elastic.out(1, 0.45)' });
+    }
+    burstConfetti();
+    navigator.vibrate?.([25, 40, 60]);
 
     if (onReveal) onReveal();
   }, [revealed, onReveal]);
 
-  const scratch = useCallback((pos) => {
+  // Measure how much foil is really gone by sampling the canvas alpha
+  const measureCleared = () => {
+    const canvas = canvasRef.current;
+    const { data } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+    let cleared = 0;
+    let samples = 0;
+    for (let i = 3; i < data.length; i += 4 * 24) {
+      samples++;
+      if (data[i] < 128) cleared++;
+    }
+    return (cleared / samples) * 100;
+  };
+
+  const scratch = (pos) => {
     const canvas = canvasRef.current;
     if (!canvas || revealed) return;
 
     const ctx = canvas.getContext('2d');
+    const radius = Math.max(18, canvas.clientWidth * 0.055);
     ctx.globalCompositeOperation = 'destination-out';
 
-    // Draw scratch stroke
     if (lastPos.current) {
       ctx.beginPath();
       ctx.moveTo(lastPos.current.x, lastPos.current.y);
       ctx.lineTo(pos.x, pos.y);
-      ctx.lineWidth = 45;
+      ctx.lineWidth = radius * 2;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.stroke();
     }
 
-    // Also draw circle at current position for better coverage
+    // Main dab plus a few jittered ones for a rough, coin-scratched edge
     ctx.beginPath();
-    ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
+    ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
     ctx.fill();
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath();
+      ctx.arc(pos.x + rand(-radius, radius), pos.y + rand(-radius, radius), radius * rand(0.25, 0.5), 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     lastPos.current = pos;
+    spawnFlakes(pos);
 
-    // Track scratched area
-    scratchedPixels.current += 45 * 2;
-
-    // Calculate percentage
-    const percent = Math.min(100, (scratchedPixels.current / totalPixels.current) * 100 * 8);
-    setScratchPercent(percent);
-
-    // Auto-reveal at 40%
-    if (percent >= 40 && !revealed) {
-      revealOffer();
+    const now = performance.now();
+    if (now - lastCheck.current > 90) {
+      lastCheck.current = now;
+      const percent = measureCleared();
+      setScratchPercent(percent);
+      if (percent >= REVEAL_AT) revealOffer();
     }
-  }, [revealed, revealOffer]);
+  };
 
-  const handleStart = useCallback((e) => {
+  const handleStart = (e) => {
     if (revealed) return;
     e.preventDefault();
-    setIsScratching(true);
-    lastPos.current = getPos(e);
-  }, [revealed, getPos]);
-
-  const handleMove = useCallback((e) => {
-    if (!isScratching || revealed) return;
-    e.preventDefault();
-    const pos = getPos(e);
-    scratch(pos);
-  }, [isScratching, revealed, getPos, scratch]);
-
-  const handleEnd = useCallback(() => {
-    setIsScratching(false);
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    isScratching.current = true;
+    if (!startedRef.current) {
+      startedRef.current = true;
+      setStarted(true);
+    }
     lastPos.current = null;
-  }, []);
+    scratch(getPos(e));
+  };
+
+  const handleMove = (e) => {
+    if (!isScratching.current || revealed) return;
+    e.preventDefault();
+    scratch(getPos(e));
+  };
+
+  const handleEnd = () => {
+    isScratching.current = false;
+    lastPos.current = null;
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      revealOffer();
+    }
+  };
 
   return (
-    <div className="scratch-card" ref={containerRef}>
-      {/* Content underneath the scratch surface */}
-      <div className={`scratch-content ${revealed ? 'revealed' : ''}`}>
-        <div className="scratch-offer-text">ADMISSION FEE</div>
-        <div className="scratch-free-wrapper">
-          <div className="scratch-free-text">FREE</div>
-          <div className="scratch-rupee-zero">₹0</div>
+    <div className="scratch-card-shell">
+      <div className={`scratch-card${revealed ? ' is-revealed' : ''}`} ref={containerRef}>
+        {/* Content underneath the scratch surface */}
+        <div className={`scratch-content ${revealed ? 'revealed' : ''}`}>
+          <div className="scratch-offer-text">Admission Fee</div>
+          <div className="scratch-free-wrapper">
+            <div className="scratch-free-text">FREE</div>
+            <div className="scratch-rupee-zero">₹0</div>
+          </div>
+          <div className="scratch-offer-sub">Zero Admission Fee. Forever.</div>
         </div>
-        <div className="scratch-offer-sub">Zero Admission Fee. Forever.</div>
-        {revealed && (
+
+        {/* Canvas scratch overlay */}
+        <canvas
+          ref={canvasRef}
+          className="scratch-canvas"
+          role="button"
+          tabIndex={revealed ? -1 : 0}
+          aria-label="Scratch card. Scratch it, or press Enter to reveal your admission offer."
+          onPointerDown={handleStart}
+          onPointerMove={handleMove}
+          onPointerUp={handleEnd}
+          onPointerCancel={handleEnd}
+          onKeyDown={handleKeyDown}
+        />
+
+        {/* Idle hints, gone as soon as scratching starts */}
+        {!started && !revealed && (
           <>
-            <div className="scratch-particles">
-              {PARTICLES.map((style, i) => (
-                <div key={i} className="scratch-particle" style={style} />
-              ))}
-            </div>
+            <div className="scratch-shimmer" aria-hidden="true" />
+            <div className="scratch-coin-hint" aria-hidden="true">₹</div>
           </>
+        )}
+
+        {/* Scratch progress */}
+        {started && !revealed && (
+          <div className="scratch-progress" aria-hidden="true">
+            <div
+              className="scratch-progress-bar"
+              style={{ width: `${Math.min(100, (scratchPercent / REVEAL_AT) * 100)}%` }}
+            />
+          </div>
         )}
       </div>
 
-      {/* Canvas scratch overlay */}
-      <canvas
-        ref={canvasRef}
-        className="scratch-canvas"
-        onMouseDown={handleStart}
-        onMouseMove={handleMove}
-        onMouseUp={handleEnd}
-        onMouseLeave={handleEnd}
-        onTouchStart={handleStart}
-        onTouchMove={handleMove}
-        onTouchEnd={handleEnd}
-      />
-
-      {/* Scratch progress hint */}
-      {!revealed && scratchPercent > 0 && scratchPercent < 40 && (
-        <div className="scratch-progress">
-          <div className="scratch-progress-bar" style={{ width: `${(scratchPercent / 40) * 100}%` }} />
-        </div>
-      )}
+      {/* Foil shavings and confetti live outside the clipped card */}
+      <div className="scratch-fx" ref={fxRef} aria-hidden="true" />
     </div>
   );
 }

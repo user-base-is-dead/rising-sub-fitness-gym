@@ -386,7 +386,6 @@ export default function PricingPage() {
           <h2 className="pp-surprise-question">Scratch To Reveal Your <span className="highlight">Admission Fee</span></h2>
           <div className="pp-scratch-wrapper">
             <div className="pp-scratch-hint">
-              <span className="pp-scratch-coin"></span>
               Use your finger or mouse to scratch
             </div>
             <ScratchCard onReveal={handleScratchReveal} revealed={scratchRevealed} />

@@ -1,15 +1,48 @@
 /* ===== SCRATCH CARD ===== */
-.scratch-card {
+.scratch-card-shell {
   position: relative;
   width: min(420px, 86vw);
+  margin: 0 auto;
+}
+
+.scratch-card {
+  position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--line-strong);
   background: var(--surface);
-  margin: 0 auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.8s ease, border-color 0.8s ease, transform 0.4s var(--ease-quart);
 }
+@media (hover: hover) {
+  .scratch-card:not(.is-revealed):hover { transform: translateY(-3px); }
+}
+.scratch-card.is-revealed {
+  border-color: var(--bronze-deep);
+  box-shadow:
+    0 0 0 1px rgba(185, 147, 90, 0.25),
+    0 20px 80px rgba(185, 147, 90, 0.28);
+}
+
+/* Ticket notches */
+.scratch-card::before,
+.scratch-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 1px solid var(--line-strong);
+  transform: translateY(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+.scratch-card::before { left: -12px; }
+.scratch-card::after { right: -12px; }
 
 .scratch-content {
   position: absolute;
@@ -23,6 +56,17 @@
     radial-gradient(70% 70% at 50% 40%, rgba(185, 147, 90, 0.16), transparent 70%),
     var(--surface);
   text-align: center;
+  overflow: hidden;
+}
+/* One shine sweep across the offer when it is revealed */
+.scratch-content.revealed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(236, 233, 226, 0.14) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: scratch-shine 1.4s 0.35s ease-out forwards;
+  pointer-events: none;
 }
 .scratch-offer-text {
   font-family: var(--font-sans);
@@ -47,6 +91,9 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.scratch-content.revealed .scratch-free-text {
+  filter: drop-shadow(0 0 18px rgba(220, 184, 124, 0.35));
+}
 .scratch-rupee-zero {
   font-family: var(--font-display);
   font-weight: 400;
@@ -65,44 +112,99 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  z-index: 1;
+  cursor: grab;
   touch-action: none;
+  transform-origin: center;
+}
+.scratch-canvas:active { cursor: grabbing; }
+.scratch-canvas:focus-visible {
+  outline: 2px solid var(--bronze-light);
+  outline-offset: -4px;
+}
+.scratch-card.is-revealed .scratch-canvas { pointer-events: none; }
+
+/* Idle hints */
+.scratch-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 248, 230, 0.35) 50%, transparent 62%);
+  transform: translateX(-110%);
+  animation: scratch-shimmer 3.2s 1s ease-in-out infinite;
+}
+.scratch-coin-hint {
+  position: absolute;
+  top: 58%;
+  left: 30%;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--grad-bronze);
+  border: 2px solid rgba(40, 28, 12, 0.45);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 245, 220, 0.6);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgba(40, 28, 12, 0.8);
+  pointer-events: none;
+  animation: scratch-coin 2.6s ease-in-out infinite;
 }
 
 .scratch-progress {
   position: absolute;
-  bottom: 14px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  width: 56%;
+  height: 4px;
+  background: rgba(20, 14, 6, 0.45);
+  border-radius: 4px;
   overflow: hidden;
   z-index: 5;
 }
 .scratch-progress-bar {
   height: 100%;
-  background: var(--grad-bronze);
+  background: linear-gradient(90deg, #ece9e2, #dcb87c);
+  border-radius: 4px;
   transition: width 0.2s ease;
 }
 
-/* Particles */
-.scratch-particles { position: absolute; inset: 0; pointer-events: none; }
-.scratch-particle {
+/* Shavings and confetti */
+.scratch-fx {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--size);
-  height: var(--size);
-  background: var(--color);
-  border-radius: 50%;
-  animation: scratch-burst 1s var(--delay) ease-out forwards;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
 }
-@keyframes scratch-burst {
-  0% { transform: translate(-50%, -50%) scale(0) rotate(0); opacity: 1; }
-  100% {
-    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--rot));
-    opacity: 0;
-  }
+.scratch-flake,
+.scratch-confetti {
+  position: absolute;
+  margin: -2px 0 0 -2px;
+  will-change: transform, opacity;
+}
+
+@keyframes scratch-shimmer {
+  0% { transform: translateX(-110%); }
+  45%, 100% { transform: translateX(110%); }
+}
+@keyframes scratch-shine {
+  to { transform: translateX(100%); }
+}
+@keyframes scratch-coin {
+  0%, 100% { transform: translate(0, 0) rotate(-12deg); }
+  25% { transform: translate(60px, -14px) rotate(8deg); }
+  50% { transform: translate(110px, 4px) rotate(-6deg); }
+  75% { transform: translate(55px, 10px) rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scratch-shimmer,
+  .scratch-coin-hint,
+  .scratch-content.revealed::after { animation: none; }
+  .scratch-shimmer { display: none; }
 }
