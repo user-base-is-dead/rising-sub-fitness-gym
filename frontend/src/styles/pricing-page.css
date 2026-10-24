@@ -273,11 +273,13 @@
   height: 46px;
   display: grid;
   place-items: center;
-  font-size: 1.3rem;
-  border-radius: 50%;
-  background: rgba(185, 147, 90, 0.12);
-  border: 1px solid var(--bronze-deep);
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: var(--bronze-light);
+  background: linear-gradient(145deg, rgba(185, 147, 90, 0.16), rgba(185, 147, 90, 0.04));
+  border: 1px solid rgba(185, 147, 90, 0.35);
 }
+.pp-showcase-icon svg { width: 22px; height: 22px; }
 .pp-showcase-name {
   font-family: var(--font-display);
   font-weight: 500;

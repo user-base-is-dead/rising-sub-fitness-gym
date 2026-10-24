@@ -17,7 +17,7 @@ const plans = [
     period: 'per day',
     unit: '/day',
     bestFor: 'Trying the gym out or dropping in once',
-    icon: '⚡',
+    icon: 'day',
     badge: null,
     featured: false,
     perMonth: null,
@@ -39,7 +39,7 @@ const plans = [
     period: 'per month',
     unit: '/mo',
     bestFor: 'Getting started without a long commitment',
-    icon: '🔥',
+    icon: 'month',
     badge: 'Popular',
     featured: true,
     perMonth: 800,
@@ -73,7 +73,7 @@ const plans = [
     bonus: '+ 1 Month FREE',
     totalMonths: 4,
     timeline: { paid: 3, free: 1, label: '3 months paid + 1 month FREE' },
-    icon: '💪',
+    icon: 'quarter',
     badge: null,
     featured: false,
     perMonth: 625,
@@ -100,7 +100,7 @@ const plans = [
     bonus: '+ 2 Months FREE',
     totalMonths: 8,
     timeline: { paid: 6, free: 2, label: '6 months paid + 2 months FREE' },
-    icon: '🎯',
+    icon: 'half',
     badge: null,
     featured: false,
     perMonth: 500,
@@ -126,7 +126,7 @@ const plans = [
     bonus: '+ 4 Months FREE',
     totalMonths: 16,
     timeline: { paid: 12, free: 4, label: '12 months paid + 4 months FREE' },
-    icon: '👑',
+    icon: 'year',
     badge: 'Best Value',
     featured: false,
     perMonth: 563,
@@ -149,7 +149,7 @@ const plans = [
     period: 'per month',
     unit: '/mo',
     bestFor: 'One-on-one coaching and the fastest results',
-    icon: '🏋️',
+    icon: 'personal',
     badge: 'Premium',
     featured: false,
     perMonth: 3500,
@@ -227,6 +227,22 @@ const faqs = [
     a: 'Yes! If you are new to Rising Sun Fitness, your first visit is completely FREE — just walk in during gym hours with a valid ID. After that, a 1 Day Pass costs ₹100 per day.',
   },
 ];
+
+// Line icons for each plan, drawn in the accent colour
+const PLAN_ICON_PATHS = {
+  day: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
+  month: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 10h18" /></>,
+  quarter: <path d="M6 7v10M18 7v10M3 9.5v5M21 9.5v5M6 12h12" />,
+  half: <><path d="M3 17l6-6 4 4 8-8" /><path d="M15 7h6v6" /></>,
+  year: <><circle cx="12" cy="9" r="6" /><path d="M8.5 14 7 22l5-3 5 3-1.5-8" /></>,
+  personal: <><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" /></>,
+};
+
+const PlanIcon = ({ name }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    {PLAN_ICON_PATHS[name]}
+  </svg>
+);
 
 const renderCompareValue = (v) => {
   if (v === true) return <span className="pp-yes" aria-label="Included">✓</span>;
@@ -489,7 +505,7 @@ export default function PricingPage() {
               {/* Left — Plan Info */}
               <div className="pp-showcase-left">
                 <div className="pp-showcase-head">
-                  <span className="pp-showcase-icon" aria-hidden="true">{currentPlan.icon}</span>
+                  <span className="pp-showcase-icon" aria-hidden="true"><PlanIcon name={currentPlan.icon} /></span>
                   <h3 className="pp-showcase-name">{currentPlan.fullName}</h3>
                   {currentPlan.badge && <span className="pp-showcase-badge">{currentPlan.badge}</span>}
                 </div>
@@ -560,7 +576,7 @@ export default function PricingPage() {
                         Pay ₹{formatINR(currentPlan.extraOffer.price)} → Get {currentPlan.extraOffer.period}
                       </div>
                     </div>
-                    <div className="pp-extra-offer-tag">{extraOfferActive ? '✨ Active' : '+15 Days'}</div>
+                    <div className="pp-extra-offer-tag">{extraOfferActive ? 'Active' : '+15 Days'}</div>
                   </button>
                 )}
 

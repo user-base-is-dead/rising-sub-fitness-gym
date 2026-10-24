@@ -41,7 +41,7 @@ export default function MusicToggle({ isPlaying, onToggle }) {
       onClick={onToggle}
       ref={btnRef}
       aria-label={isPlaying ? 'Mute music' : 'Click to play music'}
-      title={isPlaying ? '🔊 Mute' : '🔇 Play Music'}
+      title={isPlaying ? 'Mute' : 'Play Music'}
     >
       {isPlaying ? (
         <div className="bars">
