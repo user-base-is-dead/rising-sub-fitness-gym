@@ -84,6 +84,7 @@ const plans = [
       '1 Free PT Session',
       'Diet Consultation',
       '1 Month Free Membership',
+      'Locker Facility',
     ],
     excluded: ['Priority Support'],
     cta: 'Choose Plan',
