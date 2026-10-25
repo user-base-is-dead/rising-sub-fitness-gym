@@ -46,7 +46,7 @@
 .pn-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px;
+  margin: 0;
   display: grid;
   gap: 14px;
 }
@@ -65,28 +65,26 @@
   color: #e5574b;
   font-weight: 700;
 }
-.pn-cta-text {
-  color: var(--bone-dim);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-.pn-btn {
-  display: inline-block;
-  padding: 14px 28px;
-  background: #d64034;
-  color: #fff;
-  font-family: var(--font-sans);
+.pn-list li strong {
+  display: block;
+  color: #e5574b;
   font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  transition: background 0.3s var(--ease-quart), transform 0.3s var(--ease-quart);
 }
-.pn-btn:hover { background: #b8342a; transform: translateY(-2px); }
-.pn-phone {
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: var(--muted);
+.pn-list li.is-highlight {
+  padding: 16px 18px 16px 46px;
+  background: rgba(229, 87, 75, 0.12);
+  border: 1px solid rgba(229, 87, 75, 0.55);
+  border-left-width: 4px;
+  border-radius: 6px;
+}
+.pn-list li.is-highlight::before {
+  left: 18px;
+  top: 16px;
+}
+.pn-list li.is-highlight strong {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* ── Photo + stamp ── */
@@ -95,6 +93,9 @@
   overflow: hidden;
   border: 2px solid #d64034;
   aspect-ratio: 3 / 4;
+  /* Follows the reader down the long list so the left column never sits empty */
+  position: sticky;
+  top: 110px;
 }
 .pn-photo {
   width: 100%;
@@ -127,5 +128,5 @@
 
 @media (max-width: 720px) {
   .pn-inner { grid-template-columns: 1fr; }
-  .pn-photo-wrap { max-width: 280px; }
+  .pn-photo-wrap { max-width: 280px; position: relative; top: 0; }
 }

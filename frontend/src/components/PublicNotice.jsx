@@ -1,15 +1,36 @@
 import { useState } from 'react';
 import '../styles/public-notice.css';
 
-const WHATSAPP_LINK = `https://wa.me/916380816041?text=${encodeURIComponent(
-  'Hello, I had made a payment to Babu (former trainer). I want to report it.'
-)}`;
-
 const points = [
-  'While working as a trainer at Rising Sun Fitness, Babu collected money from members in the owner\'s name — personal training advances and supplement payments.',
-  'He did not hand this money over to the gym and left without delivering the training or supplements. He has been removed and blacklisted.',
-  'Babu is no longer associated with Rising Sun Fitness in any capacity and is NOT authorised to collect any money on its behalf.',
-  'Any payment made to him personally is not recognised by the gym. Pay only at the gym counter and always ask for a receipt.',
+  {
+    title: 'Vulgar and indecent behaviour towards female members',
+    text: 'Female members complained that Babu behaved with them in a vulgar, indecent and disrespectful way. His attitude towards women was dirty and degrading, and it made them feel unsafe and uncomfortable at the gym.',
+    highlight: true,
+  },
+  {
+    title: 'Misbehaved with members',
+    text: 'He was rude and disrespectful to members in general, men and women alike.',
+  },
+  {
+    title: 'Borrowed money and never repaid',
+    text: 'He asked several members to lend him money as a personal loan, took it, and never paid it back.',
+  },
+  {
+    title: 'Took supplement money and did not deliver',
+    text: 'He collected advance payments from members for supplements (around ₹10,000 to ₹12,000 from some of them), then never supplied the products or returned the money.',
+  },
+  {
+    title: 'Ran away with members\' money',
+    text: 'After collecting money from several members, he left without repaying anyone. None of this money ever reached the gym.',
+  },
+  {
+    title: 'Permanently banned',
+    text: 'Babu has been removed and blacklisted. He may not work here as a trainer, and he is not allowed to enter the Rising Sun Fitness premises at all.',
+  },
+  {
+    title: 'Not authorised to collect money',
+    text: 'Any payment made to him personally is not recognised by the gym. Pay only at the gym counter and always ask for a receipt.',
+  },
 ];
 
 export default function PublicNotice() {
@@ -36,17 +57,11 @@ export default function PublicNotice() {
 
           <ul className="pn-list">
             {points.map((p, i) => (
-              <li key={i}>{p}</li>
+              <li key={i} className={p.highlight ? 'is-highlight' : undefined}>
+                <strong>{p.title}</strong> {p.text}
+              </li>
             ))}
           </ul>
-
-          <p className="pn-cta-text">
-            Have you given money to Babu for training, supplements or membership? Tell us so we can record it.
-          </p>
-          <a className="pn-btn" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-            REPORT A PAYMENT →
-          </a>
-          <div className="pn-phone">or call +91 63808 16041</div>
         </div>
       </div>
     </section>
