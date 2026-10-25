@@ -126,7 +126,7 @@
   color: var(--void);
   background: var(--bone);
   border-radius: 2px;
-  transition: background 0.4s ease, gap 0.4s ease;
+  transition: background 0.4s ease, gap 0.4s ease, box-shadow 0.4s ease;
 }
 .pp-scratch-cta:hover,
 .pp-showcase-cta:hover { background: var(--bronze); gap: 18px; }

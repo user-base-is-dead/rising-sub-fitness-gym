@@ -6,6 +6,10 @@
    ===================================================================== */
 
 :root {
+  /* ---- Button glow: a wide, faint gold halo shared by every button ---- */
+  --btn-glow: 0 4px 44px -4px rgba(217, 166, 72, 0.26);
+  --btn-glow-hover: 0 4px 56px -2px rgba(217, 166, 72, 0.32);
+
   /* ---- Neutrals (warm charcoal → bone) ---- */
   --void: #08080a;
   --ink: #0d0d10;
@@ -208,4 +212,27 @@ img { max-width: 100%; display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   .section-divider-marquee .marquee-track { animation: none; }
+}
+
+/* ===== BUTTON GLOW — same soft halo on every button across the site =====
+   (Text links and the green WhatsApp float are left out on purpose.) */
+.cta-btn,
+.audio-btn,
+.form-submit,
+.cp-form-submit,
+.cp-btn-instagram,
+.pricing-cta,
+.pp-scratch-cta,
+.pp-showcase-cta {
+  box-shadow: var(--btn-glow);
+}
+.cta-btn:hover,
+.audio-btn:hover,
+.form-submit:hover,
+.cp-form-submit:hover,
+.cp-btn-instagram:hover,
+.pricing-cta:hover,
+.pp-scratch-cta:hover,
+.pp-showcase-cta:hover {
+  box-shadow: var(--btn-glow-hover);
 }

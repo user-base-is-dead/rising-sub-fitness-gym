@@ -13,6 +13,7 @@
   --line: rgba(247, 244, 237, 0.12);
   --line-strong: rgba(247, 244, 237, 0.24);
   --grad-bronze: linear-gradient(135deg, #fff1c4 0%, #f5cf7e 30%, #d9a648 65%, #a37a30 100%);
+  --grad-btn: linear-gradient(135deg, #e9c47a 0%, #d9a648 50%, #b48838 100%);
 }
 
 /* ---- Shared bold heading: heavy uppercase sans + one gold serif word ---- */
@@ -60,9 +61,12 @@
   position: relative;
   overflow: hidden;
   color: #0b0b0d;
-  background: var(--grad-bronze);
+  /* Softer than --grad-bronze: no near-white start, so the button reads as
+     warm gold rather than a light source */
+  background: var(--grad-btn);
   border: none;
-  box-shadow: 0 8px 26px -8px rgba(217, 166, 72, 0.5);
+  /* Wide, faint halo shared with every button (see index.css) */
+  box-shadow: var(--btn-glow);
   /* No transform transition: GSAP drives the magnetic pull on these buttons */
   transition: box-shadow 0.4s ease;
 }
@@ -73,7 +77,7 @@
   left: 0;
   width: 40%;
   height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
   /* Moved with transform (GPU) rather than `left`, which re-lays out every frame */
   transform: translateX(-150%) skewX(-20deg);
   animation: gold-shine 3.2s var(--ease-inout) infinite;
@@ -83,9 +87,11 @@
 .home-bold a.gold-btn:hover,
 .home-bold button.gold-btn:hover {
   color: #0b0b0d;
-  background: var(--grad-bronze);
-  box-shadow: 0 10px 32px -8px rgba(245, 207, 126, 0.65);
+  background: var(--grad-btn);
+  box-shadow: var(--btn-glow-hover);
 }
+/* The hero CTA's own hover fill would slide the bright gradient back in */
+.home-bold .gold-btn::before { background: var(--grad-btn); }
 @keyframes gold-shine {
   0%, 55% { transform: translateX(-150%) skewX(-20deg); }
   100% { transform: translateX(330%) skewX(-20deg); }

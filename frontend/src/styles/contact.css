@@ -133,7 +133,7 @@
   color: var(--void);
   background: var(--bone);
   border-radius: 2px;
-  transition: background 0.4s ease, color 0.4s ease;
+  transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
 .form-submit:hover { background: var(--bronze); }
 

@@ -188,7 +188,7 @@
   border-radius: 2px;
   overflow: hidden;
   will-change: transform;
-  transition: color 0.45s var(--ease-expo), border-color 0.45s ease;
+  transition: color 0.45s var(--ease-expo), border-color 0.45s ease, box-shadow 0.45s ease;
 }
 .cta-btn span { position: relative; z-index: 1; }
 .cta-btn.primary {
