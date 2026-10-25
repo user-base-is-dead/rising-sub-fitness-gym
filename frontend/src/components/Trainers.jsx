@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useSplitReveal } from '../hooks/useMotion';
@@ -10,6 +11,7 @@ const trainers = [
   {
     name: 'Amarjit Dixit',
     role: 'Cardio, Bodybuilding & HIIT Specialist',
+    specialties: ['Cardio', 'Bodybuilding', 'HIIT'],
     img: '/amarjit.jpg',
   },
 ];
@@ -37,50 +39,49 @@ export default function Trainers() {
         },
       });
 
-      // Trainer cards — clip-path circle reveal
+      // Feature cards — clip-path circle reveal on the photo, details rise in
       const cards = document.querySelectorAll('.trainer-card');
-      cards.forEach((card, i) => {
+      cards.forEach((card) => {
         const imageWrap = card.querySelector('.trainer-image-wrap');
-        const info = card.querySelector('.trainer-info');
+        const info = card.querySelectorAll('.trainer-info > *');
 
         gsap.fromTo(imageWrap, {
           clipPath: 'circle(0% at 50% 50%)',
         }, {
           clipPath: 'circle(75% at 50% 50%)',
-          duration: 1.5,
           ease: 'power3.inOut',
           scrollTrigger: {
             trigger: card,
-            start: 'top 75%',
+            start: 'top 80%',
             end: '+=400', scrub: 1,
           },
-          delay: i * 0.2,
         });
 
         gsap.fromTo(info, {
-          y: 30,
+          y: 40,
           opacity: 0,
         }, {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          stagger: 0.12,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: card,
-            start: 'top 70%',
-            end: '+=400', scrub: 1,
+            start: 'top 75%',
+            end: '+=360', scrub: 1,
           },
-          delay: i * 0.2 + 0.5,
         });
       });
 
-      // Magnetic hover effect
-      cards.forEach(card => {
+      // Magnetic hover — the photo leans toward the cursor
+      cards.forEach((card) => {
+        const imageWrap = card.querySelector('.trainer-image-wrap');
+
         card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
+          const rect = imageWrap.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
           const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(card, {
+          gsap.to(imageWrap, {
             x: x * 0.05,
             y: y * 0.05,
             duration: 0.5,
@@ -89,7 +90,7 @@ export default function Trainers() {
         });
 
         card.addEventListener('mouseleave', () => {
-          gsap.to(card, {
+          gsap.to(imageWrap, {
             x: 0,
             y: 0,
             duration: 0.5,
@@ -106,8 +107,8 @@ export default function Trainers() {
     <section className="trainers" id="trainers" ref={sectionRef}>
       <div className="trainers-inner">
         <div className="trainers-header">
-          <div className="trainers-label">Meet The Beasts</div>
-          <h2 className="trainers-title" data-reveal>OUR TRAINERS</h2>
+          <div className="trainers-label bold-eyebrow">Meet The Beasts</div>
+          <h2 className="trainers-title bold-title" data-reveal>Our <em>Trainers</em></h2>
         </div>
 
         <div className="trainers-grid">
@@ -117,8 +118,19 @@ export default function Trainers() {
                 <img src={t.img} alt={t.name} />
               </div>
               <div className="trainer-info">
+                <div className="trainer-index">{String(i + 1).padStart(2, '0')}</div>
+                <div className="trainer-tag">Expert Trainer</div>
                 <h3 className="trainer-name">{t.name}</h3>
                 <div className="trainer-role">{t.role}</div>
+                <ul className="trainer-specialties">
+                  {t.specialties.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+                <Link className="trainer-cta" to="/trainers">
+                  <span>Meet the Team</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </Link>
               </div>
             </div>
           ))}

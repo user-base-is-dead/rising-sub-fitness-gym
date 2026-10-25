@@ -97,6 +97,28 @@ export default function Services() {
           },
         });
       });
+
+      // Phones — stacked cards rise in one by one as they enter (plays once)
+      mm.add('(max-width: 768px)', () => {
+        gsap.from('.services-header', {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.services-header', start: 'top 88%', once: true },
+        });
+
+        gsap.utils.toArray('.service-card').forEach((card) => {
+          gsap.from(card, {
+            y: 60,
+            opacity: 0,
+            scale: 0.96,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 88%', once: true },
+          });
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -109,8 +131,8 @@ export default function Services() {
           {/* Header */}
           <div className="services-header">
             <div className="services-label">What We Offer</div>
-            <h2 className="services-title">
-              Training <span className="outline-text">Disciplines</span>
+            <h2 className="services-title bold-title">
+              Training <em>Disciplines</em>
             </h2>
           </div>
 

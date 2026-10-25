@@ -8,10 +8,11 @@ import Pricing from '../components/Pricing';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import SectionMarquee from '../components/SectionMarquee';
+import '../styles/home-bold.css';
 
 export default function HomePage({ loaded }) {
   return (
-    <>
+    <div className="home-bold">
       <Hero loaded={loaded} />
 
       <SectionMarquee text="DISCIPLINE • STRENGTH • POWER • DEDICATION • GRIND • FOCUS" baseDirection={1} />
@@ -20,7 +21,7 @@ export default function HomePage({ loaded }) {
 
       <About />
 
-      <SectionMarquee text="YOGA • PERSONAL TRAINING • CARDIO • BODYBUILDING • FITNESS" baseDirection={-1} />
+      <SectionMarquee text="YOGA • PERSONAL TRAINING • CARDIO • BODYBUILDING • FITNESS" baseDirection={-1} variant="gold" />
 
       <Services />
 
@@ -28,13 +29,13 @@ export default function HomePage({ loaded }) {
 
       <Gallery />
 
-      <SectionMarquee text="₹800/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" baseDirection={1} />
+      <SectionMarquee text="₹800/MONTH • JOIN NOW • TRANSFORM YOUR BODY • NO EXCUSES" baseDirection={1} variant="gold" />
 
       <Pricing />
 
       <Contact />
 
       <Footer />
-    </>
+    </div>
   );
 }

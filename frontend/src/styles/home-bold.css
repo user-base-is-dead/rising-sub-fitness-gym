@@ -1,0 +1,139 @@
+/* =====================================================================
+   HOME — "BOLD" LAYER
+   Scoped to the home page only: brighter gold, harder contrast and a
+   heavier heading voice. Other pages keep the base refined tokens.
+   ===================================================================== */
+
+.home-bold {
+  --bronze: #d9a648;
+  --bronze-light: #f5cf7e;
+  --bronze-deep: #a37a30;
+  --bone: #f7f4ed;
+  --bone-dim: #b6b1a6;
+  --line: rgba(247, 244, 237, 0.12);
+  --line-strong: rgba(247, 244, 237, 0.24);
+  --grad-bronze: linear-gradient(135deg, #fff1c4 0%, #f5cf7e 30%, #d9a648 65%, #a37a30 100%);
+}
+
+/* ---- Shared bold heading: heavy uppercase sans + one gold serif word ---- */
+.home-bold .bold-title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  color: var(--bone);
+}
+.home-bold .bold-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  /* No glow here: the heading reveal masks each line, which clips a glow into a visible box */
+  color: var(--bronze-light);
+}
+
+/* ---- Section eyebrows: brighter, with a solid gold tick ---- */
+.home-bold .bold-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--bronze-light);
+}
+.home-bold .bold-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  background: var(--bronze);
+}
+
+/* ---- Solid gold button with a sweeping shine ----
+   Element-qualified so it outranks each section's own button styles. */
+.home-bold a.gold-btn,
+.home-bold button.gold-btn {
+  position: relative;
+  overflow: hidden;
+  color: #0b0b0d;
+  background: var(--grad-bronze);
+  border: none;
+  box-shadow: 0 8px 26px -8px rgba(217, 166, 72, 0.5);
+  /* No transform transition: GSAP drives the magnetic pull on these buttons */
+  transition: box-shadow 0.4s ease;
+}
+.home-bold .gold-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  /* Moved with transform (GPU) rather than `left`, which re-lays out every frame */
+  transform: translateX(-150%) skewX(-20deg);
+  animation: gold-shine 3.2s var(--ease-inout) infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+.home-bold a.gold-btn:hover,
+.home-bold button.gold-btn:hover {
+  color: #0b0b0d;
+  background: var(--grad-bronze);
+  box-shadow: 0 10px 32px -8px rgba(245, 207, 126, 0.65);
+}
+@keyframes gold-shine {
+  0%, 55% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(330%) skewX(-20deg); }
+}
+
+/* ---- Marquee strips: bigger, heavier; "gold" variant is a tilted band ---- */
+.home-bold .section-divider-marquee {
+  padding: 22px 0;
+  background: var(--void);
+  border-color: var(--line-strong);
+}
+.home-bold .section-divider-marquee .marquee-item {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(247, 244, 237, 0.55);
+}
+.home-bold .section-divider-marquee .marquee-item::after {
+  content: '';
+  top: 50%;
+  right: -0.35rem;
+  width: 10px;
+  height: 10px;
+  background: var(--bronze);
+  transform: translateY(-50%) rotate(45deg);
+  opacity: 1;
+}
+.home-bold .section-divider-marquee.is-gold {
+  position: relative;
+  z-index: 2;
+  margin: 18px -2vw;
+  background: var(--grad-bronze);
+  border: none;
+  transform: rotate(-1.6deg);
+  box-shadow: 0 12px 30px -20px rgba(217, 166, 72, 0.35);
+}
+.home-bold .section-divider-marquee.is-gold .marquee-item {
+  color: #0b0b0d;
+  -webkit-text-stroke: 0;
+}
+.home-bold .section-divider-marquee.is-gold .marquee-item::after {
+  background: #0b0b0d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-bold .gold-btn::after { animation: none; }
+}

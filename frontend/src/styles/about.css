@@ -23,7 +23,26 @@
   overflow: hidden;
   border-radius: 2px;
   transform-style: preserve-3d;
+  /* Offset gold frame: a background-coloured shadow knocked out of a gold one */
+  box-shadow: 22px 22px 0 -2px var(--void), 22px 22px 0 0 var(--bronze);
 }
+
+/* Oversized outlined year behind the split */
+.about-watermark {
+  position: absolute;
+  top: clamp(40px, 8vw, 110px);
+  right: -2vw;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(5rem, 16vw, 15rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245, 207, 126, 0.08);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.about-inner { position: relative; z-index: 1; }
 .about-image-wrap img {
   width: 100%;
   height: 100%;
@@ -115,6 +134,15 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--bronze);
+  background: linear-gradient(90deg, rgba(217, 166, 72, 0.08), transparent 70%);
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+.about-feature:hover {
+  border-color: var(--bronze);
+  background: linear-gradient(90deg, rgba(217, 166, 72, 0.16), transparent 80%);
 }
 .about-feature .icon {
   width: 44px;
@@ -132,9 +160,10 @@
 .about-feature:hover .icon { border-color: var(--bronze); color: var(--bronze-light); }
 .about-feature span {
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.84rem;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--bone);
 }
 
@@ -151,7 +180,12 @@
     gap: 50px;
     min-height: auto;
   }
-  .about-image-wrap { aspect-ratio: 3 / 4; max-height: 60vh; }
+  .about-image-wrap {
+    aspect-ratio: 3 / 4;
+    max-height: 60vh;
+    width: calc(100% - 12px);
+    box-shadow: 12px 12px 0 -2px var(--void), 12px 12px 0 0 var(--bronze);
+  }
 }
 @media (max-width: 520px) {
   .about-features { grid-template-columns: 1fr; gap: 16px; }

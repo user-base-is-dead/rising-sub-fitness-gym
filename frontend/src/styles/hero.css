@@ -120,35 +120,41 @@
 
 /* Headline */
 .hero-title {
-  font-family: var(--font-display);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.045em;
   margin-bottom: 36px;
   opacity: 0; /* unhidden by JS once split is ready (prevents FOUC) */
   will-change: transform;
 }
 .hero-title-line {
   display: block;
-  font-size: clamp(4rem, 14vw, 12rem);
+  font-size: clamp(3.6rem, 10.5vw, 9rem);
   color: var(--bone);
   text-transform: uppercase;
 }
-.hero-title-line.serif-italic {
+/* SplitText masks each line at its line-height; give the first line room
+   so the descender of "y" in "your" isn't clipped */
+.hero-title-line:first-child { line-height: 1.04; }
+
+/* "your" sits inline after FORGE as a smaller serif-italic aside */
+.hero-your {
+  font-family: var(--font-display);
   font-style: italic;
   font-weight: 300;
+  font-size: 0.5em;
   text-transform: lowercase;
   letter-spacing: 0;
   color: var(--bone-dim);
-  padding-left: 0.1em;
+  margin-left: 0.08em;
 }
 .hero-title-line.fire {
-  /* Override the global .fire gradient-text (transparent fill) — it renders
-     invisible once SplitText wraps the chars and text-shadow is applied */
+  /* Override the global .fire gradient-text (transparent fill). No text-shadow:
+     SplitText's line mask clips a glow into a visible box. */
   background: none;
   -webkit-text-fill-color: currentColor;
   color: var(--bronze-light);
-  text-shadow: 0 0 38px rgba(220, 184, 124, 0.28);
 }
 
 /* Tagline */
@@ -188,6 +194,7 @@
 .cta-btn.primary {
   color: var(--void);
   background: var(--bone);
+  font-weight: 700;
 }
 .cta-btn.primary::before {
   content: '';
@@ -211,12 +218,13 @@
 
 /* Scroll indicator */
 .hero-scroll-indicator {
+  /* Hidden: the taller stats bar left no room for it without overlapping */
+  display: none;
   position: absolute;
   bottom: 34px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -279,9 +287,10 @@
 }
 .stat-item:first-child { border-left: none; }
 .stat-number {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: -0.03em;
   color: var(--bronze-light);
   line-height: 1;
 }
@@ -329,7 +338,14 @@
   .hero-title-line { font-size: clamp(2.8rem, 15vw, 5rem); }
   .hero-eyebrow { padding-left: 0; font-size: 0.66rem; letter-spacing: 0.28em; }
   .hero-eyebrow::before { display: none; }
-  .hero-grain { opacity: 0.04; }
+  /* Low-end phones: keep the grain texture but stop animating it, and drop the
+     backdrop blur (both repaint large areas every frame) */
+  .hero-grain { opacity: 0.04; animation: none; }
+  .hero-stats {
+    background: rgba(8, 8, 10, 0.78);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
   .hero-stats-inner { padding: 0; }
   .stat-label { letter-spacing: 0.12em; }
 }

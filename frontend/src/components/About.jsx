@@ -141,6 +141,35 @@ export default function About() {
           ease: 'power4.inOut',
         }, 0.65);
       });
+
+      // Phones — lighter reveal: transform/opacity only, plays once (no scrub)
+      mm.add('(max-width: 768px)', () => {
+        const reveal = { duration: 0.8, ease: 'power3.out' };
+
+        gsap.from('.about-image-wrap', {
+          ...reveal,
+          y: 50,
+          opacity: 0,
+          scale: 0.94,
+          scrollTrigger: { trigger: '.about-image-wrap', start: 'top 85%', once: true },
+        });
+
+        gsap.from(['.about-label', '.about-title', '.about-text'], {
+          ...reveal,
+          y: 30,
+          opacity: 0,
+          stagger: 0.1,
+          scrollTrigger: { trigger: '.about-content', start: 'top 85%', once: true },
+        });
+
+        gsap.from('.about-feature', {
+          ...reveal,
+          x: -24,
+          opacity: 0,
+          stagger: 0.08,
+          scrollTrigger: { trigger: '.about-features', start: 'top 90%', once: true },
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -148,6 +177,7 @@ export default function About() {
 
   return (
     <section className="about" id="about" ref={sectionRef}>
+      <div className="about-watermark" aria-hidden="true">EST. 2018</div>
       <div className="about-inner">
         {/* Left: Image */}
         <div className="about-image-wrap">
@@ -162,9 +192,9 @@ export default function About() {
         {/* Right: Content */}
         <div className="about-content">
           <div className="about-label">Who We Are</div>
-          <h2 className="about-title">
+          <h2 className="about-title bold-title">
             More than a gym.<br />
-            A <span className="gold">standard</span>.
+            A <em>standard</em>.
           </h2>
           <p className="about-text">
             Rising Sun Fitness was built for those who refuse to settle for average.

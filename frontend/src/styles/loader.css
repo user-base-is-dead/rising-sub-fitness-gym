@@ -1,23 +1,21 @@
-/* ===== LOADER — editorial, restrained ===== */
+/* ===== LOADER — loading the bar ===== */
 .loader-screen {
+  --gold: #d9a648;
+  --gold-light: #f5cf7e;
+  /* Barbell: centre line while loading, width, and how far the lift raises it */
+  --bar-y: 46%;
+  --bar-w: min(70vw, 900px);
+  --lift: 24vh;
+
   position: fixed;
   inset: 0;
   z-index: 100000;
-  background: var(--void);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   overflow: hidden;
-}
-
-.loader-screen::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--grad-vignette);
-  pointer-events: none;
+  color: var(--bone);
+  background:
+    radial-gradient(70% 50% at 50% 45%, rgba(217, 166, 72, 0.07), transparent 70%),
+    var(--void);
+  will-change: transform;
 }
 
 /* Vertical hairlines */
@@ -31,138 +29,249 @@
 .loader-lines span {
   width: 1px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, var(--line), transparent);
+  background: linear-gradient(180deg, transparent, rgba(247, 244, 237, 0.07), transparent);
   transform-origin: top;
 }
 
-/* Circular progress */
-.loader-progress-wrap {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.loader-progress-svg {
+/* ---- Warm-up status ---- */
+.loader-status-wrap {
+  z-index: 4;
+  position: absolute;
+  top: 13%;
+  left: 0;
   width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-.loader-progress-track {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1.5;
-}
-.loader-progress-fill {
-  fill: none;
-  stroke: url(#fireGradient);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.1s linear;
-}
-.loader-counter {
-  position: absolute;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 3.4rem;
-  color: var(--bone);
-  letter-spacing: -0.02em;
-}
-.loader-counter span {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--bronze);
-  margin-left: 2px;
-  vertical-align: super;
-}
-
-/* Brand */
-.loader-brand {
-  position: absolute;
-  bottom: 22%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  opacity: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  letter-spacing: 0.04em;
-  color: var(--bone);
+  gap: 10px;
   text-align: center;
 }
-.loader-brand-logo {
-  width: 54px;
-  height: 54px;
-  object-fit: contain;
-  /* Tint the sun to the bronze/gold accent + soft sunrise glow */
-  filter: grayscale(1) sepia(1) saturate(1.7) brightness(1.15) contrast(1)
-          drop-shadow(0 0 12px rgba(185, 147, 90, 0.35));
-  opacity: 0.95;
+.loader-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
-.loader-brand-line {
-  width: 0;
-  height: 1px;
-  background: var(--bronze);
+.loader-status-tag::before,
+.loader-status-tag::after {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: var(--gold);
+}
+.loader-status-mask {
+  display: block;
+  overflow: hidden;
+}
+.loader-status {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  color: var(--bone);
 }
 
-/* Audio choice */
-.loader-audio-choice {
+/* ---- Barbell ----
+   The SVG is 1200x200, so its height is a sixth of its width. Positioned with
+   top/margin (not transforms) so GSAP owns the transform for the dip and lift. */
+.loader-barbell {
   position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: calc(var(--bar-y) - var(--bar-w) / 12);
+  width: var(--bar-w);
+  margin-left: calc(var(--bar-w) / -2);
+  will-change: transform;
+  pointer-events: none;
+}
+.loader-barbell svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.loader-barbell-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 90%;
+  height: 260%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(245, 207, 126, 0.12), transparent 100%);
+}
+.loader-shaft {
+  fill: none;
+  /* Solid, not url(#steel): a bounding-box gradient can't paint a line with zero height */
+  stroke: #cfc9ba;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.loader-plate-inset {
+  fill: none;
+  stroke: rgba(11, 11, 13, 0.28);
+  stroke-width: 1.5;
+}
+
+/* Weight on the bar, under it while loading */
+.loader-weight {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  width: 100%;
+  top: calc(var(--bar-y) + var(--bar-w) / 12 + clamp(18px, 3vh, 34px));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245, 207, 126, 0.8);
+}
+.loader-weight small {
+  margin-left: 8px;
+  font-size: 0.24em;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  -webkit-text-stroke: 0;
+}
+
+/* ---- Brand (revealed at 100%) ---- */
+.loader-brand {
+  position: absolute;
+  z-index: 4;
+  /* Just under the bar once it has been lifted */
+  top: calc(var(--bar-y) - var(--lift) + var(--bar-w) / 12 + clamp(20px, 3.5vh, 36px));
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+.loader-brand-logo {
+  width: clamp(110px, 13vw, 170px);
+  height: auto;
+  margin-bottom: 6px;
+  /* Tint the sun to the bronze/gold accent */
+  filter: grayscale(1) sepia(1) saturate(1.7) brightness(1.15);
+  opacity: 0;
+}
+.loader-title {
+  display: flex;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 8vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.loader-title-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+.loader-title-char {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--bone) 30%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.loader-subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0;
+  /* Optical centring: trailing letter-spacing pushes the word left */
+  padding-left: 0.5em;
+}
+
+.loader-bar {
+  z-index: 4;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(247, 244, 237, 0.06);
+}
+.loader-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #a37a30, var(--gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---- Audio choice ---- */
+.loader-audio-choice {
+  z-index: 4;
+  position: absolute;
+  left: 0;
   bottom: 9%;
+  width: 100%;
   display: flex;
   gap: 16px;
   opacity: 0;
-  transform: translateY(20px);
   flex-wrap: wrap;
   justify-content: center;
   padding: 0 20px;
 }
 .audio-btn {
-  padding: 14px 30px;
+  padding: 15px 32px;
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.74rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--bone-dim);
-  border: 1px solid var(--line-strong);
+  border: 1px solid rgba(247, 244, 237, 0.24);
   background: transparent;
   border-radius: 2px;
-  transition: all 0.4s var(--ease-expo);
+  transition: color 0.4s var(--ease-expo), border-color 0.4s var(--ease-expo), box-shadow 0.4s ease;
 }
 .audio-btn:hover {
   color: var(--bone);
-  border-color: var(--bronze);
+  border-color: var(--gold);
 }
 .audio-btn.primary {
-  color: var(--void);
-  background: var(--bone);
-  border-color: var(--bone);
+  color: #0b0b0d;
+  background: linear-gradient(135deg, #fff1c4 0%, #f5cf7e 30%, #d9a648 65%, #a37a30 100%);
+  border-color: transparent;
+  box-shadow: 0 8px 26px -8px rgba(217, 166, 72, 0.5);
 }
 .audio-btn.primary:hover {
-  background: var(--bronze);
-  border-color: var(--bronze);
-  color: var(--void);
-}
-
-/* Loading text */
-.loader-loading-text {
-  position: absolute;
-  top: 16%;
-  opacity: 0;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--muted);
+  color: #0b0b0d;
+  box-shadow: 0 10px 32px -8px rgba(245, 207, 126, 0.65);
 }
 
 @media (max-width: 600px) {
-  .loader-progress-wrap { width: 150px; height: 150px; }
-  .loader-counter { font-size: 2.5rem; }
+  /* Narrow bar is short, so sit everything lower to balance the buttons */
+  .loader-screen { --bar-w: 92vw; --bar-y: 52%; }
+  .audio-btn { padding: 14px 22px; }
+}
+
+/* Short screens: keep the title clear of the buttons */
+@media (max-height: 640px) {
+  .loader-status-wrap { top: 7%; }
+  .loader-audio-choice { bottom: 5%; }
 }

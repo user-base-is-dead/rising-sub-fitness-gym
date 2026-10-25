@@ -159,8 +159,7 @@ export default function Hero({ loaded }) {
         </div>
 
         <h1 className="hero-title">
-          <span className="hero-title-line">Forge</span>
-          <span className="hero-title-line serif-italic">your</span>
+          <span className="hero-title-line">Forge <span className="hero-your">your</span></span>
           <span className="hero-title-line fire">Legacy</span>
         </h1>
 
@@ -170,7 +169,7 @@ export default function Hero({ loaded }) {
 
         <div className="hero-cta">
           <a
-            className="cta-btn primary"
+            className="cta-btn primary gold-btn"
             data-magnetic
             href="https://wa.me/916380816041?text=Hello!%20I%20am%20interested%20in%20joining%20Rising%20Sun%20Fitness.%20Can%20I%20get%20more%20details%3F"
             target="_blank"

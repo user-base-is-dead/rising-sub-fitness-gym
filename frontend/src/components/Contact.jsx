@@ -79,9 +79,9 @@ export default function Contact() {
       <div className="contact-inner">
         {/* Left: Info */}
         <div className="contact-info">
-          <div className="contact-label">Get In Touch</div>
-          <h2 className="contact-title">
-            READY TO<br />BEGIN?
+          <div className="contact-label bold-eyebrow">Get In Touch</div>
+          <h2 className="contact-title bold-title">
+            Ready to<br /><em>Begin?</em>
           </h2>
           <p className="contact-text">
             Take the first step towards your transformation.
@@ -154,7 +154,7 @@ export default function Contact() {
             <div className="form-group">
               <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
             </div>
-            <button type="submit" className="form-submit">
+            <button type="submit" className="form-submit gold-btn">
               Send on WhatsApp →
             </button>
           </form>

@@ -25,12 +25,7 @@
   margin-bottom: 24px;
 }
 .contact-title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(2.6rem, 5.5vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  color: var(--bone);
+  font-size: clamp(3.2rem, 8vw, 7rem);
   margin-bottom: 26px;
 }
 .contact-text {
@@ -84,12 +79,17 @@
 
 /* Right form */
 .contact-form-wrap {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  position: relative;
+  background:
+    radial-gradient(110% 70% at 100% 0%, rgba(217, 166, 72, 0.12), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--line-strong);
+  border-top: 4px solid var(--bronze);
   border-radius: 3px;
   padding: clamp(30px, 4vw, 50px);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
 }
-.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.contact-form { display: flex; flex-direction: column; gap: 22px; }
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -100,30 +100,33 @@
 .contact-form select,
 .contact-form textarea {
   width: 100%;
-  padding: 15px 18px;
+  padding: 16px 4px 12px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--bone);
-  background: var(--void);
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  transition: border-color 0.4s ease;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--line-strong);
+  border-radius: 0;
+  transition: border-color 0.4s ease, background 0.4s ease;
   resize: none;
 }
 .contact-form input::placeholder,
-.contact-form textarea::placeholder { color: var(--muted); }
+.contact-form textarea::placeholder { color: var(--bone-dim); }
 .contact-form select { color: var(--bone-dim); }
+.contact-form select option { background: var(--surface); color: var(--bone); }
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--bronze);
+  border-color: var(--bronze-light);
+  background: linear-gradient(180deg, transparent 60%, rgba(217, 166, 72, 0.08));
 }
 .form-submit {
   margin-top: 8px;
-  padding: 18px;
+  padding: 20px;
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 800;
   font-size: 0.76rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;

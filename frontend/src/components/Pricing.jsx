@@ -101,13 +101,13 @@ export default function Pricing() {
     <section className="pricing" id="pricing" ref={sectionRef}>
       <div className="pricing-inner">
         <div className="pricing-header">
-          <div className="pricing-label">Investment In Yourself</div>
-          <h2 className="pricing-title">MEMBERSHIP PLANS</h2>
+          <div className="pricing-label bold-eyebrow">Investment In Yourself</div>
+          <h2 className="pricing-title bold-title">Membership <em>Plans</em></h2>
         </div>
 
         <div className="pricing-cards">
           {/* Admission — Zero Fee */}
-          <div className="pricing-card">
+          <div className="pricing-card is-featured">
             <div className="pricing-badge">No Joining Fee</div>
             <div className="pricing-card-type">Admission</div>
             <div className="pricing-amount">
@@ -137,7 +137,7 @@ export default function Pricing() {
                 <span>Never Pay Admission Again</span>
               </div>
             </div>
-            <button className="pricing-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>Register Now</button>
+            <button className="pricing-cta gold-btn" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>Register Now</button>
           </div>
 
           {/* 1 Day Pass */}

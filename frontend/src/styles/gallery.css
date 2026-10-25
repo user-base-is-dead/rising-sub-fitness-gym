@@ -26,12 +26,11 @@
 .gallery-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  font-style: italic;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.8rem, 7vw, 6rem);
   color: var(--bone);
 }
 
+/* Bento: first tile is a 2x2 feature, the rest fill around it */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -44,7 +43,19 @@
   border-radius: 2px;
   border: 1px solid var(--line);
   will-change: transform;
+  transition: border-color 0.5s ease;
 }
+.gallery-item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+/* Take the feature photo out of flow so it fills the two rows instead of sizing them */
+.gallery-item:first-child img {
+  position: absolute;
+  inset: 0;
+}
+.gallery-item:hover { border-color: rgba(245, 207, 126, 0.6); }
 .gallery-item img {
   width: 100%;
   height: 100%;
@@ -53,7 +64,7 @@
   transition: filter 0.7s var(--ease-expo), transform 1s var(--ease-expo);
 }
 .gallery-item:hover img {
-  filter: grayscale(0) brightness(0.8) contrast(1.05);
+  filter: grayscale(0) brightness(0.9) contrast(1.05);
   transform: scale(1.06);
 }
 .gallery-item-overlay {
@@ -68,20 +79,88 @@
 }
 .gallery-item:hover .gallery-item-overlay { opacity: 1; }
 .gallery-item-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.74rem;
+  font-weight: 800;
+  font-size: 0.82rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bone);
-  transform: translateY(10px);
+  transform: translateY(16px);
   transition: transform 0.5s var(--ease-expo);
 }
+.gallery-item-title::before {
+  content: '';
+  width: 26px;
+  height: 3px;
+  background: var(--bronze);
+}
+.gallery-item:first-child .gallery-item-title { font-size: 1.1rem; }
 .gallery-item:hover .gallery-item-title { transform: translateY(0); }
 
-@media (max-width: 768px) {
-  .gallery-grid { grid-template-columns: 1fr 1fr; }
+/* Touch screens have no hover — keep captions visible */
+@media (hover: none) {
+  .gallery-item-overlay { opacity: 1; }
+  .gallery-item-title { transform: none; }
 }
-@media (max-width: 480px) {
-  .gallery-grid { grid-template-columns: 1fr; }
+
+/* ---- Phones / tablets: endless swipe carousel ----
+   Bleeds to the screen edges so the next photo peeks in from the side. */
+.gallery-carousel {
+  margin: 0 calc(50% - 50vw);
+}
+.gallery-track {
+  display: flex;
+  gap: 14px;
+  padding: 0 calc((100vw - var(--card-w)) / 2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  --card-w: 78vw;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track .gallery-item,
+.gallery-track .gallery-item:first-child {
+  flex: 0 0 var(--card-w);
+  aspect-ratio: 4 / 5;
+  scroll-snap-align: center;
+  will-change: auto;
+}
+.gallery-track .gallery-item:first-child img { position: static; }
+.gallery-track .gallery-item-title { font-size: 0.82rem; }
+
+.gallery-swipe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+.gallery-swipe-hint svg {
+  width: 18px;
+  height: 18px;
+  color: var(--bronze);
+  animation: swipe-nudge 1.8s var(--ease-inout) infinite;
+}
+@keyframes swipe-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@media (min-width: 600px) {
+  .gallery-track { --card-w: 42vw; gap: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-swipe-hint svg { animation: none; }
 }

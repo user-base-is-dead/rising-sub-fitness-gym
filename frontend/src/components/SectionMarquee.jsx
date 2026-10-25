@@ -8,9 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
  * Velocity-reactive marquee.
  * - Base auto-scroll driven by GSAP (seamless via 6 identical copies + xPercent -50)
  * - Scroll velocity speeds it up and skews the type
- * - Scroll direction flips travel direction
+ * - Always travels in baseDirection and timeScale stays positive: flipping
+ *   on scroll-up made it pass through 0, so the strip visibly stalled
  */
-export default function SectionMarquee({ text, baseDirection = 1 }) {
+export default function SectionMarquee({ text, baseDirection = 1, variant }) {
   const rootRef = useRef(null);
   const trackRef = useRef(null);
 
@@ -19,14 +20,14 @@ export default function SectionMarquee({ text, baseDirection = 1 }) {
       const track = trackRef.current;
       const items = gsap.utils.toArray('.marquee-item', track);
 
-      // Seamless infinite roll
-      const roll = gsap.to(track, {
-        xPercent: -50,
-        repeat: -1,
-        ease: 'none',
-        duration: 28,
-      });
-      roll.timeScale(baseDirection);
+      // Seamless infinite roll. Direction is baked into the from/to values so
+      // the tween always plays forward: a negative timeScale on a repeating
+      // tween runs it back to its start, where it freezes.
+      const reverse = baseDirection < 0;
+      const roll = gsap.fromTo(track,
+        { xPercent: reverse ? -50 : 0 },
+        { xPercent: reverse ? 0 : -50, repeat: -1, ease: 'none', duration: 28 },
+      );
 
       const skewClamp = gsap.utils.clamp(-16, 16);
       const speedClamp = gsap.utils.clamp(1, 5);
@@ -34,7 +35,6 @@ export default function SectionMarquee({ text, baseDirection = 1 }) {
         gsap.quickTo(it, 'skewX', { duration: 0.4, ease: 'power3' })
       );
 
-      let dir = baseDirection;
       let targetSkew = 0;
 
       const st = ScrollTrigger.create({
@@ -43,8 +43,7 @@ export default function SectionMarquee({ text, baseDirection = 1 }) {
         end: 'bottom top',
         onUpdate: (self) => {
           const v = self.getVelocity();
-          dir = (self.direction === 1 ? 1 : -1) * baseDirection;
-          roll.timeScale(dir * speedClamp(1 + Math.abs(v) / 500));
+          roll.timeScale(speedClamp(1 + Math.abs(v) / 500));
           targetSkew = skewClamp(v / -170);
         },
       });
@@ -54,7 +53,7 @@ export default function SectionMarquee({ text, baseDirection = 1 }) {
         targetSkew *= 0.9;
         skewSetters.forEach((set) => set(targetSkew));
         const ts = roll.timeScale();
-        roll.timeScale(ts + (dir - ts) * 0.04);
+        roll.timeScale(ts + (1 - ts) * 0.04);
       };
       gsap.ticker.add(settle);
 
@@ -69,7 +68,7 @@ export default function SectionMarquee({ text, baseDirection = 1 }) {
   }, [baseDirection]);
 
   return (
-    <div className="section-divider-marquee" ref={rootRef}>
+    <div className={`section-divider-marquee${variant === 'gold' ? ' is-gold' : ''}`} ref={rootRef}>
       <div className="marquee-track" ref={trackRef}>
         {[...Array(6)].map((_, i) => (
           <span className="marquee-item" key={i}>
