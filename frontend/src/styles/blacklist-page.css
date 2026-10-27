@@ -1,50 +1,48 @@
-/* ===== BLACKLIST PAGE ===== */
+/* ===== BLACKLIST PAGE — bold layer in warning red ===== */
 .blacklist-page { position: relative; background: var(--void); }
 
-/* ── Hero ── */
-.bl-hero {
+/* Red warning band, the alert twin of the home page's gold marquee */
+.home-bold .section-divider-marquee.is-alert {
   position: relative;
-  padding: clamp(150px, 18vw, 220px) 16px clamp(20px, 4vw, 40px);
-  text-align: center;
-  overflow: hidden;
+  z-index: 2;
+  margin: 18px -2vw;
+  background: linear-gradient(135deg, #ef6a5e 0%, #d64034 55%, #a52a20 100%);
+  border: none;
+  transform: rotate(-1.6deg);
+  box-shadow: 0 12px 30px -20px rgba(214, 64, 52, 0.45);
 }
-.bl-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(70% 60% at 50% 30%, rgba(214, 64, 52, 0.16), transparent 65%);
-  pointer-events: none;
+.home-bold .section-divider-marquee.is-alert .marquee-item {
+  color: #0b0b0d;
+  -webkit-text-stroke: 0;
 }
-.bl-hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
-.bl-hero-label {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.74rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: #e5574b;
-  margin-bottom: 24px;
-}
-.bl-hero-title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(3.2rem, 11vw, 8rem);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  color: var(--bone);
-}
-.bl-red { color: #e5574b; font-style: italic; }
-.bl-hero-line {
-  width: 120px;
-  height: 2px;
-  background: #d64034;
-  margin: 30px auto;
-}
-.bl-hero-text {
-  color: var(--bone-dim);
-  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
-  line-height: 1.7;
+.home-bold .section-divider-marquee.is-alert .marquee-item::after {
+  background: #0b0b0d;
 }
 
-/* Notice sits right under the hero on this page */
-.blacklist-page .public-notice { padding-top: clamp(30px, 5vw, 60px); }
+/* Notice sits right under the band on this page */
+.blacklist-page .public-notice { padding-top: clamp(50px, 7vw, 90px); }
+
+/* Notice headings in the bold voice */
+.blacklist-page .pn-title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6.4vw, 4.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.blacklist-page .pn-highlight { font-style: normal; }
+.blacklist-page .pn-subject {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+}
+.blacklist-page .pn-subject span { font-family: var(--font-sans); font-style: normal; }
+.blacklist-page .pn-list li strong {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  margin-bottom: 2px;
+}
+.blacklist-page .pn-list li.is-highlight strong { font-size: 1.05rem; }

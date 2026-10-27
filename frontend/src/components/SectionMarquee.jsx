@@ -68,7 +68,7 @@ export default function SectionMarquee({ text, baseDirection = 1, variant }) {
   }, [baseDirection]);
 
   return (
-    <div className={`section-divider-marquee${variant === 'gold' ? ' is-gold' : ''}`} ref={rootRef}>
+    <div className={`section-divider-marquee${variant ? ` is-${variant}` : ''}`} ref={rootRef}>
       <div className="marquee-track" ref={trackRef}>
         {[...Array(6)].map((_, i) => (
           <span className="marquee-item" key={i}>

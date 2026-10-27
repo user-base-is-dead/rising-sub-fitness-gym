@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+import SectionMarquee from '../components/SectionMarquee';
+import { useSplitReveal } from '../hooks/useMotion';
 import { sendContactForm } from '../utils/whatsapp';
+import '../styles/home-bold.css';
 import '../styles/contact-page.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +14,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ContactPage() {
   const pageRef = useRef(null);
   const [copiedText, setCopiedText] = useState(null);
+
+  useSplitReveal(pageRef);
 
   const handleCopy = (text, id) => {
     navigator.clipboard.writeText(text);
@@ -24,26 +30,12 @@ export default function ContactPage() {
       // ── Swipe-panel pinning removed — it caused the magnet/stick scroll feel.
       //    Sections now scroll naturally; content still reveals on enter below.
 
-      // ── Hero Animations ──
-      gsap.fromTo('.cp-hero-label', {
-        y: 40, opacity: 0, skewY: 3,
-      }, {
-        y: 0, opacity: 1, skewY: 0,
-        duration: 1, ease: 'power3.out', delay: 0.3,
-      });
-
-      gsap.fromTo('.cp-hero-title', {
-        y: 80, opacity: 0,
-      }, {
-        y: 0, opacity: 1,
-        duration: 1.2, ease: 'power3.out', delay: 0.5,
-      });
-
-      gsap.fromTo('.cp-hero-line', {
-        scaleX: 0,
-      }, {
-        scaleX: 1,
-        duration: 1.2, ease: 'power3.inOut', delay: 0.8,
+      // ── Section eyebrows ──
+      gsap.utils.toArray('.cp-section-label').forEach((el) => {
+        gsap.fromTo(el, { y: 24, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        });
       });
 
       // ── Contact Info Items ──
@@ -88,21 +80,6 @@ export default function ContactPage() {
         },
       });
 
-      // ── Section Titles ──
-      gsap.utils.toArray('.cp-section-title').forEach((title) => {
-        gsap.fromTo(title, {
-          y: 50, opacity: 0,
-        }, {
-          y: 0, opacity: 1,
-          duration: 1, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: title,
-            start: 'top 80%',
-            end: '+=400', scrub: 1,
-          },
-        });
-      });
-
       // ── Magnetic Submit Button ──
       const btn = document.querySelector('.cp-form-submit');
       if (btn) {
@@ -136,16 +113,16 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="contact-page" ref={pageRef}>
-      {/* ── Hero Banner ── */}
-      <section className="cp-swipe-panel cp-hero">
-        <div className="cp-hero-bg" />
-        <div className="cp-hero-content">
-          <div className="cp-hero-label">We'd Love To Hear From You</div>
-          <h1 className="cp-hero-title">CONTACT <span className="highlight">US</span></h1>
-          <div className="cp-hero-line" />
-        </div>
-      </section>
+    <div className="contact-page home-bold" ref={pageRef}>
+      <PageHero
+        img="/gallery/strength-floor.webp"
+        ghost="HELLO"
+        eyebrow="We'd Love To Hear From You"
+        title={<>Contact <em>Us</em></>}
+        tagline="Walk in, give us a call or drop a message on WhatsApp. We're open every day."
+      />
+
+      <SectionMarquee text="OPEN ALL DAYS • 5 AM – 11 AM • 4 PM – 11 PM • JAJPUR TOWN" baseDirection={1} variant="gold" />
 
       {/* ── Contact Info + Form Section ── */}
       <section className="cp-swipe-panel cp-main">
@@ -186,7 +163,7 @@ export default function ContactPage() {
               </div>
               <h3 className="cp-info-title">Email</h3>
               <p className="cp-info-text">
-                {copiedText === 'email' ? <span style={{color: 'var(--bronze)'}}>Copied!</span> : 'risingsunofficial615@gmail.com'}
+                {copiedText === 'email' ? <span style={{color: 'var(--bronze)'}}>Copied!</span> : <>risingsunofficial615<wbr />@gmail.com</>}
               </p>
               <span className="cp-copy-hint">Click to copy</span>
             </div>
@@ -201,8 +178,8 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="cp-form-wrap">
-            <div className="cp-section-label">Drop A Message</div>
-            <h2 className="cp-section-title">SEND US A <span className="highlight">MESSAGE</span></h2>
+            <div className="cp-section-label bold-eyebrow">Drop A Message</div>
+            <h2 className="cp-section-title bold-title" data-reveal>Send Us A <em>Message</em></h2>
             <form className="cp-form" onSubmit={sendContactForm}>
               <div className="cp-form-row">
                 <div className="cp-form-group">
@@ -227,7 +204,7 @@ export default function ContactPage() {
               <div className="cp-form-group">
                 <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
               </div>
-              <button type="submit" className="cp-form-submit">
+              <button type="submit" className="cp-form-submit gold-btn">
                 Send on WhatsApp →
               </button>
             </form>
@@ -238,8 +215,8 @@ export default function ContactPage() {
       {/* ── Map Section ── */}
       <section className="cp-swipe-panel cp-map">
         <div className="cp-map-inner">
-          <div className="cp-section-label">Find Us</div>
-          <h2 className="cp-section-title">OUR <span className="highlight">LOCATION</span></h2>
+          <div className="cp-section-label bold-eyebrow">Find Us</div>
+          <h2 className="cp-section-title bold-title" data-reveal>Our <em>Location</em></h2>
           <div className="cp-map-wrap">
             <iframe
               title="Rising Sun Fitness Location"
@@ -258,8 +235,8 @@ export default function ContactPage() {
       {/* ── Social Media Section ── */}
       <section className="cp-swipe-panel cp-social">
         <div className="cp-social-inner">
-          <div className="cp-section-label">Connect & Follow</div>
-          <h2 className="cp-section-title">JOIN OUR <span className="highlight">COMMUNITY</span></h2>
+          <div className="cp-section-label bold-eyebrow">Connect & Follow</div>
+          <h2 className="cp-section-title bold-title" data-reveal>Join Our <em>Community</em></h2>
           
           <div className="cp-social-card">
             <div className="cp-social-bg"></div>
@@ -269,7 +246,7 @@ export default function ContactPage() {
                </div>
                <h3>@risingsun_fitness_center</h3>
                <p>Follow our journey, get daily motivation, and see what our champions are up to.</p>
-               <a href="https://instagram.com/risingsun_fitness_center" target="_blank" rel="noopener noreferrer" className="cp-btn-instagram">
+               <a href="https://instagram.com/risingsun_fitness_center" target="_blank" rel="noopener noreferrer" className="cp-btn-instagram gold-btn">
                   Follow on Instagram
                </a>
             </div>

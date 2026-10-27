@@ -49,7 +49,12 @@ export default function PublicNotice() {
         </div>
 
         <div className="pn-body">
-          <div className="pn-label">⚠ Public Notice — Fraud Alert</div>
+          <div className="pn-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3 2 20h20L12 3z" /><path d="M12 10v4.5M12 17.2v.3" strokeLinecap="round" />
+            </svg>
+            Public Notice — Fraud Alert
+          </div>
           <h2 className="pn-title">
             <span className="pn-highlight">BLACKLISTED</span>
           </h2>

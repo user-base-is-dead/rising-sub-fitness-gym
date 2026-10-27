@@ -3,6 +3,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from '../components/Footer';
 import ScratchCard from '../components/ScratchCard';
+import PageHero from '../components/PageHero';
+import SectionMarquee from '../components/SectionMarquee';
+import { useSplitReveal } from '../hooks/useMotion';
+import '../styles/home-bold.css';
 import '../styles/pricing-page.css';
 import '../styles/scratch-card.css';
 
@@ -196,6 +200,8 @@ export default function PricingPage() {
   const priceRef = useRef(null);
   const cardRef = useRef(null);
 
+  useSplitReveal(pageRef);
+
   const handleScratchReveal = useCallback(() => {
     setScratchRevealed(true);
   }, []);
@@ -254,63 +260,17 @@ export default function PricingPage() {
       // ── Swipe-panel pinning removed — it caused the magnet/stick scroll feel.
       //    Sections now scroll naturally; content still reveals on enter below.
 
-      // ── Hero Title Animation ──
-      gsap.fromTo('.pp-hero-label', {
-        y: 40, opacity: 0, skewY: 3,
-      }, {
-        y: 0, opacity: 1, skewY: 0,
-        duration: 1, ease: 'power3.out', delay: 0.3,
-      });
-
-      gsap.fromTo('.pp-hero-title', {
-        y: 80, opacity: 0,
-      }, {
-        y: 0, opacity: 1,
-        duration: 1.2, ease: 'power3.out', delay: 0.5,
-      });
-
-      gsap.fromTo('.pp-hero-line', {
-        scaleX: 0,
-      }, {
-        scaleX: 1,
-        duration: 1.2, ease: 'power3.inOut', delay: 0.8,
-      });
-
-      // ── Section Titles ──
-      gsap.utils.toArray('.pp-section-title').forEach((title) => {
-        gsap.fromTo(title, {
-          y: 50, opacity: 0,
-        }, {
-          y: 0, opacity: 1,
-          duration: 1, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: title,
-            start: 'top 80%',
-            end: '+=400', scrub: 1,
-          },
+      // ── Section eyebrows ──
+      gsap.utils.toArray('.pp-section-label, .pp-surprise-label').forEach((el) => {
+        gsap.fromTo(el, { y: 24, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
         });
       });
 
       // ── Surprise / Scratch Card Section ──
       const surpriseSection = document.querySelector('.pp-surprise');
       if (surpriseSection) {
-        gsap.fromTo('.pp-surprise-label', {
-          y: 30, opacity: 0,
-        }, {
-          y: 0, opacity: 1,
-          duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', end: '+=400', scrub: 1 },
-        });
-
-        gsap.fromTo('.pp-surprise-question', {
-          y: 50, opacity: 0,
-        }, {
-          y: 0, opacity: 1,
-          duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: surpriseSection, start: 'top 75%', end: '+=400', scrub: 1 },
-          delay: 0.2,
-        });
-
         gsap.fromTo('.pp-scratch-wrapper', {
           y: 40, opacity: 0, scale: 0.95,
         }, {
@@ -363,22 +323,22 @@ export default function PricingPage() {
   const currentPlan = plans[activePlan];
 
   return (
-    <div className="pricing-page" ref={pageRef}>
-      {/* ── Hero Banner ── */}
-      <section className="pp-swipe-panel pp-hero">
-        <div className="pp-hero-bg" />
-        <div className="pp-hero-content">
-          <div className="pp-hero-label">Investment In Yourself</div>
-          <h1 className="pp-hero-title">OUR <span className="highlight">PLANS</span></h1>
-          <div className="pp-hero-line" />
-        </div>
-      </section>
+    <div className="pricing-page home-bold" ref={pageRef}>
+      <PageHero
+        img="/gallery/heavy-squat.webp"
+        ghost="₹800"
+        eyebrow="Investment In Yourself"
+        title={<>Our <em>Plans</em></>}
+        tagline="Simple pricing, zero admission fee and no hidden charges. Pick a plan and start training."
+      />
+
+      <SectionMarquee text="₹800/MONTH • ZERO ADMISSION FEE • FIRST VISIT FREE • NO HIDDEN CHARGES" baseDirection={1} variant="gold" />
 
       {/* ── Scratch Card — Admission Fee Reveal ── */}
       <section className="pp-swipe-panel pp-surprise">
         <div className="pp-surprise-inner">
-          <div className="pp-surprise-label">Special Offer Inside</div>
-          <h2 className="pp-surprise-question">Scratch To Reveal Your <span className="highlight">Admission Fee</span></h2>
+          <div className="pp-surprise-label bold-eyebrow">Special Offer Inside</div>
+          <h2 className="pp-surprise-question bold-title" data-reveal>Scratch To Reveal Your <em>Admission Fee</em></h2>
           <div className="pp-scratch-wrapper">
             <div className="pp-scratch-hint">
               Use your finger or mouse to scratch
@@ -387,7 +347,7 @@ export default function PricingPage() {
             {scratchRevealed && (
               <div className="pp-scratch-revealed-content">
                 <p className="pp-scratch-sub">Zero admission fee. Zero hidden charges. Just walk in and start.</p>
-                <button className="pp-scratch-cta" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>
+                <button className="pp-scratch-cta gold-btn" onClick={() => window.open(getWhatsAppUrl(`Hi! I'm interested in joining Rising Sun Fitness. I'd like to know about the admission process and get registered.`), '_blank')}>
                   Register Now — It's Free
                   <span className="pp-cta-arrow">→</span>
                 </button>
@@ -400,8 +360,8 @@ export default function PricingPage() {
       {/* ── Plans Section — Interactive Tab Selector ── */}
       <section className="pp-swipe-panel pp-plans">
         <div className="pp-plans-inner">
-          <div className="pp-section-label">Choose Your Path</div>
-          <h2 className="pp-section-title">MEMBERSHIP <span className="highlight">PLANS</span></h2>
+          <div className="pp-section-label bold-eyebrow">Choose Your Path</div>
+          <h2 className="pp-section-title bold-title" data-reveal>Membership <em>Plans</em></h2>
 
           {/* Tab Navigation */}
           <div className="pp-tabs-wrapper">
@@ -477,7 +437,7 @@ export default function PricingPage() {
                   <div className="pp-showcase-badge">{currentPlan.badge}</div>
                 )}
                 <button
-                  className="pp-showcase-cta"
+                  className="pp-showcase-cta gold-btn"
                   onClick={() => window.open(getWhatsAppUrl(
                     (extraOfferActive && currentPlan.extraOffer) ? currentPlan.extraOffer.whatsappMsg : currentPlan.whatsappMsg
                   ), '_blank')}
@@ -524,11 +484,13 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <SectionMarquee text="NO EXCUSES • TRAIN HARD • STAY CONSISTENT • RISE" baseDirection={-1} />
+
       {/* ── Comparison Section ── */}
       <section className="pp-swipe-panel pp-compare">
         <div className="pp-compare-inner">
-          <div className="pp-section-label">Side By Side</div>
-          <h2 className="pp-section-title">COMPARE <span className="highlight">PLANS</span></h2>
+          <div className="pp-section-label bold-eyebrow">Side By Side</div>
+          <h2 className="pp-section-title bold-title" data-reveal>Compare <em>Plans</em></h2>
           <div className="pp-compare-table">
             {/* Header */}
             <div className="pp-compare-row pp-compare-header">
@@ -567,8 +529,8 @@ export default function PricingPage() {
       {/* ── FAQ Section ── */}
       <section className="pp-swipe-panel pp-faq">
         <div className="pp-faq-inner">
-          <div className="pp-section-label">Got Questions?</div>
-          <h2 className="pp-section-title">FREQUENTLY <span className="highlight">ASKED</span></h2>
+          <div className="pp-section-label bold-eyebrow">Got Questions?</div>
+          <h2 className="pp-section-title bold-title" data-reveal>Frequently <em>Asked</em></h2>
           <div className="pp-faq-list">
             {faqs.map((faq, i) => (
               <div
