@@ -6,6 +6,9 @@ import SectionMarquee from '../components/SectionMarquee';
 import '../styles/home-bold.css';
 import '../styles/blacklist-page.css';
 
+// Babu's notice is temporarily hidden. Set this to true to bring it back.
+const SHOW_BABU_NOTICE = false;
+
 export default function BlacklistPage() {
   useEffect(() => {
     // Scroll to top on mount
@@ -25,7 +28,13 @@ export default function BlacklistPage() {
 
       <SectionMarquee text="PAY ONLY AT THE GYM COUNTER • ALWAYS ASK FOR A RECEIPT • DO NOT PAY ANYONE PERSONALLY" baseDirection={1} variant="alert" />
 
-      <PublicNotice />
+      {SHOW_BABU_NOTICE ? (
+        <PublicNotice />
+      ) : (
+        <section className="blacklist-empty">
+          <p>No one is listed on the blacklist right now.</p>
+        </section>
+      )}
 
       <Footer />
     </div>

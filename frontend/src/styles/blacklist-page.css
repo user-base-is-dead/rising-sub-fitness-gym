@@ -22,6 +22,18 @@
 /* Notice sits right under the band on this page */
 .blacklist-page .public-notice { padding-top: clamp(50px, 7vw, 90px); }
 
+/* Shown when no notice is switched on */
+.blacklist-empty {
+  padding: clamp(60px, 9vw, 120px) 16px;
+  text-align: center;
+}
+.blacklist-empty p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  color: var(--bone);
+}
+
 /* Notice headings in the bold voice */
 .blacklist-page .pn-title {
   font-family: var(--font-sans);
